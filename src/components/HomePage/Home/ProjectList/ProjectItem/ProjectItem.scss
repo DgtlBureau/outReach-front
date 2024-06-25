@@ -1,0 +1,46 @@
+.project-item {
+  position: relative;
+  padding: 24px;
+  background-color: var(--main-color);
+  border-radius: 8px;
+  height: 96px;
+  .project-item__title {
+    font-family: 'Inter';
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+  }
+  &:hover {
+    .project-item__button {
+      background-color: #fff;
+      border-radius: 50%;
+      .project-item__icon {
+        stroke: #000;
+      }
+    }
+  }
+  .project-item__button {
+    --size: 16px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s, border-radius 0.3s;
+    width: var(--size);
+    height: var(--size);
+    top: 6px;
+    &.project-item__close-button {
+      right: 6px;
+    }
+    &.project-item__edit-button {
+      left: 6px;
+    }
+    .project-item__icon {
+      stroke: #fff;
+      width: 12px;
+      height: 12px;
+      transition: stroke 0.3s;
+    }
+  }
+}

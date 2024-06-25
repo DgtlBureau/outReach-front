@@ -1,0 +1,33 @@
+@import '../../static/styles/colors.scss';
+
+.navigation {
+  background-color: var(--main-color);
+  display: flex;
+  align-items: center;
+  .navigation__link-list {
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .navigation__link-item {
+      width: 100%;
+      .navigation__link {
+        width: 100%;
+        text-align: center;
+        display: block;
+        font-family: 'Inter';
+        font-size: 18px;
+        text-decoration: none;
+        color: #fff;
+        padding: 12px;
+        border-top: 2px solid transparent;
+        &.navigation__link--active {
+          border-color: #{$white};
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}

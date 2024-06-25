@@ -1,0 +1,31 @@
+$black: '#000000';
+$grey: '#f5f5f5';
+$dark-grey: '#333';
+$white: '#fff';
+$blue: '#0d99ff';
+$dark-blue: '#0463A6';
+$dark-puce: '#813434';
+$pale-puce: '#813434';
+
+$low-black: rgba(#000, 0.1);
+$low-white: rgba(#fff, 0.25);
+
+:root {
+  --main-color: #{$dark-puce};
+  --background-color: #{$white};
+  --background-color-secondary: #{$white};
+  --text-color: #{$black};
+  --text-color-secondary: #{$white};
+  --border-color: #{$dark-grey};
+  --shadow-color: #{$low-white};
+}
+
+:root.dark {
+  --main-color: #{$blue};
+  --background-color: #{$dark-grey};
+  --background-color-secondary: #{$grey};
+  --text-color: #{$white};
+  --text-color-secondary: #{$white};
+  --border-color: #{$white};
+  --shadow-color: #{$low-black};
+}
