@@ -1,13 +1,16 @@
 {
   "name": "out-reach",
   "version": "0.1.0",
+  "homepage": "https://DgtlBureau/outReach-front",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint src --ext js,jsx,ts,tsx --report-unused-disable-directives --max-warnings 0"
+    "lint": "eslint src --ext js,jsx,ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "predeploy": "react-scripts build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
@@ -33,7 +36,8 @@
   },
   "devDependencies": {
     "eslint": "^9.5.0",
-    "eslint-plugin-react": "^7.34.3"
+    "eslint-plugin-react": "^7.34.3",
+    "gh-pages": "^6.1.1"
   },
   "eslintConfig": {
     "extends": [

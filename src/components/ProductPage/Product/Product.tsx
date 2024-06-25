@@ -1,9 +1,6 @@
 import { useState } from 'react'
 import ProductForm from './ProductForm/ProductForm'
-import {
-  generateBackgroundColor,
-  generateColors,
-} from '../../../utils/useGenerateColor'
+import { generateColors } from '../../../utils/useGenerateColor'
 
 export interface ISkill {
   id: number
