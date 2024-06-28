@@ -8,7 +8,9 @@ import './App.scss'
 
 function App() {
   useEffect(() => {
-    const isThemeDark = JSON.parse(localStorage.getItem('isThemeDark') || '')
+    const isThemeDark = JSON.parse(
+      localStorage.getItem('isThemeDark') || 'false'
+    )
     if (isThemeDark) {
       document.documentElement.classList.add('dark')
     }
