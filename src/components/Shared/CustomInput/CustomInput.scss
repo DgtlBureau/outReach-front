@@ -1,0 +1,26 @@
+.custom-input {
+  width: 100%;
+  .MuiInputBase-root {
+    &:hover {
+      .MuiOutlinedInput-notchedOutline {
+        border-color: var(--border-color) !important;
+      }
+    }
+  }
+  .MuiFormLabel-root {
+    font-family: 'Inter';
+    color: var(--text-color);
+  }
+  .MuiInputBase-input {
+    background-color: var(--background-color);
+    transition: background-color 0.5s;
+    color: var(--text-color);
+  }
+  .MuiOutlinedInput-notchedOutline {
+    border-color: var(--border-color);
+    transition: border 0.5s;
+  }
+  &.product-form__input-top-margin {
+    margin-top: 24px;
+  }
+}

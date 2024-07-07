@@ -1,6 +1,7 @@
 import { Route, Routes, useLocation } from 'react-router-dom'
 import ProductPage from './ProductPage/ProductPage'
 import Navigation from './Navigation/Navigation'
+import LeadsPage from './LeadsPage/LeadsPage'
 import HomePage from './HomePage/HomePage'
 import { useEffect } from 'react'
 
@@ -23,6 +24,7 @@ function App() {
         <Routes>
           <Route path='/' element={<HomePage />} />
           <Route path='/product' element={<ProductPage />} />
+          <Route path='/leads' element={<LeadsPage />} />
         </Routes>
       </div>
     </div>
