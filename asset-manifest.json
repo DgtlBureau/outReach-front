@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/outReach-front/static/css/main.82ab610f.css",
+    "main.css": "/outReach-front/static/css/main.729cfa7b.css",
     "main.js": "/outReach-front/static/js/main.10d2a258.js",
     "static/media/Inter-Black.ttf": "/outReach-front/static/media/Inter-Black.83d81b169bedf85385f2.ttf",
     "static/media/Inter-Bold.ttf": "/outReach-front/static/media/Inter-Bold.0eaf807b1cf0eceabe0f.ttf",
@@ -14,11 +14,11 @@
     "static/media/close-icon.svg": "/outReach-front/static/media/close-icon.6a057ff54b696d19530afde8f79d012f.svg",
     "static/media/moon.svg": "/outReach-front/static/media/moon.5d94708578dffa4193e4e31880d17014.svg",
     "static/media/edit-icon.svg": "/outReach-front/static/media/edit-icon.bba103b967ebbffe6723d27cdfa39c09.svg",
-    "main.82ab610f.css.map": "/outReach-front/static/css/main.82ab610f.css.map",
+    "main.729cfa7b.css.map": "/outReach-front/static/css/main.729cfa7b.css.map",
     "main.10d2a258.js.map": "/outReach-front/static/js/main.10d2a258.js.map"
   },
   "entrypoints": [
-    "static/css/main.82ab610f.css",
+    "static/css/main.729cfa7b.css",
     "static/js/main.10d2a258.js"
   ]
 }
