@@ -33,7 +33,7 @@ const Navigation = () => {
             className={({ isActive }) =>
               `navigation__link ${isActive && 'navigation__link--active'}`
             }
-            to='/leads/Chat'
+            to='/leads/chat'
           >
             Chat
           </NavLink>
