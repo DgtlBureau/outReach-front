@@ -33,6 +33,16 @@ const Navigation = () => {
             className={({ isActive }) =>
               `navigation__link ${isActive && 'navigation__link--active'}`
             }
+            to='/leads/Chat'
+          >
+            Chat
+          </NavLink>
+        </li>
+        <li className='navigation__link-item'>
+          <NavLink
+            className={({ isActive }) =>
+              `navigation__link ${isActive && 'navigation__link--active'}`
+            }
             to='/product'
           >
             Product
