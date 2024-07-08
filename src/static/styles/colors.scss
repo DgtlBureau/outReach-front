@@ -9,14 +9,21 @@ $pale-puce: '#813434';
 
 $low-black: rgba(#000, 0.1);
 $low-white: rgba(#fff, 0.25);
+$dark-grey-low: rgba(#333, 0.1);
+$dark-white-low: rgba(#fff, 0.1);
+$white-low: rgba(#fff, 0.5);
 
 :root {
   --main-color: #{$dark-puce};
   --background-color: #{$white};
-  --background-color-secondary: #{$white};
+  --background-color-secondary: #{$grey};
   --text-color: #{$black};
   --text-color-secondary: #{$white};
+  --text-color-white: #{$white};
+  --text-color-white-low: #{$white-low};
+  --text-color-black: #{$black};
   --border-color: #{$dark-grey};
+  --border-color-secondary: #{$dark-grey-low};
   --shadow-color: #{$low-white};
 }
 
@@ -25,7 +32,11 @@ $low-white: rgba(#fff, 0.25);
   --background-color: #{$dark-grey};
   --background-color-secondary: #{$grey};
   --text-color: #{$white};
-  --text-color-secondary: #{$white};
+  --text-color-secondary: #{$black};
+  --text-color-white: #{$white};
+  --text-color-white-low: #{$white-low};
+  --text-color-black: #{$black};
   --border-color: #{$white};
+  --border-color-secondary: #{$dark-white-low};
   --shadow-color: #{$low-black};
 }

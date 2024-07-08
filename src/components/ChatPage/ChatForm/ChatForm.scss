@@ -1,0 +1,33 @@
+.chat-form {
+  margin-top: 24px;
+  max-width: 768px;
+  margin: 0 auto;
+  .chat-form__inputs-wrapper {
+    display: flex;
+    gap: 24px;
+    margin: 0 auto;
+    max-width: 768px;
+    &.chat-form__input-group-with-button {
+      align-items: stretch;
+    }
+    &.chat-form__input-group-margin-top {
+      margin-top: 24px;
+    }
+  }
+  .chat-form__rating {
+    display: block;
+    margin-top: 6px;
+    font-family: 'Inter';
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-color);
+    transition: 0.5s color;
+    .chat-form__rating-numbers {
+      color: #14ae5c;
+      font-weight: 700;
+    }
+  }
+  .chat-form__chat-box-wrapper {
+    margin-top: 24px;
+  }
+}

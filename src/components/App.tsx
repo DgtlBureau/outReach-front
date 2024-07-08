@@ -6,6 +6,7 @@ import HomePage from './HomePage/HomePage'
 import { useEffect } from 'react'
 
 import './App.scss'
+import ChatPage from './ChatPage/ChatPage'
 
 function App() {
   useEffect(() => {
@@ -25,6 +26,7 @@ function App() {
           <Route path='/' element={<HomePage />} />
           <Route path='/product' element={<ProductPage />} />
           <Route path='/leads' element={<LeadsPage />} />
+          <Route path='/leads/chat' element={<ChatPage />} />
         </Routes>
       </div>
     </div>

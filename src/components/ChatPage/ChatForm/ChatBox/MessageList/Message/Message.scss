@@ -1,0 +1,29 @@
+.message {
+  position: relative;
+  display: block;
+  font-family: 'Inter';
+  font-size: 15px;
+  color: var(--text-color-white);
+  background-color: var(--main-color);
+  padding: 6px 12px;
+  border-radius: 12px;
+  align-self: flex-end;
+  max-width: 40%;
+  line-height: 1rem;
+  letter-spacing: 0.5px;
+  &:not(:first-child) {
+    margin-top: 6px;
+  }
+  &.message--isRecieved {
+    align-self: flex-start;
+    background-color: var(--background-color-secondary);
+    color: var(--text-color-black);
+  }
+  .message__label {
+    position: absolute;
+    font-size: 8px;
+    color: var(--text-color-white-low);
+    bottom: 1px;
+    right: 6px;
+  }
+}
