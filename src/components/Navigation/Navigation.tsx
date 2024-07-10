@@ -16,10 +16,19 @@ interface INavigationProps {
   toggleExpand: () => void
 }
 
+const variants = {
+  open: { width: '135px' },
+  closed: { width: '60px' },
+}
+
 const Navigation = ({ isExpand, toggleExpand }: INavigationProps) => {
   return (
     <nav className='navigation'>
-      <ul className='navigation__link-list'>
+      <motion.ul
+        variants={variants}
+        animate={isExpand ? 'open' : 'closed'}
+        className='navigation__link-list'
+      >
         <li style={{ width: '60px' }} />
         <li className='navigation__link-item'>
           <NavLink
@@ -88,7 +97,7 @@ const Navigation = ({ isExpand, toggleExpand }: INavigationProps) => {
             {isExpand ? ' Analytics' : ''}
           </NavLink>
         </li>
-      </ul>
+      </motion.ul>
       <div className='navigation__controls'>
         <button className='navigation__minimize-button' onClick={toggleExpand}>
           <MinimizeIcon

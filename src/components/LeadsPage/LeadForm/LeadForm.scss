@@ -32,6 +32,7 @@
       transition: 0.5s color;
     }
     .lead-form__input {
+      box-sizing: border-box;
       width: 100%;
       padding: 12px;
       border-radius: 3px;

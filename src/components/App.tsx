@@ -6,6 +6,7 @@ import LeadsPage from './LeadsPage/LeadsPage'
 import { useEffect, useState } from 'react'
 import ChatPage from './ChatPage/ChatPage'
 import HomePage from './HomePage/HomePage'
+import { motion } from 'framer-motion'
 import { styled } from '@mui/material'
 import cn from 'classnames'
 
@@ -28,6 +29,11 @@ const StyledMaterialDesignContent = styled(MaterialDesignContent)(() => ({
     fontWeight: 300,
   },
 }))
+
+const variants = {
+  open: { width: '135px', backgroundColor: 'var(--main-color)' },
+  closed: { width: '60px', backgroundColor: 'transparent' },
+}
 
 function App() {
   const [isNavigationExpanded, setIsNavigationExpanded] = useState(false)
@@ -55,7 +61,9 @@ function App() {
 
   return (
     <div className='app'>
-      <div
+      <motion.div
+        variants={variants}
+        animate={isNavigationExpanded ? 'open' : 'closed'}
         className={cn(
           'app__navigation-wrapper',
           isNavigationExpanded && 'app__navigation-wrapper--expanded'
@@ -65,7 +73,7 @@ function App() {
           isExpand={isNavigationExpanded}
           toggleExpand={toggleIsNavigationExpanded}
         />
-      </div>
+      </motion.div>
       <div className='app__routes-container'>
         <Routes>
           <Route path='/' element={<HomePage />} />
