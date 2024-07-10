@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/outReach-front/static/css/main.c587c0b2.css",
-    "main.js": "/outReach-front/static/js/main.a3d4c28f.js",
+    "main.css": "/outReach-front/static/css/main.de0b93af.css",
+    "main.js": "/outReach-front/static/js/main.f14dd91e.js",
     "static/media/Inter-Black.ttf": "/outReach-front/static/media/Inter-Black.83d81b169bedf85385f2.ttf",
     "static/media/Inter-Bold.ttf": "/outReach-front/static/media/Inter-Bold.0eaf807b1cf0eceabe0f.ttf",
     "static/media/Inter-SemiBold.ttf": "/outReach-front/static/media/Inter-SemiBold.6058d3da655fb35169c2.ttf",
@@ -21,11 +21,11 @@
     "static/media/close-icon.svg": "/outReach-front/static/media/close-icon.6a057ff54b696d19530afde8f79d012f.svg",
     "static/media/moon.svg": "/outReach-front/static/media/moon.5d94708578dffa4193e4e31880d17014.svg",
     "static/media/edit-icon.svg": "/outReach-front/static/media/edit-icon.bba103b967ebbffe6723d27cdfa39c09.svg",
-    "main.c587c0b2.css.map": "/outReach-front/static/css/main.c587c0b2.css.map",
-    "main.a3d4c28f.js.map": "/outReach-front/static/js/main.a3d4c28f.js.map"
+    "main.de0b93af.css.map": "/outReach-front/static/css/main.de0b93af.css.map",
+    "main.f14dd91e.js.map": "/outReach-front/static/js/main.f14dd91e.js.map"
   },
   "entrypoints": [
-    "static/css/main.c587c0b2.css",
-    "static/js/main.a3d4c28f.js"
+    "static/css/main.de0b93af.css",
+    "static/js/main.f14dd91e.js"
   ]
 }
