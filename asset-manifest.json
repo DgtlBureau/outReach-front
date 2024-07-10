@@ -1,31 +1,31 @@
 {
   "files": {
-    "main.css": "/outReach-front/static/css/main.de0b93af.css",
-    "main.js": "/outReach-front/static/js/main.f14dd91e.js",
+    "main.css": "/outReach-front/static/css/main.3bc22da3.css",
+    "main.js": "/outReach-front/static/js/main.793fa099.js",
     "static/media/Inter-Black.ttf": "/outReach-front/static/media/Inter-Black.83d81b169bedf85385f2.ttf",
     "static/media/Inter-Bold.ttf": "/outReach-front/static/media/Inter-Bold.0eaf807b1cf0eceabe0f.ttf",
     "static/media/Inter-SemiBold.ttf": "/outReach-front/static/media/Inter-SemiBold.6058d3da655fb35169c2.ttf",
     "static/media/Inter-Medium.ttf": "/outReach-front/static/media/Inter-Medium.3f7acfe50aad7ad68548.ttf",
     "static/media/Inter-Light.ttf": "/outReach-front/static/media/Inter-Light.02850f28027788580733.ttf",
     "static/media/Inter-Regular.ttf": "/outReach-front/static/media/Inter-Regular.9ca9ba81e9dcaa12b3a1.ttf",
-    "static/media/minimize.svg": "/outReach-front/static/media/minimize.97640a39b2304f3ecd9927ba043fb149.svg",
-    "static/media/product.svg": "/outReach-front/static/media/product.d48b5598c5ed0e73f70104d370314da6.svg",
+    "static/media/minimize.svg": "/outReach-front/static/media/minimize.74a55f385b5da0b0f1436b7f9b437db7.svg",
+    "static/media/product.svg": "/outReach-front/static/media/product.59c5c5a1021fe231867063c09707f674.svg",
     "static/media/plus-icon.svg": "/outReach-front/static/media/plus-icon.7d1addd73e996d6002cde4fa07d1d2fa.svg",
     "index.html": "/outReach-front/index.html",
-    "static/media/home.svg": "/outReach-front/static/media/home.658f1aa2c0533ac8896d2699d1cb7b92.svg",
-    "static/media/chat.svg": "/outReach-front/static/media/chat.0bea408b2c86912fbe0994649fc10f9c.svg",
+    "static/media/home.svg": "/outReach-front/static/media/home.f0c75f169fb221928eeffdd9185e4fd8.svg",
+    "static/media/chat.svg": "/outReach-front/static/media/chat.2f7fd2b8e63fcbfec31d0f10e2f91c7a.svg",
     "static/media/file-upload.svg": "/outReach-front/static/media/file-upload.bb3ed997b15f0ea0cc5a4fb19f701732.svg",
-    "static/media/user.svg": "/outReach-front/static/media/user.fd68f12b8f97a821fa9a9fab183075fd.svg",
-    "static/media/analytics.svg": "/outReach-front/static/media/analytics.6f2f9433f7b5d37b3bdf80d926ff563c.svg",
+    "static/media/user.svg": "/outReach-front/static/media/user.a774b0ad2678538b914f438bdec6b969.svg",
+    "static/media/analytics.svg": "/outReach-front/static/media/analytics.2d4f5906eaf1ce788f25d8e31680f131.svg",
     "static/media/sun.svg": "/outReach-front/static/media/sun.c7621ca9c260ef4321ca40f7e7533d27.svg",
     "static/media/close-icon.svg": "/outReach-front/static/media/close-icon.6a057ff54b696d19530afde8f79d012f.svg",
     "static/media/moon.svg": "/outReach-front/static/media/moon.5d94708578dffa4193e4e31880d17014.svg",
     "static/media/edit-icon.svg": "/outReach-front/static/media/edit-icon.bba103b967ebbffe6723d27cdfa39c09.svg",
-    "main.de0b93af.css.map": "/outReach-front/static/css/main.de0b93af.css.map",
-    "main.f14dd91e.js.map": "/outReach-front/static/js/main.f14dd91e.js.map"
+    "main.3bc22da3.css.map": "/outReach-front/static/css/main.3bc22da3.css.map",
+    "main.793fa099.js.map": "/outReach-front/static/js/main.793fa099.js.map"
   },
   "entrypoints": [
-    "static/css/main.de0b93af.css",
-    "static/js/main.f14dd91e.js"
+    "static/css/main.3bc22da3.css",
+    "static/js/main.793fa099.js"
   ]
 }
