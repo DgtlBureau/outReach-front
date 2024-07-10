@@ -4,8 +4,8 @@
 
   border: 1px solid var(--border-color-secondary);
   border-radius: 6px;
-  height: 500px;
   overflow: hidden;
+  height: calc(100vh - 172px);
   .chat-box__input-box {
     display: flex;
     align-items: stretch;

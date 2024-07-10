@@ -1,0 +1,40 @@
+.leads-page__table-wrapper {
+  max-width: 1440px;
+  margin: 24px auto 0;
+  padding: 0 24px;
+
+  .leads-page__table-title {
+    display: block;
+    font-family: 'Inter';
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: 12px;
+  }
+  .leads-page__table-title-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .leads-page__add-lead-dropdown-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 36px;
+      width: 48px;
+      border-radius: 8px;
+      background-color: var(--main-color);
+      color: var(--text-color-white);
+      cursor: pointer;
+      .leads-page__add-lead-dropdown-icon {
+        width: 12px;
+        height: 12px;
+        * {
+          fill: var(--text-color-white);
+        }
+      }
+    }
+  }
+  .lead-page__table {
+    margin-top: 6px;
+  }
+}

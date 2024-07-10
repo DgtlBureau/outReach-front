@@ -1,6 +1,15 @@
 .app {
-  .app__routes-container {
-    margin-top: 24px;
+  display: flex;
+  min-height: 100vh;
+  .app__navigation-wrapper {
+    &.app__navigation-wrapper--expanded {
+      background-color: var(--main-color);
+    }
   }
-  padding-bottom: 96px;
+  .app__routes-container {
+    flex-grow: 0;
+    margin-top: 24px;
+    width: 100%;
+    padding-bottom: 96px;
+  }
 }

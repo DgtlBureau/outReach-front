@@ -1,0 +1,15 @@
+.dropdown {
+  position: relative;
+  .dropdown__content {
+    margin-top: 4px;
+    padding: 12px;
+    width: 500px;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    border-radius: 8px;
+    background-color: var(--background-color);
+    box-shadow: 0 0 18px 5px var(--shadow-color-secondary);
+    z-index: 999;
+  }
+}

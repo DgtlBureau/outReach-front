@@ -9,6 +9,8 @@
     font-family: 'Inter';
 
     .lead-table__row-head {
+      position: sticky;
+      top: 0;
       background-color: var(--main-color);
       color: var(--text-color-white);
       th {
@@ -20,6 +22,9 @@
     }
 
     .lead-table__row {
+      &:not(:last-child) {
+        border-bottom: 1px solid var(--border-color-secondary);
+      }
       td {
         &:not(:last-child) {
           border-right: 1px solid var(--border-color-secondary);

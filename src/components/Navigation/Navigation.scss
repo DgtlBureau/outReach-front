@@ -1,31 +1,96 @@
 @import '../../static/styles/colors.scss';
 
 .navigation {
-  background-color: var(--main-color);
+  box-sizing: border-box;
   display: flex;
   align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 12px 0;
+  max-height: 100vh;
+  height: 100%;
   .navigation__link-list {
     max-width: 1280px;
     width: 100%;
     margin: 0 auto;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
     .navigation__link-item {
       width: 100%;
       .navigation__link {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        box-sizing: border-box;
         width: 100%;
         text-align: center;
-        display: block;
         font-family: 'Inter';
         font-size: 18px;
         text-decoration: none;
         color: #fff;
         padding: 12px;
-        border-top: 2px solid transparent;
+        border-left: 2px solid transparent;
+        transition: all 0.25s;
+        &.navigation__link--minimized {
+          width: 48px;
+          height: 48px;
+          background-color: none;
+          display: block;
+          border-radius: 50%;
+          margin: 0 auto;
+          border: none;
+          .navigation__icon {
+            * {
+              stroke: var(--text-color);
+            }
+          }
+        }
+        .navigation__icon {
+          height: 24px;
+          width: 24px;
+          * {
+            stroke: var(--text-color-white);
+          }
+        }
         &.navigation__link--active {
           border-color: #{$white};
           font-weight: 600;
+          &.navigation__link--minimized {
+            background-color: var(--main-color);
+            .navigation__icon {
+              * {
+                stroke: var(--text-color-white);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .navigation__controls {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 12px;
+    .navigation__minimize-button {
+      cursor: pointer;
+      &:hover {
+        filter: brightness(0.7);
+      }
+      .navigation__minimize-icon {
+        height: 24px;
+        width: 24px;
+        * {
+          stroke: var(--text-color-white);
+        }
+        transition: 0.25s transform;
+        &.navigation__minimize-icon--minimized {
+          background-color: var(--main-color);
+          padding: 14px;
+          border-radius: 50%;
+          transform: rotate(180deg);
         }
       }
     }
