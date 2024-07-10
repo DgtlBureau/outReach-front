@@ -2,7 +2,7 @@ $black: '#000000';
 $grey: '#f5f5f5';
 $dark-grey: '#333';
 $white: '#fff';
-$blue: '#048bfb';
+$blue: '#097cf3';
 $dark-blue: '#0463A6';
 $dark-puce: '#813434';
 $pale-puce: '#813434';
@@ -14,7 +14,7 @@ $dark-white-low: rgba(#fff, 0.1);
 $white-low: rgba(#fff, 0.5);
 
 :root {
-  --main-color: #{$dark-puce};
+  --main-color: #{$blue};
   --background-color: #{$white};
   --background-color-secondary: #{$grey};
   --text-color: #{$black};
