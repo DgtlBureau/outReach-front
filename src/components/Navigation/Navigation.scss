@@ -15,13 +15,12 @@
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: space-between;
+    flex-shrink: 0;
     .navigation__link-item {
-      width: 100%;
+      width: fit-content;
       .navigation__link {
         display: flex;
-        align-items: center;
         gap: 8px;
         box-sizing: border-box;
         width: 100%;
@@ -39,7 +38,7 @@
           background-color: none;
           display: block;
           border-radius: 50%;
-          margin: 0 auto;
+          margin: 0 6px;
           border: none;
           .navigation__icon {
             * {
@@ -50,6 +49,7 @@
         .navigation__icon {
           height: 24px;
           width: 24px;
+          flex-shrink: 0;
           * {
             stroke: var(--text-color-white);
           }
@@ -75,6 +75,7 @@
     flex-direction: column;
     gap: 12px;
     .navigation__minimize-button {
+      width: fit-content;
       cursor: pointer;
       &:hover {
         filter: brightness(0.7);

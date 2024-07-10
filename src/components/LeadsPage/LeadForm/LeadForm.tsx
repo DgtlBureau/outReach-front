@@ -1,4 +1,3 @@
-import CustomInput from '../../Shared/CustomInput/CustomInput'
 import CustomButton from '../../Shared/CustomButton/CustomButton'
 import FileUpload from '../../Shared/FileUpload/FileUpload'
 

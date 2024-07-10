@@ -2,6 +2,7 @@
   display: flex;
   min-height: 100vh;
   .app__navigation-wrapper {
+    flex-shrink: 0;
     &.app__navigation-wrapper--expanded {
       // background-color: var(--main-color);
     }

@@ -17,19 +17,19 @@ interface INavigationProps {
 }
 
 const variants = {
-  open: { width: '135px' },
+  open: { width: '100%' },
   closed: { width: '60px' },
 }
 
 const Navigation = ({ isExpand, toggleExpand }: INavigationProps) => {
   return (
-    <nav className='navigation'>
-      <motion.ul
-        variants={variants}
-        animate={isExpand ? 'open' : 'closed'}
-        className='navigation__link-list'
-      >
-        <li style={{ width: '60px' }} />
+    <motion.nav
+      transition={{ duration: 0.25 }}
+      variants={variants}
+      animate={isExpand ? 'open' : 'closed'}
+      className='navigation'
+    >
+      <ul className='navigation__link-list'>
         <li className='navigation__link-item'>
           <NavLink
             className={({ isActive }) =>
@@ -54,12 +54,11 @@ const Navigation = ({ isExpand, toggleExpand }: INavigationProps) => {
             to='/leads'
           >
             <LeadsIcon className='navigation__icon' />
-            {isExpand ? ' Leads' : null}
+            {isExpand ? ' Leads' : ''}
           </NavLink>
         </li>
         <li className='navigation__link-item'>
           <NavLink
-            end
             className={({ isActive }) =>
               `navigation__link ${isActive ? 'navigation__link--active' : ''} ${
                 !isExpand ? 'navigation__link--minimized' : ''
@@ -97,7 +96,7 @@ const Navigation = ({ isExpand, toggleExpand }: INavigationProps) => {
             {isExpand ? ' Analytics' : ''}
           </NavLink>
         </li>
-      </motion.ul>
+      </ul>
       <div className='navigation__controls'>
         <button className='navigation__minimize-button' onClick={toggleExpand}>
           <MinimizeIcon
@@ -109,7 +108,7 @@ const Navigation = ({ isExpand, toggleExpand }: INavigationProps) => {
         </button>
         {isExpand ? <ThemeToggle /> : ''}
       </div>
-    </nav>
+    </motion.nav>
   )
 }
 
