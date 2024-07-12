@@ -1,0 +1,49 @@
+name: Deploy
+env:
+  ENV               : ${{ github.ref == 'refs/heads/dev' && 'dev' || 'prod' }}
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Inject slug/short variables
+        uses: rlespinasse/github-slug-action@v3.x
+
+      - name: Git clone
+        uses: actions/checkout@v3
+      
+      - name: Docker login
+        run: |
+          docker login -u devopsdbt -p ${{ secrets.DOCKER_HUB }}
+
+      - name: Build containers
+        run: |
+          docker build -t devopsdbt/front-outreach:${{ github.run_number }} .
+
+      - name: Push image
+        run: |
+          docker push devopsdbt/front-outreach:${{ github.run_number }}
+  deploy:
+    runs-on: self-hosted
+    needs: build
+    steps:
+      - name: Git clone
+        uses: actions/checkout@v3
+
+      - name: Docker login
+        run: |
+          docker login -u devopsdbt -p ${{ secrets.DOCKER_HUB }}
+
+      - name: Run containers  
+        run: |
+          TAG=${{ github.run_number }} docker compose  -f docker-compose.yaml -p outreach-front-${{ env.ENV }} up -d 
+
