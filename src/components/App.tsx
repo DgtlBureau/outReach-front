@@ -36,7 +36,6 @@ const variants = {
 }
 
 function App() {
-  console.log('first')
   const [isNavigationExpanded, setIsNavigationExpanded] = useState(false)
 
   const toggleIsNavigationExpanded = () => {
