@@ -20,7 +20,7 @@ const LeadsPage = () => {
 
   const loadLeads = async () => {
     try {
-      const response = await instance.get('/leads')
+      const response = await instance.get('/lead/check-answer')
     } catch (error) {
       enqueueSnackbar('Failed to load leads please, try again later', {
         variant: 'error',
@@ -28,9 +28,9 @@ const LeadsPage = () => {
     }
   }
 
-  // useEffect(() => {
-  //   loadLeads()
-  // }, [])
+  useEffect(() => {
+    loadLeads()
+  }, [])
 
   return (
     <main className='leads-page'>

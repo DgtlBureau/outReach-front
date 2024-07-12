@@ -1,7 +1,6 @@
 {
   "name": "out-reach",
   "version": "0.1.0",
-  "homepage": "https://DgtlBureau/outReach-front",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
