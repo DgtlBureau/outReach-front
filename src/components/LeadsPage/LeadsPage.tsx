@@ -20,7 +20,8 @@ const LeadsPage = () => {
 
   const loadLeads = async () => {
     try {
-      const response = await instance.get('/lead/check-answer')
+      const response = await instance.get('/lead')
+      console.log(response)
     } catch (error) {
       enqueueSnackbar('Failed to load leads please, try again later', {
         variant: 'error',
