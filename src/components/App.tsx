@@ -79,7 +79,7 @@ function App() {
           <Route path='/' element={<HomePage />} />
           <Route path='/product' element={<ProductPage />} />
           <Route path='/leads' element={<LeadsPage />} />
-          <Route path='/leads/chat' element={<ChatPage />} />
+          <Route path='/leads/:id/chat' element={<ChatPage />} />
         </Routes>
       </div>
       <SnackbarProvider

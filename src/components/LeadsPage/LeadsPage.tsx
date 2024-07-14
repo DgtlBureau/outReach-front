@@ -1,6 +1,7 @@
 import { ReactComponent as PlusIcon } from './images/plus-icon.svg'
 import LeadTable from './LeadForm/LeadTable/LeadTable'
 import Dropdown from '../Shared/Dropdown/Dropdown'
+import { useFetch } from '../../utils/loadData'
 import { enqueueSnackbar } from 'notistack'
 import { useEffect, useState } from 'react'
 import LeadForm from './LeadForm/LeadForm'
@@ -10,28 +11,14 @@ import './LeadsPage.scss'
 
 const LeadsPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const { isLoading, data } = useFetch(
+    'lead',
+    'Failed to load leads. Please, try again later'
+  )
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true)
-  }
   const handleCloseModal = () => {
     setIsModalOpen(false)
   }
-
-  const loadLeads = async () => {
-    try {
-      const response = await instance.get('/lead')
-      console.log(response)
-    } catch (error) {
-      enqueueSnackbar('Failed to load leads please, try again later', {
-        variant: 'error',
-      })
-    }
-  }
-
-  useEffect(() => {
-    loadLeads()
-  }, [])
 
   return (
     <main className='leads-page'>
@@ -43,6 +30,7 @@ const LeadsPage = () => {
             onClose={handleCloseModal}
             activator={
               <button
+                type='button'
                 onClick={() => setIsModalOpen(!isModalOpen)}
                 className='leads-page__add-lead-dropdown-button'
               >
@@ -54,7 +42,7 @@ const LeadsPage = () => {
           </Dropdown>
         </div>
         <div className='lead-page__table'>
-          <LeadTable />
+          <LeadTable isLoading={isLoading} leads={data} />
         </div>
       </div>
     </main>

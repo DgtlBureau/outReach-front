@@ -1,34 +1,37 @@
-.project-item {
+.lead-item {
   position: relative;
   padding: 24px;
   background-color: var(--main-color);
   border-radius: 8px;
   height: 96px;
-  .project-item__title {
+  .lead-item__title {
     font-family: 'Inter';
     font-size: 18px;
     font-weight: 700;
     color: #fff;
   }
-  .project-item__description {
-    margin-top: 8px;
-  }
-  .project-item__model {
-    margin-top: 2px;
+  .lead-item__description {
+    display: block;
+    margin-top: 6px;
     font-family: 'Inter';
     font-size: 14px;
+    max-width: 100%;
+    width: fit-content;
+    white-space: nowrap;
     color: var(--text-color-white);
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   &:hover {
-    .project-item__button {
+    .lead-item__button {
       background-color: #fff;
       border-radius: 50%;
-      .project-item__icon {
+      .lead-item__icon {
         stroke: #000;
       }
     }
   }
-  .project-item__button {
+  .lead-item__button {
     --size: 16px;
     position: absolute;
     display: flex;
@@ -39,13 +42,13 @@
     width: var(--size);
     height: var(--size);
     top: 6px;
-    &.project-item__close-button {
+    &.lead-item__close-button {
       right: 6px;
     }
-    &.project-item__edit-button {
+    &.lead-item__edit-button {
       left: 6px;
     }
-    .project-item__icon {
+    .lead-item__icon {
       stroke: #fff;
       width: 12px;
       height: 12px;

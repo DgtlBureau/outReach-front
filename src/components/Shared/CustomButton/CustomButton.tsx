@@ -6,11 +6,20 @@ import './CustomButton.scss'
 interface ICustomButtonProps {
   children: React.ReactNode
   className?: string
+  type?: 'button' | 'submit' | 'reset'
 }
 
-const CustomButton = ({ children, className }: ICustomButtonProps) => {
+const CustomButton = ({
+  type = 'button',
+  children,
+  className,
+}: ICustomButtonProps) => {
   return (
-    <Button variant='contained' className={cn('custom-button', className)}>
+    <Button
+      type={type}
+      variant='contained'
+      className={cn('custom-button', className)}
+    >
       {children}
     </Button>
   )

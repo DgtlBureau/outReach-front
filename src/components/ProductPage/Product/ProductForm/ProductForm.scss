@@ -25,6 +25,29 @@
       color: var(--text-color);
       margin-bottom: 12px;
     }
+    .product-form__table-title-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .product-form__add-lead-dropdown-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 36px;
+        width: 48px;
+        border-radius: 8px;
+        background-color: var(--main-color);
+        color: var(--text-color-white);
+        cursor: pointer;
+        .product-form__add-lead-dropdown-icon {
+          width: 12px;
+          height: 12px;
+          * {
+            fill: var(--text-color-white);
+          }
+        }
+      }
+    }
   }
   .product-form__input {
     width: 100%;

@@ -1,4 +1,17 @@
 .home {
   max-width: 768px;
   margin: 0 auto;
+  .home__title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    font-family: 'Inter';
+    color: var(--text-color);
+  }
+  .home__list-wrapper {
+    margin-top: 12px;
+  }
+  .home__leads {
+    margin-top: 24px;
+  }
 }

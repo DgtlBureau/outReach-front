@@ -1,6 +1,36 @@
+import Loader from '../../../../Shared/Loader/Loader'
 import './IcpTable.scss'
 
-const IcpTable = () => {
+export interface IProduct {
+  business_model: string
+  buying_behaviour: string
+  common_problems: string
+  company_size: string
+  company_type: string
+  description: string
+  direction: string
+  id: number
+  industry: string
+  integration_needs: string
+  location: string
+  long_term_goals: string
+  name: string
+  pain_points: string
+  product: string
+  product_usage: string
+  project: string
+  short_term_goals: string
+  success_metrics: string
+  technology_stack: string
+  term: string
+}
+
+interface IIcpTableProps {
+  products: IProduct[]
+  isLoading?: boolean
+}
+
+const IcpTable = ({ products, isLoading }: IIcpTableProps) => {
   return (
     <div className='lead-table__wrapper'>
       <table className='lead-table'>
@@ -15,29 +45,27 @@ const IcpTable = () => {
           <th>Technology stack</th>
           <th>Integration needs</th>
         </tr>
-        <tr className='lead-table__row'>
-          <td>Sports management</td>
-          <td>50-500 employees</td>
-          <td>Asia, Europe, and North</td>
-          <td>B2B</td>
-          <td>Established enterprises and rapidly growing startups</td>
-          <td>
-            Seeking comprehensive America digital solutions; open to long-term
-            partnerships
-          </td>
-          <td>
-            High adoption and integration of digital platforms and mobile
-            applications
-          </td>
-          <td>
-            Uses CRM systems, mobile apps, ERP platforms, and e-commerce
-            solutions
-          </td>
-          <td>
-            Requires seamless integration with existing digital infrastructure
-          </td>
-        </tr>
+        {products?.map((product) => {
+          return (
+            <tr key={product.id} className='lead-table__row'>
+              <td>{product.industry}</td>
+              <td>{product.company_size}</td>
+              <td>{product.location}</td>
+              <td>{product.business_model}</td>
+              <td>{product.company_type}</td>
+              <td>{product.buying_behaviour}</td>
+              <td>{product.product_usage}</td>
+              <td>{product.technology_stack}</td>
+              <td>{product.integration_needs}</td>
+            </tr>
+          )
+        })}
       </table>
+      {isLoading ? (
+        <div className='lead-table__loader'>
+          <Loader />
+        </div>
+      ) : null}
     </div>
   )
 }

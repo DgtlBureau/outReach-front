@@ -1,0 +1,15 @@
+.loader-block {
+  animation: pulse 1s infinite alternate;
+  border-radius: 8px;
+  padding: 24px;
+  height: 96px;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #f0f0f0;
+  }
+  100% {
+    background-color: #e0e0e0;
+  }
+}

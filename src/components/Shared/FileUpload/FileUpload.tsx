@@ -5,7 +5,7 @@ import './FileUpload.scss'
 
 interface IFileUploadProps {
   label: string
-  value?: string
+  value?: any
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
   className?: string
 }
@@ -21,7 +21,13 @@ const FileUpload = ({
       <span className='file-upload__label'>
         {label} <FileUploadIcon className='file-upload__icon' />
       </span>
-      <input type='file' multiple className='file-upload__input' />
+      <input
+        onChange={onChange}
+        value={value}
+        type='file'
+        multiple
+        className='file-upload__input'
+      />
     </label>
   )
 }

@@ -4,7 +4,6 @@
   padding: 6px;
   transition: 0.5s border;
   .lead-table {
-    table-layout: fixed;
     width: 100%;
     border: 1px solid var(--border-color-secondary);
     font-family: 'Inter';
@@ -35,6 +34,23 @@
         padding: 6px;
         transition: 0.5s color;
       }
+    }
+  }
+  .lead-table__loader {
+    padding: 12px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  .lead-table__to-chat-cell {
+    box-sizing: border-box;
+    .lead-table__to-chat {
+      background-color: var(--main-color);
+      text-decoration: none;
+      padding: 4px 16px;
+      border-radius: 8px;
+      color: var(--text-color-white);
     }
   }
 }
