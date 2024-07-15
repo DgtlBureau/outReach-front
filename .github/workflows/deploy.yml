@@ -1,6 +1,7 @@
 name: Deploy
 env:
-  ENV               : ${{ github.ref == 'refs/heads/dev' && 'dev' || 'prod' }}
+  ENV                 : ${{ github.ref == 'refs/heads/dev' && 'dev' || 'prod' }}
+  REACT_APP_BASE_URL  : ${{ github.ref == 'refs/heads/dev' &&  'http://vaultwarden.digitalburo.tech:8100/gpt' || 'http://vaultwarden.digitalburo.tech:8100/gpt' }}
 
 on:
   push:
@@ -24,6 +25,10 @@ jobs:
       - name: Docker login
         run: |
           docker login -u devopsdbt -p ${{ secrets.DOCKER_HUB }}
+      
+      - name: Set .env
+        run: |
+          echo 'REACT_APP_BASE_URL="${{ env.REACT_APP_BASE_URL }}"' > .env
 
       - name: Build containers
         run: |
