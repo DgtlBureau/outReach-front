@@ -2,15 +2,14 @@ import { ReactComponent as PlusIcon } from './images/plus-icon.svg'
 import LeadTable from './LeadForm/LeadTable/LeadTable'
 import Dropdown from '../Shared/Dropdown/Dropdown'
 import { useFetch } from '../../utils/loadData'
-import { enqueueSnackbar } from 'notistack'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import LeadForm from './LeadForm/LeadForm'
-import instance from '../../utils/api'
 
 import './LeadsPage.scss'
 
 const LeadsPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+
   const { isLoading, data } = useFetch(
     'lead',
     'Failed to load leads. Please, try again later'

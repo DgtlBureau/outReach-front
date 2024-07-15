@@ -31,7 +31,11 @@ const ChatBox = () => {
       const { data } = await instance.get(`/message/${id}`)
       setChat([
         ...chat,
-        { message_text: data.gpt_answer, reply_message: false },
+        {
+          message_text: data.gpt_answer,
+          reply_message: false,
+          sent_date: new Date(),
+        },
       ])
     } catch (error) {
       enqueueSnackbar('Failed to get message. Please, try again later', {
@@ -48,6 +52,13 @@ const ChatBox = () => {
 
   return (
     <div className='chat-box'>
+      {chat.length === 0 ? (
+        <span className='chat-box__placeholder'>
+          Chat is empty, create a message by clicking button below
+        </span>
+      ) : (
+        ''
+      )}
       <MessageList messages={chat} />
       <div className='chat-box__input-box'>
         {/* <input

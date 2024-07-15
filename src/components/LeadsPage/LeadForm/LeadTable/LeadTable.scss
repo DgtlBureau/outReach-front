@@ -45,8 +45,10 @@
   }
   .lead-table__to-chat-cell {
     box-sizing: border-box;
-    padding: 12px !important;
     .lead-table__to-chat {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       background-color: var(--main-color);
       text-decoration: none;
       padding: 4px 16px;

@@ -43,7 +43,6 @@ const LeadForm = () => {
         },
       })
       setGptAnswer(data.gpt_answer)
-      console.log('response', data.gpt_answer)
     } catch (error) {
       enqueueSnackbar(String(error), { variant: 'error' })
     } finally {
@@ -64,8 +63,6 @@ const LeadForm = () => {
     }
   }
 
-  console.log(gptAnswer)
-
   return (
     <form className='lead-form' onSubmit={handleSubmit}>
       <span className='lead-form__title'>Add new lead</span>
@@ -85,6 +82,20 @@ const LeadForm = () => {
             label='Upload screenshots'
           />
         </div>
+      </div>
+      <div className='lead-form__images-preview'>
+        {files.length > 0 &&
+          Array.from(files).map((file: any) => {
+            return (
+              <div key={file.name} className='lead-form__image-preview-wrapper'>
+                <img
+                  className='lead-form__image-preview'
+                  src={URL.createObjectURL(file)}
+                  alt={file.name}
+                />
+              </div>
+            )
+          })}
       </div>
       <CustomButton type='submit' className='lead-form__confirm'>
         Submit

@@ -45,7 +45,6 @@ const Navigation = ({ isExpand, toggleExpand }: INavigationProps) => {
         </li>
         <li className='navigation__link-item'>
           <NavLink
-            end
             className={({ isActive }) =>
               `navigation__link ${isActive ? 'navigation__link--active' : ''} ${
                 !isExpand ? 'navigation__link--minimized' : ''

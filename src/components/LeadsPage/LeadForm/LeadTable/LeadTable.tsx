@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import Loader from '../../../Shared/Loader/Loader'
+import { ReactComponent as ArrowRight } from './images/chevron-right.svg'
 import './LeadTable.scss'
 
 export interface ILead {
@@ -36,7 +37,7 @@ const LeadTable = ({ leads, isLoading }: ILeadTableProps) => {
                   className='lead-table__to-chat'
                   to={`/leads/${lead.id}/chat`}
                 >
-                  {'>'}
+                  <ArrowRight />
                 </Link>
               </td>
             </tr>

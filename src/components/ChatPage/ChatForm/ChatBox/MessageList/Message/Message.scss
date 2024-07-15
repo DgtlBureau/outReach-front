@@ -20,11 +20,15 @@
     background-color: var(--background-color-secondary);
     color: var(--text-color-black);
   }
-  .message__label {
-    position: absolute;
-    font-size: 8px;
-    color: var(--text-color-white-low);
-    bottom: 1px;
-    right: 6px;
+  .message__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .message__label {
+      font-size: 8px;
+      color: var(--text-color-white-low);
+      bottom: 1px;
+      right: 6px;
+    }
   }
 }

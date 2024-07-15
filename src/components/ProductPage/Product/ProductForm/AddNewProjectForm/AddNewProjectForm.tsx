@@ -1,15 +1,18 @@
-import React from 'react'
 import FileUpload from '../../../../Shared/FileUpload/FileUpload'
 import CustomButton from '../../../../Shared/CustomButton/CustomButton'
+
+import './AddNewProjectForm.scss'
 
 interface IAddNewProjectFormProps {
   handleChangeFile: (event: any) => void
   onSubmit: () => void
+  value?: File
 }
 
 const AddNewProjectForm = ({
   handleChangeFile,
   onSubmit,
+  value,
 }: IAddNewProjectFormProps) => {
   return (
     <form className='lead-form'>
@@ -21,6 +24,11 @@ const AddNewProjectForm = ({
           label='Upload PDF file'
         />
       </div>
+      {value && (
+        <span key={value.name} className='lead-form__file-preview'>
+          {value.name}
+        </span>
+      )}
       <CustomButton
         type='button'
         onClick={onSubmit}

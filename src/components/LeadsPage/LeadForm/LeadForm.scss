@@ -55,3 +55,37 @@
     padding: 12px 0;
   }
 }
+
+.lead-form__images-preview {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  .lead-form__image-preview-wrapper {
+    position: relative;
+    .lead-form__image-preview-remove {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      width: 18px;
+      height: 18px;
+      background-color: #fff;
+      border-radius: 50%;
+      border: 1px solid var(--main-color);
+      cursor: pointer;
+      .lead-form__image-preview-icon {
+        width: 12px;
+        height: 12px;
+      }
+    }
+    .lead-form__image-preview {
+      object-fit: cover;
+      height: 100px;
+      width: 100px;
+    }
+  }
+}

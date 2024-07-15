@@ -86,6 +86,7 @@ const ProductForm = () => {
             }
           >
             <AddNewProjectForm
+              value={projectFile}
               onSubmit={handleSendProject}
               handleChangeFile={handleChangeFile}
             />

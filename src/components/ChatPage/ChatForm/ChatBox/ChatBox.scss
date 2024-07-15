@@ -6,6 +6,13 @@
   border-radius: 6px;
   overflow: hidden;
   height: calc(100vh - 172px);
+  .chat-box__placeholder {
+    margin-top: 12px;
+    font-family: 'Inter';
+    font-weight: 300;
+    font-size: 14px;
+    text-align: center;
+  }
   .chat-box__input-box {
     display: flex;
     align-items: stretch;
