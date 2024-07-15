@@ -64,19 +64,6 @@ const Navigation = ({ isExpand, toggleExpand }: INavigationProps) => {
                 !isExpand ? 'navigation__link--minimized' : ''
               }`
             }
-            to='/leads/chat'
-          >
-            <ChatIcon className='navigation__icon' />
-            {isExpand ? ' Chat' : ''}
-          </NavLink>
-        </li>
-        <li className='navigation__link-item'>
-          <NavLink
-            className={({ isActive }) =>
-              `navigation__link ${isActive ? 'navigation__link--active' : ''} ${
-                !isExpand ? 'navigation__link--minimized' : ''
-              }`
-            }
             to='/product'
           >
             <ProductIcon className='navigation__icon' />

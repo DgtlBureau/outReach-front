@@ -6,4 +6,13 @@
   &:hover {
     background-color: var(--main-color) !important;
   }
+  &.custom-button__outlined {
+    background-color: transparent !important;
+    border: 1px solid var(--main-color) !important;
+    color: var(--main-color) !important;
+    &:hover {
+      background-color: var(--main-color) !important;
+      color: #fff !important;
+    }
+  }
 }

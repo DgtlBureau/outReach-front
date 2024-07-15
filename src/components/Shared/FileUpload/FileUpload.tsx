@@ -8,6 +8,7 @@ interface IFileUploadProps {
   value?: any
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
   className?: string
+  accept?: '.jpeg, .png, .jpg' | '.pdf'
 }
 
 const FileUpload = ({
@@ -15,6 +16,7 @@ const FileUpload = ({
   value,
   onChange,
   className,
+  accept,
 }: IFileUploadProps) => {
   return (
     <label className={cn('file-upload', className)}>
@@ -26,6 +28,7 @@ const FileUpload = ({
         value={value}
         type='file'
         multiple
+        accept={accept}
         className='file-upload__input'
       />
     </label>

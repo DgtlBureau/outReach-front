@@ -47,16 +47,16 @@ const IcpTable = ({ products, isLoading }: IIcpTableProps) => {
         </tr>
         {products?.map((product) => {
           return (
-            <tr key={product.id} className='lead-table__row'>
-              <td>{product.industry}</td>
-              <td>{product.company_size}</td>
-              <td>{product.location}</td>
-              <td>{product.business_model}</td>
-              <td>{product.company_type}</td>
-              <td>{product.buying_behaviour}</td>
-              <td>{product.product_usage}</td>
-              <td>{product.technology_stack}</td>
-              <td>{product.integration_needs}</td>
+            <tr key={product?.id} className='lead-table__row'>
+              <td>{product?.industry}</td>
+              <td>{product?.company_size}</td>
+              <td>{product?.location}</td>
+              <td>{product?.business_model}</td>
+              <td>{product?.company_type}</td>
+              <td>{product?.buying_behaviour}</td>
+              <td>{product?.product_usage}</td>
+              <td>{product?.technology_stack}</td>
+              <td>{product?.integration_needs}</td>
             </tr>
           )
         })}

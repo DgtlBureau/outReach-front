@@ -15,6 +15,11 @@ const ProjectList = ({ projects }: { projects: IProduct[] }) => {
           usage={project.product_usage}
         />
       ))}
+      {projects.length === 0 ? (
+        <span className='project-list__placeholder'>Project list is empty</span>
+      ) : (
+        ''
+      )}
     </ul>
   )
 }

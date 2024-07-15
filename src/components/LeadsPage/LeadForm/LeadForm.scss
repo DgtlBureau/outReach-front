@@ -16,21 +16,12 @@
     max-width: 768px;
     margin: 0 auto;
     display: flex;
+    flex-direction: column;
     align-items: stretch;
     justify-content: space-between;
     margin-top: 24px;
     width: 100%;
-    .lead-form__or {
-      display: flex;
-      align-items: center;
 
-      justify-content: center;
-      width: 100%;
-      font-family: 'Inter';
-      font-size: 15px;
-      color: var(--text-color);
-      transition: 0.5s color;
-    }
     .lead-form__input {
       box-sizing: border-box;
       width: 100%;
@@ -43,5 +34,24 @@
         outline: none;
       }
     }
+    .lead-form__file-upload {
+      margin-top: 12px;
+    }
+  }
+}
+
+.lead-form__dialog {
+  width: 100%;
+}
+.lead-form__title {
+  font-family: 'Inter';
+}
+.lead-form__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  .lead-form__loader {
+    padding: 12px 0;
   }
 }
