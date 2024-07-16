@@ -35,12 +35,13 @@ const IcpTable = ({ products, isLoading }: IIcpTableProps) => {
     <div className='lead-table__wrapper'>
       <table className='lead-table'>
         <tr className='lead-table__row-head'>
+          <th>Name</th>
           <th>Industry</th>
           <th>Company size</th>
           <th>Location</th>
-          <th>Business model</th>
-          <th>Company type</th>
-          <th>Buying behaviour</th>
+          <th style={{ width: '70px' }}>Business model</th>
+          <th style={{ width: '170px' }}>Company type</th>
+          <th style={{ width: '200px' }}>Buying behaviour</th>
           <th>Product usage</th>
           <th>Technology stack</th>
           <th>Integration needs</th>
@@ -48,10 +49,11 @@ const IcpTable = ({ products, isLoading }: IIcpTableProps) => {
         {products?.map((product) => {
           return (
             <tr key={product?.id} className='lead-table__row'>
+              <td>{product?.name}</td>
               <td>{product?.industry}</td>
               <td>{product?.company_size}</td>
               <td>{product?.location}</td>
-              <td>{product?.business_model}</td>
+              <td style={{ textAlign: 'center' }}>{product?.business_model}</td>
               <td>{product?.company_type}</td>
               <td>{product?.buying_behaviour}</td>
               <td>{product?.product_usage}</td>

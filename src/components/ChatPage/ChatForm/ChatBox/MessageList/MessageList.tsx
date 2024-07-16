@@ -3,19 +3,29 @@ import Message from './Message/Message'
 
 import './MessageList.scss'
 
+interface IMessage {
+  id: number
+  message_text: string
+  sent_date: string
+  reply_message: boolean
+}
+
 interface IMessageListProps {
-  messages: {
-    id: number
-    message_text: string
-    sent_date: string
-    reply_message: boolean
-  }[]
+  messages: IMessage[]
 }
 
 const MessageList = ({ messages }: IMessageListProps) => {
+  const listRef = useRef<any>(null)
+
+  useEffect(() => {
+    if (listRef.current) {
+      listRef.current.scrollTop = listRef.current.scrollHeight
+    }
+  }, [messages])
+
   return (
-    <ul className='message-list'>
-      {messages.reverse().map((message) => (
+    <ul ref={listRef} className='message-list'>
+      {messages.map((message) => (
         <Message
           key={message.id}
           text={message.message_text}

@@ -1,13 +1,12 @@
 .lead-table__wrapper {
   border: 1px solid var(--border-color);
   border-radius: 6px;
-  padding: 6px;
   margin-top: 6px;
   .lead-table {
     table-layout: fixed;
-    width: 100%;
     border: 1px solid var(--border-color-secondary);
     font-family: 'Inter';
+    width: 100%;
 
     .lead-table__row-head {
       background-color: var(--main-color);
@@ -22,7 +21,7 @@
 
     .lead-table__row {
       td {
-        word-break: break-all;
+        // word-break: break-all;
         &:not(:last-child) {
           border-right: 1px solid var(--border-color-secondary);
         }
