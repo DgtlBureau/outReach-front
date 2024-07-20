@@ -26,4 +26,10 @@
     display: flex;
     gap: 12px;
   }
+
+  .lead-preview__preview-response {
+    margin-top: 12px;
+    height: 100px;
+    resize: vertical;
+  }
 }

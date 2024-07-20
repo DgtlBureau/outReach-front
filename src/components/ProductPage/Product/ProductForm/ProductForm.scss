@@ -140,3 +140,32 @@
 .product-form__content {
   margin: 12px;
 }
+
+.product-form__chatlog-button {
+  position: fixed;
+  padding: 6px;
+  bottom: 12px;
+  right: 10px;
+  border-radius: 6px;
+  background-color: var(--main-color);
+  font-family: 'Inter';
+  color: var(--text-color-white);
+  z-index: 2;
+  cursor: pointer;
+}
+
+.product-form__chatlog {
+  background-color: var(--background-color);
+  box-sizing: border-box;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  max-height: 50vh;
+  height: 100%;
+  width: 100%;
+  resize: vertical;
+  overflow-y: auto;
+  box-shadow: 0 10px 10px 5px var(--border-color);
+  z-index: 1;
+  max-width: 1920px;
+}

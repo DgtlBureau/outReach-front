@@ -50,10 +50,10 @@ const Navigation = ({ isExpand, toggleExpand }: INavigationProps) => {
                 !isExpand ? 'navigation__link--minimized' : ''
               }`
             }
-            to='/leads'
+            to='/product'
           >
-            <LeadsIcon className='navigation__icon' />
-            {isExpand ? ' Leads' : ''}
+            <ProductIcon className='navigation__icon' />
+            {isExpand ? ' Product' : ''}
           </NavLink>
         </li>
         <li className='navigation__link-item'>
@@ -63,10 +63,10 @@ const Navigation = ({ isExpand, toggleExpand }: INavigationProps) => {
                 !isExpand ? 'navigation__link--minimized' : ''
               }`
             }
-            to='/product'
+            to='/leads'
           >
-            <ProductIcon className='navigation__icon' />
-            {isExpand ? ' Product' : ''}
+            <LeadsIcon className='navigation__icon' />
+            {isExpand ? ' Leads' : ''}
           </NavLink>
         </li>
         <li className='navigation__link-item'>

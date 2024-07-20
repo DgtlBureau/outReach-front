@@ -8,9 +8,11 @@ import Loader from '../../../Shared/Loader/Loader'
 import instance from '../../../../utils/api'
 import { enqueueSnackbar } from 'notistack'
 import IcpTable from './IcpTable/IcpTable'
+import { motion } from 'framer-motion'
 import { useState } from 'react'
 
 import './ProductForm.scss'
+import MessageList from '../../../ChatPage/ChatForm/ChatBox/MessageList/MessageList'
 
 const ProductForm = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -18,6 +20,7 @@ const ProductForm = () => {
   const [isSubmitLoading, setIsSubmitLoading] = useState(false)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [projectFile, setProjectFile] = useState<any>(null)
+  const [isLogsShown, setIsLogsShown] = useState(false)
 
   const handleChangeFile = (event: any) => {
     setProjectFile(event.target.files[0])
@@ -26,6 +29,10 @@ const ProductForm = () => {
   const { isLoading, data } = useFetch(
     'projects',
     'Failed to load products. Please, try again later'
+  )
+  const projectLogs = useFetch(
+    'chat_log?chat_type=project_answer',
+    'Failed to load chat log. Please, try again later'
   )
 
   const onDialogClose = () => {
@@ -131,6 +138,25 @@ const ProductForm = () => {
           )}
         </div>
       </Dialog>
+      <button
+        className='product-form__chatlog-button'
+        onClick={() => setIsLogsShown(!isLogsShown)}
+      >
+        Chatlogs
+      </button>
+      <motion.div
+        className='product-form__chatlog'
+        transition={{ duration: 0.25 }}
+        initial={{ display: 'none' }}
+        animate={{
+          display: 'block',
+          clipPath: isLogsShown
+            ? 'circle(1920px at 0 0)'
+            : 'circle(0% at 100% 100%)',
+        }}
+      >
+        <MessageList messages={projectLogs.data} />
+      </motion.div>
     </div>
   )
 }
