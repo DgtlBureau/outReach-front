@@ -4,7 +4,7 @@ import cn from 'classnames'
 import './FileUpload.scss'
 
 interface IFileUploadProps {
-  label: string
+  name?: string
   value?: any
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
   className?: string
@@ -12,17 +12,15 @@ interface IFileUploadProps {
 }
 
 const FileUpload = ({
-  label,
   value,
+  name,
   onChange,
   className,
   accept,
 }: IFileUploadProps) => {
   return (
     <label className={cn('file-upload', className)}>
-      <span className='file-upload__label'>
-        {label} <FileUploadIcon className='file-upload__icon' />
-      </span>
+      <FileUploadIcon className='file-upload__icon' />
       <input
         onChange={onChange}
         value={value}
@@ -31,6 +29,8 @@ const FileUpload = ({
         accept={accept}
         className='file-upload__input'
       />
+      <span className='file-upload__title'>Upload media files</span>
+      <span className='file-upload__file-name'>{name}</span>
     </label>
   )
 }

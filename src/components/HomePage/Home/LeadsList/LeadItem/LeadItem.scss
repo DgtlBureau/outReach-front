@@ -8,7 +8,7 @@
     font-family: 'Inter';
     font-size: 18px;
     font-weight: 700;
-    color: #fff;
+    color: var(--text-color);
   }
   .lead-item__description {
     display: block;
@@ -18,13 +18,13 @@
     max-width: 100%;
     width: fit-content;
     white-space: nowrap;
-    color: var(--text-color-white);
+    color: var(--text-color);
     overflow: hidden;
     text-overflow: ellipsis;
   }
   &:hover {
     .lead-item__button {
-      background-color: #fff;
+      background-color: var(--main-color);
       border-radius: 50%;
       .lead-item__icon {
         stroke: #000;

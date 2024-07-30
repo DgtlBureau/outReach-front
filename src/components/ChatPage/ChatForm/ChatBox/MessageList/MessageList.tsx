@@ -1,3 +1,5 @@
+import { ReactComponent as SenderAvatar } from './images/avatar-responder.svg'
+import { ReactComponent as YouAvatar } from './images/avatar-you.svg'
 import { useEffect, useRef } from 'react'
 import Message from './Message/Message'
 
@@ -25,13 +27,21 @@ const MessageList = ({ messages }: IMessageListProps) => {
 
   return (
     <ul ref={listRef} className='message-list'>
-      {messages.map((message) => (
-        <Message
+      {messages.map((message, index) => (
+        <div
+          className={`message-list__message ${
+            message.reply_message ? 'message-list__message--received' : ''
+          }`}
           key={message.id}
-          text={message.message_text}
-          isRecieved={message.reply_message}
-          date={message.sent_date}
-        />
+        >
+          {message.reply_message ? <SenderAvatar /> : ''}
+          <Message
+            text={message.message_text}
+            isRecieved={message.reply_message}
+            date={message.sent_date}
+          />
+          {!message.reply_message ? <YouAvatar /> : ''}
+        </div>
       ))}
     </ul>
   )

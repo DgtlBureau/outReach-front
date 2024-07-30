@@ -1,7 +1,10 @@
 .chat-form {
   margin-top: 24px;
-  max-width: 768px;
-  margin: 0 auto;
+  max-width: 1440px;
+  margin: 12px auto;
+  background-color: var(--main-color);
+  overflow: hidden;
+  border-radius: 8px;
   .chat-form__inputs-wrapper {
     display: flex;
     gap: 24px;
@@ -29,5 +32,8 @@
   }
   .chat-form__chat-box-wrapper {
     margin-top: 24px;
+    width: 100%;
+    max-width: 1280px;
+    margin: 24px auto;
   }
 }

@@ -5,4 +5,13 @@
   height: 100%;
   padding: 12px;
   box-sizing: border-box;
+  .message-list__message {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 8px;
+    &.message-list__message--received {
+      justify-content: flex-start;
+    }
+  }
 }

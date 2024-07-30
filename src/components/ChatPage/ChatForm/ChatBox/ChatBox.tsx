@@ -73,7 +73,7 @@ const ChatBox = () => {
         >
           {isLoading ? (
             <div className='chat-box__submit-loader'>
-              <Loader color='#fff' />
+              <Loader color='var(--secondary-color)' />
             </div>
           ) : (
             'Get message'

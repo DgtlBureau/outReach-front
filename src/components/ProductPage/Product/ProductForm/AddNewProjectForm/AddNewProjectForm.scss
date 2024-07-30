@@ -1,9 +1,30 @@
-.lead-form {
-  .lead-form__file-preview {
+.add-new-project-form {
+  .add-new-project-form__title {
     display: block;
-    margin-top: 12px;
-    font-family: 'Inter';
-    font-size: 15px;
-    font-weight: 300;
+    font-family: 'SF Pro Text';
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text-color);
+    padding: 16px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .add-new-project-form__content {
+    margin: 16px;
+    .add-new-project-form__controls {
+      margin-top: 12px;
+      display: flex;
+      gap: 12px;
+      max-width: 200px;
+      margin-right: 0;
+      margin-left: auto;
+    }
+    .add-new-project-form__upload-label {
+      display: block;
+      margin-bottom: 6px;
+      font-family: 'SF Pro Text';
+      font-size: 13px;
+      letter-spacing: -0.08px;
+      color: var(--text-color-secondary);
+    }
   }
 }

@@ -1,3 +1,4 @@
+import React from 'react'
 import Loader from '../../../../Shared/Loader/Loader'
 import './IcpTable.scss'
 
@@ -32,39 +33,45 @@ interface IIcpTableProps {
 
 const IcpTable = ({ products, isLoading }: IIcpTableProps) => {
   return (
-    <div className='lead-table__wrapper'>
-      <table className='lead-table'>
-        <tr className='lead-table__row-head'>
-          <th>Name</th>
-          <th>Industry</th>
-          <th>Company size</th>
-          <th>Location</th>
-          <th style={{ width: '70px' }}>Business model</th>
-          <th style={{ width: '170px' }}>Company type</th>
-          <th style={{ width: '200px' }}>Buying behaviour</th>
-          <th>Product usage</th>
-          <th>Technology stack</th>
-          <th>Integration needs</th>
-        </tr>
+    <div className='icp-table__wrapper'>
+      <div className='icp-table'>
+        <span className='icp-table__cell-head'>Name</span>
+        <span className='icp-table__cell-head'>Industry</span>
+        <span className='icp-table__cell-head'>Company size</span>
+        <span className='icp-table__cell-head'>Location</span>
+        <span className='icp-table__cell-head'>Business model</span>
+        <span className='icp-table__cell-head'>Company type</span>
+        <span className='icp-table__cell-head'>Buying behaviour</span>
+        <span className='icp-table__cell-head'>Product usage</span>
+        <span className='icp-table__cell-head'>Technology stack</span>
+        <span className='icp-table__cell-head'>Integration needs</span>
         {products?.map((product) => {
           return (
-            <tr key={product?.id} className='lead-table__row'>
-              <td>{product?.name}</td>
-              <td>{product?.industry}</td>
-              <td>{product?.company_size}</td>
-              <td>{product?.location}</td>
-              <td style={{ textAlign: 'center' }}>{product?.business_model}</td>
-              <td>{product?.company_type}</td>
-              <td>{product?.buying_behaviour}</td>
-              <td>{product?.product_usage}</td>
-              <td>{product?.technology_stack}</td>
-              <td>{product?.integration_needs}</td>
-            </tr>
+            <React.Fragment key={product.id}>
+              <span className='icp-table__cell'>{product?.name}</span>
+              <span className='icp-table__cell'>{product?.industry}</span>
+              <span className='icp-table__cell'>{product?.company_size}</span>
+              <span className='icp-table__cell'>{product?.location}</span>
+              <span className='icp-table__cell' style={{ textAlign: 'center' }}>
+                {product?.business_model}
+              </span>
+              <span className='icp-table__cell'>{product?.company_type}</span>
+              <span className='icp-table__cell'>
+                {product?.buying_behaviour}
+              </span>
+              <span className='icp-table__cell'>{product?.product_usage}</span>
+              <span className='icp-table__cell'>
+                {product?.technology_stack}
+              </span>
+              <span className='icp-table__cell'>
+                {product?.integration_needs}
+              </span>
+            </React.Fragment>
           )
         })}
-      </table>
+      </div>
       {isLoading ? (
-        <div className='lead-table__loader'>
+        <div className='icp-table__loader'>
           <Loader />
         </div>
       ) : null}

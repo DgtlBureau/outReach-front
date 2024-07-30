@@ -21,10 +21,13 @@
       font-size: 15px;
     }
   }
-  .lead-preview__submit {
+  .lead-preview__controls {
     margin-top: 12px;
     display: flex;
     gap: 12px;
+    width: 200px;
+    margin-right: 0;
+    margin-left: auto;
   }
 
   .lead-preview__preview-response {
