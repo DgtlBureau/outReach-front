@@ -7,7 +7,7 @@
   width: 60px;
   height: 30px;
   border-radius: 16px;
-  box-shadow: inset 0 0 10px var(--shadow-color);
+  box-shadow: inset 0 0 10px var(--border-color);
   .theme-toggle__background-icons {
     position: absolute;
     display: flex;
@@ -27,7 +27,7 @@
     width: 24px;
     margin: 0 3px;
     border-radius: 50%;
-    background-color: #fff;
+    background-color: var(--secondary-color);
     transition: transform 0.3s;
     z-index: 1;
     &.theme-toggle__thumb--active {

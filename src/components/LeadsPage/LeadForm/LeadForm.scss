@@ -1,41 +1,81 @@
 .lead-form {
   .lead-form__title {
-    font-family: 'Inter';
-    font-size: 18px;
+    display: block;
+    font-family: 'SF Pro Text';
+    font-size: 20px;
     font-weight: 500;
     color: var(--text-color);
-    margin-bottom: 12px;
-    letter-spacing: 0.25px;
+    padding: 16px;
+    border-bottom: 1px solid var(--border-color);
   }
-  .lead-form__confirm {
-    display: block;
-    max-width: 768px;
-    margin: 24px auto 0;
-  }
-  .lead-form__input-wrapper {
-    max-width: 768px;
-    margin: 0 auto;
+  .lead-form__content {
+    margin: 12px auto;
     display: flex;
     flex-direction: column;
-    align-items: stretch;
-    justify-content: space-between;
-    margin-top: 24px;
-    width: 100%;
+    max-width: 768px;
 
-    .lead-form__input {
-      box-sizing: border-box;
-      width: 100%;
-      padding: 12px;
-      border-radius: 3px;
-      font-family: 'Inter';
-      font-size: 15px;
-      border: 1px solid var(--border-color);
-      &:focus {
-        outline: none;
+    .lead-form__controls {
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+      margin-right: 0;
+      gap: 12px;
+      width: 200px;
+      .lead-form__cancel {
+        width: 100%;
+      }
+      .lead-form__confirm {
+        display: block;
+        max-width: 100%;
       }
     }
-    .lead-form__file-upload {
-      margin-top: 12px;
+    .lead-form__input-wrapper {
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: space-between;
+      margin-top: 24px;
+      width: 100%;
+
+      .lead-form__input-label {
+        display: block;
+        margin-bottom: 6px;
+        font-family: 'SF Pro Text';
+        font-size: 13px;
+        letter-spacing: -0.08px;
+        color: var(--text-color-secondary);
+      }
+      .lead-form__input {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        font-family: 'SF Pro Text';
+        font-size: 14px;
+        background-color: var(--background-color);
+        border: 1px solid var(--border-color);
+        outline: none;
+        &::placeholder {
+          opacity: 0.5;
+        }
+      }
+      .lead-form__file-upload {
+        margin-top: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: space-between;
+        width: 100%;
+        .lead-form__upload-label {
+          display: block;
+          margin-bottom: 6px;
+          font-family: 'SF Pro Text';
+          font-size: 13px;
+          letter-spacing: -0.08px;
+          color: var(--text-color-secondary);
+        }
+      }
     }
   }
 }
@@ -60,32 +100,16 @@
   margin-top: 12px;
   display: flex;
   align-items: center;
+  width: 100%;
   gap: 8px;
   flex-wrap: wrap;
   .lead-form__image-preview-wrapper {
     position: relative;
-    .lead-form__image-preview-remove {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: absolute;
-      top: 2px;
-      right: 2px;
-      width: 18px;
-      height: 18px;
-      background-color: #fff;
-      border-radius: 50%;
-      border: 1px solid var(--main-color);
-      cursor: pointer;
-      .lead-form__image-preview-icon {
-        width: 12px;
-        height: 12px;
-      }
-    }
     .lead-form__image-preview {
       object-fit: cover;
       height: 100px;
       width: 100px;
+      border-radius: 8px;
     }
   }
 }

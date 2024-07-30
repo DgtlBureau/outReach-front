@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import Loader from '../../../Shared/Loader/Loader'
 import { ReactComponent as ArrowRight } from './images/chevron-right.svg'
+import React from 'react'
+
 import './LeadTable.scss'
 
 export interface ILead {
@@ -13,37 +15,53 @@ export interface ILead {
 
 interface ILeadTableProps {
   leads: ILead[]
-  isLoading: boolean
+  isLoading?: boolean
+  hideToChat?: boolean
 }
 
-const LeadTable = ({ leads, isLoading }: ILeadTableProps) => {
+const LeadTable = ({ leads, isLoading, hideToChat }: ILeadTableProps) => {
   return (
     <div className='lead-table__wrapper'>
-      <table className='lead-table'>
-        <tr className='lead-table__row-head'>
-          <th style={{ width: '25%' }}>Full name</th>
-          <th>Description</th>
-          <th>URL</th>
-          <th style={{ width: '5%' }}>To chat</th>
-        </tr>
+      <div
+        style={hideToChat ? { gridTemplateColumns: '160px 1fr 200px' } : {}}
+        className='lead-table'
+      >
+        <span className='lead-table__cell-head'>Full name</span>
+        <span className='lead-table__cell-head'>Description</span>
+        <span className='lead-table__cell-head'>URL</span>
+        {hideToChat ? (
+          ''
+        ) : (
+          <span className='lead-table__cell-head'>To chat</span>
+        )}
         {leads?.map((lead) => {
           return (
-            <tr key={lead.id} className='lead-table__row'>
-              <td>{lead.full_name}</td>
-              <td>{lead.description}</td>
-              <td style={{ wordBreak: 'break-all' }}>{lead.url}</td>
-              <td className='lead-table__to-chat-cell'>
-                <Link
-                  className='lead-table__to-chat'
-                  to={`/leads/${lead.id}/chat`}
-                >
-                  <ArrowRight />
-                </Link>
-              </td>
-            </tr>
+            <React.Fragment key={lead.id}>
+              <span className='lead-table__cell'>{lead.full_name}</span>
+              <span className='lead-table__cell'>{lead.description}</span>
+              <a
+                className='lead-table__cell lead-table__cell-url'
+                style={{ wordBreak: 'break-all' }}
+                href={lead.url}
+              >
+                {lead.url}
+              </a>
+              {hideToChat ? (
+                ''
+              ) : (
+                <span className='lead-table__cell lead-table__to-chat-cell'>
+                  <Link
+                    className='lead-table__to-chat'
+                    to={`/leads/${lead.id}/chat`}
+                  >
+                    <ArrowRight className='lead-table__to-chat-icon' />
+                  </Link>
+                </span>
+              )}
+            </React.Fragment>
           )
         })}
-      </table>
+      </div>
       {isLoading ? (
         <div className='lead-table__loader'>
           <Loader />

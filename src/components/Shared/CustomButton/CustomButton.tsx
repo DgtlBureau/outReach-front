@@ -7,7 +7,7 @@ interface ICustomButtonProps {
   children: React.ReactNode
   className?: string
   type?: 'button' | 'submit' | 'reset'
-  variant?: 'text' | 'outlined' | 'contained'
+  style?: 'text' | 'outlined' | 'empty'
   onClick?: () => void
 }
 
@@ -15,22 +15,22 @@ const CustomButton = ({
   type = 'button',
   children,
   className,
-  variant = 'contained',
+  style,
   onClick,
 }: ICustomButtonProps) => {
   return (
-    <Button
+    <button
       onClick={onClick}
       type={type}
-      variant={variant}
       className={cn(
         'custom-button',
-        variant === 'outlined' ? 'custom-button__outlined' : '',
+        style === 'outlined' ? 'custom-button--outlined' : '',
+        style === 'empty' ? 'custom-button--empty' : '',
         className
       )}
     >
       {children}
-    </Button>
+    </button>
   )
 }
 

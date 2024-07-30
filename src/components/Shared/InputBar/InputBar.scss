@@ -1,0 +1,22 @@
+.input-bar {
+  position: relative;
+  .input-bar__input {
+    border: none;
+    border-radius: 8px;
+    background-color: var(--background-color);
+    font-family: 'SF Pro Text';
+    font-weight: 400;
+    font-size: 16px;
+    color: var(--color-text);
+    padding: 8px 8px 8px 36px;
+    outline: none;
+  }
+  .input-bar__icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+  }
+}

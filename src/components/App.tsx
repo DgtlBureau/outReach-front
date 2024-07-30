@@ -1,5 +1,5 @@
 import { MaterialDesignContent, SnackbarProvider } from 'notistack'
-import { Route, Routes, useLocation } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import ProductPage from './ProductPage/ProductPage'
 import Navigation from './Navigation/Navigation'
 import LeadsPage from './LeadsPage/LeadsPage'
@@ -11,6 +11,7 @@ import { styled } from '@mui/material'
 import cn from 'classnames'
 
 import './App.scss'
+import Header from './Header/Header'
 
 const StyledMaterialDesignContent = styled(MaterialDesignContent)(() => ({
   '&.notistack-MuiContent-root': {
@@ -31,8 +32,12 @@ const StyledMaterialDesignContent = styled(MaterialDesignContent)(() => ({
 }))
 
 const variants = {
-  open: { width: '135px', backgroundColor: 'var(--main-color)' },
-  closed: { width: '60px', backgroundColor: 'transparent' },
+  open: {
+    width: '265px',
+    backgroundColor: 'var(--main-color)',
+    padding: '0 8px',
+  },
+  closed: { width: '60px', backgroundColor: 'var(--main-color)', padding: 0 },
 }
 
 function App() {
@@ -61,34 +66,35 @@ function App() {
 
   return (
     <div className='app'>
-      <motion.div
-        variants={variants}
-        animate={isNavigationExpanded ? 'open' : 'closed'}
-        className={cn(
-          'app__navigation-wrapper',
-          isNavigationExpanded && 'app__navigation-wrapper--expanded'
-        )}
-      >
-        <Navigation
-          isExpand={isNavigationExpanded}
-          toggleExpand={toggleIsNavigationExpanded}
+      <Header />
+      <div className='app__content'>
+        <motion.div
+          variants={variants}
+          transition={{ duration: 0.25, ease: 'easeInOut' }}
+          animate={isNavigationExpanded ? 'open' : 'closed'}
+          className={'app__navigation-wrapper'}
+        >
+          <Navigation
+            isExpand={isNavigationExpanded}
+            toggleExpand={toggleIsNavigationExpanded}
+          />
+        </motion.div>
+        <div className='app__routes-container'>
+          <Routes>
+            <Route path='/' element={<HomePage />} />
+            <Route path='/product' element={<ProductPage />} />
+            <Route path='/leads' element={<LeadsPage />} />
+            <Route path='/leads/:id/chat' element={<ChatPage />} />
+          </Routes>
+        </div>
+        <SnackbarProvider
+          Components={{
+            success: StyledMaterialDesignContent,
+            error: StyledMaterialDesignContent,
+          }}
+          anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
         />
-      </motion.div>
-      <div className='app__routes-container'>
-        <Routes>
-          <Route path='/' element={<HomePage />} />
-          <Route path='/product' element={<ProductPage />} />
-          <Route path='/leads' element={<LeadsPage />} />
-          <Route path='/leads/:id/chat' element={<ChatPage />} />
-        </Routes>
       </div>
-      <SnackbarProvider
-        Components={{
-          success: StyledMaterialDesignContent,
-          error: StyledMaterialDesignContent,
-        }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-      />
     </div>
   )
 }
