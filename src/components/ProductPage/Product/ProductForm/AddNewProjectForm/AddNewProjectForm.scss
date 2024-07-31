@@ -1,4 +1,5 @@
 .add-new-project-form {
+  background-color: var(--background-color-3);
   .add-new-project-form__title {
     display: block;
     font-family: 'SF Pro Text';
@@ -9,7 +10,7 @@
     border-bottom: 1px solid var(--border-color);
   }
   .add-new-project-form__content {
-    margin: 16px;
+    padding: 16px;
     .add-new-project-form__controls {
       margin-top: 12px;
       display: flex;

@@ -32,7 +32,9 @@
       padding: 8px 4px;
       height: 100%;
       box-sizing: border-box;
+      color: var(--text-color);
       border-bottom: 1px solid var(--border-color-secondary);
+      background-color: var(--background-color-3);
       letter-spacing: 0.2px;
       line-height: 18px;
       &.lead-table__cell-url {

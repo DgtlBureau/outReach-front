@@ -1,4 +1,5 @@
 .lead-form {
+  background-color: var(--background-color-3);
   .lead-form__title {
     display: block;
     font-family: 'SF Pro Text';
@@ -9,7 +10,8 @@
     border-bottom: 1px solid var(--border-color);
   }
   .lead-form__content {
-    margin: 12px auto;
+    margin: 0 auto;
+    padding: 12px 0;
     display: flex;
     flex-direction: column;
     max-width: 768px;
