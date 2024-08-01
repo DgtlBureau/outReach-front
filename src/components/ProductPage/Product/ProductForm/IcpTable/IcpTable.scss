@@ -11,7 +11,6 @@
     font-size: 14px;
     font-weight: 500;
     width: 100%;
-    overflow: hidden;
     .icp-table__cell-head {
       background-color: var(--background-color);
       color: var(--text-color-secondary);
@@ -21,6 +20,8 @@
       border-bottom: 1px solid var(--border-color-secondary);
       letter-spacing: 0.2px;
       line-height: 18px;
+      position: sticky;
+      top: 0;
     }
     .icp-table__cell {
       padding: 8px 4px;

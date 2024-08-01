@@ -6,6 +6,7 @@
   .app__navigation-wrapper {
     flex-shrink: 0;
     background-color: var(--main-color);
+    position: relative;
   }
   .app__routes-container {
     flex-grow: 0;

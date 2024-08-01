@@ -29,7 +29,7 @@ const ProductForm = () => {
     setProjectFile(event.target.files[0])
   }
 
-  const { isLoading, data } = useFetch(
+  const { isLoading, data, refetch } = useFetch(
     'projects',
     'Failed to load products. Please, try again later'
   )
@@ -44,10 +44,6 @@ const ProductForm = () => {
 
   const onDialogClose = () => {
     setIsDialogOpen(false)
-  }
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false)
   }
 
   const handleSendProject = async () => {
@@ -76,6 +72,8 @@ const ProductForm = () => {
       enqueueSnackbar('Projects were successfully formed!', {
         variant: 'success',
       })
+      onDialogClose()
+      refetch()
     } catch (error) {
       enqueueSnackbar(String(error), { variant: 'error' })
     }
@@ -99,26 +97,6 @@ const ProductForm = () => {
               <PlusIcon className='product-form__add-lead-dropdown-icon' />
               Add new
             </button>
-            {/* <Dropdown
-              isOpen={isModalOpen}
-              onClose={handleCloseModal}
-              activator={
-                <button
-                  type='button'
-                  onClick={() => setIsModalOpen(!isModalOpen)}
-                  className='product-form__add-lead-dropdown-button'
-                >
-                  <PlusIcon className='product-form__add-lead-dropdown-icon' />
-                  Add new
-                </button>
-              }
-            >
-              <AddNewProjectForm
-                value={projectFile}
-                onSubmit={handleSendProject}
-                handleChangeFile={handleChangeFile}
-              />
-            </Dropdown> */}
           </div>
         </div>
         <IcpTable

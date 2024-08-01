@@ -5,6 +5,7 @@ import instance from './api'
 interface IUseFetch {
   data: any
   isLoading: boolean
+  refetch: () => void
 }
 
 export const useFetch = (url: string, errorMessage: string): IUseFetch => {
@@ -23,9 +24,13 @@ export const useFetch = (url: string, errorMessage: string): IUseFetch => {
     }
   }
 
+  const refetch = () => {
+    loadProducts()
+  }
+
   useEffect(() => {
     loadProducts()
   }, [])
 
-  return { data, isLoading }
+  return { data, isLoading, refetch }
 }

@@ -12,7 +12,6 @@
     border-radius: 8px;
     font-family: 'Inter';
     transition: 0.5s border;
-    overflow: hidden;
     font-family: 'Manrope';
     font-size: 14px;
     font-weight: 500;
@@ -26,6 +25,8 @@
       border-bottom: 1px solid var(--border-color-secondary);
       letter-spacing: 0.2px;
       line-height: 18px;
+      position: sticky;
+      top: 0;
     }
 
     .lead-table__cell {
