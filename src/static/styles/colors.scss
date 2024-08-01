@@ -14,8 +14,10 @@ $dark-black: #0d0d0d;
 $dark-purple: #2a2831;
 $light-black: #171719;
 $light-grey-2: #d8dfee;
+$light-grey-3: #b8c1cc;
 $light-purple: #6c47ff;
 $light-purple-2: #413c53;
+$light-purple-3: #3c384c;
 
 $light-grey-low: rgba(105, 111, 122, 0.12);
 $light-grey-low-2: rgba(184, 193, 204, 0.7);
@@ -42,6 +44,7 @@ $white-low: rgba(#fff, 0.5);
   --text-color-black: #{$main-black};
   --border-color: #{$pale-grey};
   --border-color-secondary: #{$light-grey-low};
+  --border-color-3: #{$light-grey-3};
   --shadow-color: #{$low-white};
   --shadow-color-secondary: #{$low-black};
 }
@@ -61,6 +64,7 @@ $white-low: rgba(#fff, 0.5);
   --text-color-black: #{$main-black};
   --border-color: #{$dark-purple};
   --border-color-secondary: #{$light-grey-low};
+  --border-color-3: #{$light-purple-3};
   --shadow-color: #{$low-black};
   --shadow-color-secondary: #{$low-white};
 }

@@ -1,6 +1,7 @@
 @import '../../static/styles/colors.scss';
 
 .navigation {
+  position: fixed;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -9,7 +10,7 @@
   padding: 12px 0;
   max-height: calc(100vh - 58px);
   height: 100%;
-  // background-color: var(--main-color);
+  max-width: 265px;
   .navigation__separator {
     height: 1px;
     margin: 8px 0;

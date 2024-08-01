@@ -25,7 +25,7 @@ const LeadsPage = () => {
   const [leadUrl, setLeadUrl] = useState('')
   const [isResponseLoading, setIsResponseLoading] = useState(false)
 
-  const { isLoading, data } = useFetch(
+  const { isLoading, data, refetch } = useFetch(
     'lead',
     'Failed to load leads. Please, try again later'
   )
@@ -75,6 +75,7 @@ const LeadsPage = () => {
     try {
       await instance.post('/lead', formData)
       enqueueSnackbar('Lead was succesfully formed!', { variant: 'success' })
+      refetch()
       onDialogClose()
     } catch (error) {
       enqueueSnackbar(String(error), { variant: 'error' })
