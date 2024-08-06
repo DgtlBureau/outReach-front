@@ -1,60 +1,43 @@
+import { ILead } from '../../../LeadsPage/LeadForm/LeadTable/LeadTable'
+import { ReactComponent as Avatar } from './images/avatar.svg'
 import MessageList from './MessageList/MessageList'
-
-import './ChatBox.scss'
-import { enqueueSnackbar } from 'notistack'
-import instance from '../../../../utils/api'
-import { useParams } from 'react-router-dom'
-import { useEffect, useState } from 'react'
 import Loader from '../../../Shared/Loader/Loader'
 
-// { text: 'Hello! I hope you are having a great day.', isRecieved: true }
+import './ChatBox.scss'
+import { Drawer } from '@mui/material'
+import { useState } from 'react'
+import LeadInfo from '../../../LeadsPage/LeadForm/LeadTable/LeadInfo/LeadInfo'
 
-const ChatBox = () => {
-  const [chat, setChat] = useState<any>([])
-  const [isLoading, setIsLoading] = useState(false)
-  const { id } = useParams()
+interface IChatBoxProps {
+  lead: ILead
+  chat: any
+  handleClickButton: () => void
+  isLoading: boolean
+}
 
-  const loadChat = async () => {
-    try {
-      const { data } = await instance.get(`/chat/${id}`)
-      setChat(data)
-    } catch (error) {
-      enqueueSnackbar('Failed to load chat. Please, try again later', {
-        variant: 'error',
-      })
-    }
-  }
-
-  const getMessage = async () => {
-    setIsLoading(true)
-    try {
-      const { data } = await instance.get(`/message/${id}`)
-      setChat([
-        ...chat,
-        {
-          message_text: data.gpt_answer,
-          reply_message: false,
-          sent_date: new Date(),
-        },
-      ])
-    } catch (error) {
-      enqueueSnackbar('Failed to get message. Please, try again later', {
-        variant: 'error',
-      })
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  useEffect(() => {
-    loadChat()
-  }, [])
+const ChatBox = ({
+  lead,
+  chat,
+  handleClickButton,
+  isLoading,
+}: IChatBoxProps) => {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
   return (
     <div className='chat-box'>
+      <div className='chat-box__header'>
+        <Avatar />
+        <button
+          onClick={() => setIsDrawerOpen(true)}
+          type='button'
+          className='chat-box__name'
+        >
+          {lead.full_name}
+        </button>
+      </div>
       {chat.length === 0 ? (
         <span className='chat-box__placeholder'>
-          Chat is empty, create a message by clicking button below
+          Please click button Get Message to get promt
         </span>
       ) : (
         ''
@@ -67,19 +50,36 @@ const ChatBox = () => {
           type='text'
         /> */}
         <button
-          onClick={getMessage}
+          onClick={handleClickButton}
           type='button'
           className='chat-box__submit-button'
         >
           {isLoading ? (
             <div className='chat-box__submit-loader'>
-              <Loader color='var(--secondary-color)' />
+              <Loader size={12} color='var(--main-color)' />
             </div>
           ) : (
             'Get message'
           )}
         </button>
       </div>
+
+      <Drawer
+        anchor='right'
+        open={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        PaperProps={{
+          sx: {
+            width: '50% !important',
+            backgroundColor: 'var(--main-color)',
+          },
+        }}
+      >
+        <LeadInfo
+          lead={lead as ILead}
+          onCloseClick={() => setIsDrawerOpen(false)}
+        />
+      </Drawer>
     </div>
   )
 }

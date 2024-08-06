@@ -3,17 +3,34 @@
   flex-direction: column;
 
   border: 1px solid var(--border-color-secondary);
-  border-radius: 6px;
+  border-radius: 20px;
   overflow: hidden;
   height: calc(100vh - 172px);
-  padding: 0 80px 20px;
-  margin: 0 12px;
+  .chat-box__header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 4px 20px;
+    background-color: var(--background-color-5);
+    border-bottom: 1px solid var(--border-color-4);
+    .chat-box__name {
+      font-family: 'SF Pro Text';
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 20px;
+      text-decoration: underline;
+      cursor: pointer;
+
+      color: var(--secondary-color);
+    }
+  }
   .chat-box__placeholder {
     margin-top: 12px;
     font-family: 'Inter';
     font-weight: 300;
     font-size: 14px;
     text-align: center;
+    color: var(--text-color);
   }
   .chat-box__input-box {
     display: flex;
@@ -39,13 +56,11 @@
       font-weight: 600;
       background-color: var(--secondary-color);
       color: var(--text-color-white);
-      padding: 6px;
       border-radius: 8px;
+      margin: 20px;
 
-      height: 44px;
       width: 100%;
 
-      margin: 0 auto;
       cursor: pointer;
       padding: 12px 18px;
       .chat-box__submit-loader {

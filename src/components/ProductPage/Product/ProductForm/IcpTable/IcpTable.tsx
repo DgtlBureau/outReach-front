@@ -1,6 +1,7 @@
 import React from 'react'
 import Loader from '../../../../Shared/Loader/Loader'
 import './IcpTable.scss'
+import { Checkbox } from '@mui/material'
 
 export interface IProduct {
   business_model: string
@@ -29,12 +30,43 @@ export interface IProduct {
 interface IIcpTableProps {
   products: IProduct[]
   isLoading?: boolean
+  checkedItems?: number[]
+  handleCheckHead?: () => void
+  handleCheckCell?: (id: number) => void
 }
 
-const IcpTable = ({ products, isLoading }: IIcpTableProps) => {
+const IcpTable = ({
+  products,
+  isLoading,
+  checkedItems,
+  handleCheckHead,
+  handleCheckCell,
+}: IIcpTableProps) => {
   return (
     <div className='icp-table__wrapper'>
-      <div className='icp-table'>
+      <div
+        style={
+          !handleCheckHead || !handleCheckCell
+            ? { gridTemplateColumns: 'repeat(10, 1fr)' }
+            : {}
+        }
+        className='icp-table'
+      >
+        {handleCheckHead ? (
+          <div className='icp-table__cell-head icp-table__cell-head--checkbox'>
+            <Checkbox
+              sx={{
+                '&.Mui-checked': {
+                  color: '#6c47ff',
+                },
+              }}
+              onChange={handleCheckHead}
+              checked={products?.length === checkedItems?.length}
+            />
+          </div>
+        ) : (
+          ''
+        )}
         <span className='icp-table__cell-head'>Name</span>
         <span className='icp-table__cell-head'>Industry</span>
         <span className='icp-table__cell-head'>Company size</span>
@@ -48,6 +80,21 @@ const IcpTable = ({ products, isLoading }: IIcpTableProps) => {
         {products?.map((product) => {
           return (
             <React.Fragment key={product.id}>
+              {handleCheckCell ? (
+                <div className='icp-table__cell icp-table__cell--checkbox'>
+                  <Checkbox
+                    sx={{
+                      '&.Mui-checked': {
+                        color: '#6c47ff',
+                      },
+                    }}
+                    onChange={() => handleCheckCell(product.id)}
+                    checked={checkedItems?.includes(product.id)}
+                  />
+                </div>
+              ) : (
+                ''
+              )}
               <span className='icp-table__cell'>{product?.name}</span>
               <span className='icp-table__cell'>{product?.industry}</span>
               <span className='icp-table__cell'>{product?.company_size}</span>
