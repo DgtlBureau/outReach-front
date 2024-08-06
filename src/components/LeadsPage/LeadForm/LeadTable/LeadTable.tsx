@@ -1,9 +1,12 @@
-import { Link } from 'react-router-dom'
-import Loader from '../../../Shared/Loader/Loader'
 import { ReactComponent as ArrowRight } from './images/chevron-right.svg'
-import React from 'react'
+import Loader from '../../../Shared/Loader/Loader'
+import { Checkbox, Drawer } from '@mui/material'
+import { Link } from 'react-router-dom'
+import cn from 'classnames'
+import React, { useState } from 'react'
 
 import './LeadTable.scss'
+import LeadInfo from './LeadInfo/LeadInfo'
 
 export interface ILead {
   id: number
@@ -11,24 +14,52 @@ export interface ILead {
   description: string
   full_name: string
   url: string
+  work_history?: any
+  publication?: any
 }
 
 interface ILeadTableProps {
   leads: ILead[]
   isLoading?: boolean
   hideToChat?: boolean
+  checkedItems?: number[]
+  handleCheckHead?: () => void
+  handleCheckCell?: (id: number) => void
 }
 
-const LeadTable = ({ leads, isLoading, hideToChat }: ILeadTableProps) => {
+const LeadTable = ({
+  leads,
+  isLoading,
+  hideToChat,
+  checkedItems,
+  handleCheckHead,
+  handleCheckCell,
+}: ILeadTableProps) => {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+  const [currentLead, setCurrentLead] = useState<ILead | null>(null)
+
   return (
     <div className='lead-table__wrapper'>
       <div
         style={hideToChat ? { gridTemplateColumns: '160px 1fr 200px' } : {}}
-        className='lead-table'
+        className={cn(
+          'lead-table',
+          !handleCheckHead || !handleCheckCell ? 'lead-table--no-checkbox' : ''
+        )}
       >
+        <div className='lead-table__cell-head lead-table__cell-head--checkbox'>
+          <Checkbox
+            sx={{
+              '&.Mui-checked': {
+                color: '#6c47ff',
+              },
+            }}
+            onChange={handleCheckHead}
+            checked={leads?.length === checkedItems?.length}
+          />
+        </div>
         <span className='lead-table__cell-head'>Full name</span>
         <span className='lead-table__cell-head'>Description</span>
-        <span className='lead-table__cell-head'>URL</span>
         {hideToChat ? (
           ''
         ) : (
@@ -37,15 +68,31 @@ const LeadTable = ({ leads, isLoading, hideToChat }: ILeadTableProps) => {
         {leads?.map((lead) => {
           return (
             <React.Fragment key={lead.id}>
-              <span className='lead-table__cell'>{lead.full_name}</span>
-              <span className='lead-table__cell'>{lead.description}</span>
-              <a
-                className='lead-table__cell lead-table__cell-url'
-                style={{ wordBreak: 'break-all' }}
-                href={lead.url}
+              {handleCheckCell ? (
+                <div className='lead-table__cell lead-table__cell--checkbox'>
+                  <Checkbox
+                    sx={{
+                      '&.Mui-checked': {
+                        color: '#6c47ff',
+                      },
+                    }}
+                    onChange={() => handleCheckCell(lead.id)}
+                    checked={checkedItems?.includes(lead.id)}
+                  />
+                </div>
+              ) : (
+                ''
+              )}
+              <button
+                onClick={() => {
+                  setIsDrawerOpen(true)
+                  setCurrentLead(lead)
+                }}
+                className='lead-table__cell lead-table__cell-button'
               >
-                {lead.url}
-              </a>
+                {lead.full_name}
+              </button>
+              <span className='lead-table__cell'>{lead.description}</span>
               {hideToChat ? (
                 ''
               ) : (
@@ -67,6 +114,23 @@ const LeadTable = ({ leads, isLoading, hideToChat }: ILeadTableProps) => {
           <Loader />
         </div>
       ) : null}
+
+      <Drawer
+        anchor='right'
+        open={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        PaperProps={{
+          sx: {
+            width: '50% !important',
+            backgroundColor: 'var(--main-color)',
+          },
+        }}
+      >
+        <LeadInfo
+          lead={currentLead as ILead}
+          onCloseClick={() => setIsDrawerOpen(false)}
+        />
+      </Drawer>
     </div>
   )
 }

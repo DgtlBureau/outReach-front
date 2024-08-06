@@ -2,28 +2,28 @@ import MessageList from '../ChatPage/ChatForm/ChatBox/MessageList/MessageList'
 import { ReactComponent as MessagesIcon } from './images/messages-icon.svg'
 import { ReactComponent as PlusIcon } from './images/plus-icon.svg'
 import LeadTable, { ILead } from './LeadForm/LeadTable/LeadTable'
-import Dropdown from '../Shared/Dropdown/Dropdown'
+import LeadPreview from './LeadForm/LeadPreview/LeadPreview'
 import InputBar from '../Shared/InputBar/InputBar'
 import { useFetch } from '../../utils/loadData'
+import Loader from '../Shared/Loader/Loader'
+import { enqueueSnackbar } from 'notistack'
 import LeadForm from './LeadForm/LeadForm'
+import { Dialog } from '@mui/material'
 import { motion } from 'framer-motion'
+import instance from '../../utils/api'
 import { useState } from 'react'
 
 import './LeadsPage.scss'
-import { Dialog } from '@mui/material'
-import Loader from '../Shared/Loader/Loader'
-import LeadPreview from './LeadForm/LeadPreview/LeadPreview'
-import instance from '../../utils/api'
-import { enqueueSnackbar } from 'notistack'
 
 const LeadsPage = () => {
   const [isLogsShown, setIsLogsShown] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [gptAnswer, setGptAnswer] = useState<any>(null)
-  const [files, setFiles] = useState<any>([])
+  const [files, setFiles] = useState<File[]>([])
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [leadUrl, setLeadUrl] = useState('')
   const [isResponseLoading, setIsResponseLoading] = useState(false)
+  const [selectedItems, setSelectedItems] = useState<number[]>([])
 
   const { isLoading, data, refetch } = useFetch(
     'lead',
@@ -82,6 +82,26 @@ const LeadsPage = () => {
     }
   }
 
+  const handleCheckAll = () => {
+    if (selectedItems.length === data.length) {
+      setSelectedItems([])
+    } else {
+      setSelectedItems(
+        data.map((item: ILead) => {
+          return item.id
+        })
+      )
+    }
+  }
+
+  const handleCheckCell = (id: number) => {
+    if (selectedItems.includes(id)) {
+      setSelectedItems(selectedItems.filter((item: number) => item !== id))
+    } else {
+      setSelectedItems([...selectedItems, id])
+    }
+  }
+
   return (
     <main className='leads-page'>
       <div className='leads-page__table-wrapper'>
@@ -105,6 +125,9 @@ const LeadsPage = () => {
         <div className='lead-page__table'>
           <LeadTable
             isLoading={isLoading}
+            handleCheckHead={handleCheckAll}
+            handleCheckCell={handleCheckCell}
+            checkedItems={selectedItems}
             leads={
               searchQuery
                 ? data.filter((lead: ILead) => {

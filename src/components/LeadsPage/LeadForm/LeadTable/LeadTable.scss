@@ -6,7 +6,7 @@
   .lead-table {
     display: grid;
     align-items: center;
-    grid-template-columns: 160px 1fr 200px 80px;
+    grid-template-columns: 60px 160px 1fr 80px;
     width: 100%;
     border: 1px solid var(--border-color-secondary);
     border-radius: 8px;
@@ -15,6 +15,9 @@
     font-family: 'Manrope';
     font-size: 14px;
     font-weight: 500;
+    &.lead-table--no-checkbox {
+      grid-template-columns: 160px 1fr 80px;
+    }
 
     .lead-table__cell-head {
       background-color: var(--background-color);
@@ -38,6 +41,16 @@
       background-color: var(--background-color-3);
       letter-spacing: 0.2px;
       line-height: 18px;
+      &.lead-table__cell-button {
+        font-family: 'SF Pro Text';
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 18px;
+        text-decoration: underline;
+        color: var(--secondary-color);
+        text-align: left;
+        cursor: pointer;
+      }
       &.lead-table__cell-url {
         text-decoration: none;
         color: var(--text-color-3);

@@ -17,13 +17,13 @@ import { useState } from 'react'
 import './ProductForm.scss'
 
 const ProductForm = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false)
   const [gptAnswer, setGptAnswer] = useState<any>('')
   const [isSubmitLoading, setIsSubmitLoading] = useState(false)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [projectFile, setProjectFile] = useState<any>(null)
   const [isLogsShown, setIsLogsShown] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
+  const [selectedItems, setSelectedItems] = useState<any>([])
 
   const handleChangeFile = (event: any) => {
     setProjectFile(event.target.files[0])
@@ -44,6 +44,22 @@ const ProductForm = () => {
 
   const onDialogClose = () => {
     setIsDialogOpen(false)
+  }
+
+  const handleCheckAll = () => {
+    if (selectedItems.length === data.length) {
+      setSelectedItems([])
+    } else {
+      setSelectedItems(data.map((item: IProduct) => item.id))
+    }
+  }
+
+  const handleCheckCell = (id: number) => {
+    if (selectedItems.includes(id)) {
+      setSelectedItems(selectedItems.filter((item: number) => item !== id))
+    } else {
+      setSelectedItems([...selectedItems, id])
+    }
   }
 
   const handleSendProject = async () => {
@@ -101,6 +117,9 @@ const ProductForm = () => {
         </div>
         <IcpTable
           isLoading={isLoading}
+          handleCheckHead={handleCheckAll}
+          handleCheckCell={handleCheckCell}
+          checkedItems={selectedItems}
           products={
             searchQuery
               ? data.filter((project: IProduct) => {

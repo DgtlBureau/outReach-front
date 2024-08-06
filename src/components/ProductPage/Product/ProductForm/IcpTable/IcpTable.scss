@@ -4,7 +4,7 @@
   .icp-table {
     display: grid;
     align-items: center;
-    grid-template-columns: repeat(10, 1fr);
+    grid-template-columns: 60px repeat(10, 1fr);
     border: 1px solid var(--border-color-secondary);
     border-radius: 8px;
     font-family: 'Manrope';
