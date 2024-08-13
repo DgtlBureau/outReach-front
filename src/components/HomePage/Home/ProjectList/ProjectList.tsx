@@ -9,10 +9,8 @@ const ProjectList = ({ projects }: { projects: IProduct[] }) => {
       {projects.map((project: IProduct) => (
         <ProjectItem
           key={project.id}
-          label={project.name}
-          model={project.business_model}
-          industry={project.industry}
-          usage={project.product_usage}
+          label={project.client_name}
+          description={project.project_description}
         />
       ))}
       {projects.length === 0 ? (

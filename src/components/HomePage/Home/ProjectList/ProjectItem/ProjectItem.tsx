@@ -8,22 +8,19 @@ interface IProjectItemProps {
   model?: string
   industry?: string
   usage?: string
+  description?: string
 }
 
 const ProjectItem = ({
   label,
-  model,
-  industry,
-  usage,
+  description,
   onCloseClick,
 }: IProjectItemProps) => {
   return (
     <li className='project-item'>
       <span className='project-item__title'>{label}</span>
       <div className='project-item__description'>
-        <p className='project-item__model'>{model}</p>
-        <p className='project-item__model'>{industry}</p>
-        <p className='project-item__model'>{usage}</p>
+        <p className='project-item__model'>{description}</p>
       </div>
       <button
         onClick={onCloseClick}
