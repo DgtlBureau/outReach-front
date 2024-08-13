@@ -70,11 +70,16 @@ const ProductForm = () => {
     setIsSubmitLoading(true)
     try {
       const { data } = await instance.post('/projects/check-answer', formData)
+      console.log('DATA', data);
+      // console.log('DATAAnswer');
+      
       setGptAnswer(data.gpt_answer)
     } catch (error) {
       enqueueSnackbar(String(error), { variant: 'error' })
     } finally {
       setIsSubmitLoading(false)
+      console.log('ANSAWER', gptAnswer);
+      
     }
   }
 
