@@ -3,6 +3,7 @@ import { ReactComponent as MessagesIcon } from './images/messages-icon.svg'
 import AddNewProjectForm from './AddNewProjectForm/AddNewProjectForm'
 import CustomButton from '../../../Shared/CustomButton/CustomButton'
 import { ReactComponent as PlusIcon } from './images/plus-icon.svg'
+import { ReactComponent as DeleteIcon } from './images/delete-icon.svg'
 import Dropdown from '../../../Shared/Dropdown/Dropdown'
 import InputBar from '../../../Shared/InputBar/InputBar'
 import { useFetch } from '../../../../utils/loadData'
@@ -23,7 +24,7 @@ const ProductForm = () => {
   const [projectFile, setProjectFile] = useState<any>(null)
   const [isLogsShown, setIsLogsShown] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
-  const [selectedItems, setSelectedItems] = useState<any>([])
+  const [selectedItems, setSelectedItems] = useState<number[]>([])
 
   const handleChangeFile = (event: any) => {
     setProjectFile(event.target.files[0])
@@ -95,12 +96,36 @@ const ProductForm = () => {
     }
   }
 
+  const handleRemoveProject = async () => {
+    if (selectedItems.length === 0) {
+      return
+    }
+    for (const id of selectedItems) {
+      try {
+        const res = await instance.delete(`/projects/${id}`)
+        if (res.data.message !== 'Success') {
+          enqueueSnackbar(`Project with id ${id} is ${res.data.message}`, { variant: 'error' })
+          throw new Error(res.data.message)
+        }
+        enqueueSnackbar(`Project with id ${id} was removed`, { variant: 'success' })
+        refetch()
+        setSelectedItems(prev => prev.filter(item => item !== id))
+      } catch (error) {
+        enqueueSnackbar(String(error), { variant: 'error' })
+      }
+    }
+  }
+
   return (
     <div className='product-form'>
       <div className='product-form__table-wrapper'>
         <div className='product-form__table-title-wrapper'>
           <span className='product-form__table-title'>Projects</span>
           <div className='product-form__table-head-right'>
+            {selectedItems.length !== 0 && <button type='button' className='product-form__delete-button' onClick={handleRemoveProject}>
+              <DeleteIcon />
+              {`Delete ${selectedItems.length !== 0 ? `(${selectedItems.length})` : ''}`}
+            </button>}
             <InputBar
               value={searchQuery}
               onChange={(event) => setSearchQuery(event.target.value)}
@@ -123,36 +148,36 @@ const ProductForm = () => {
           products={
             searchQuery
               ? data.filter((project: IProduct) => {
-                  const lowerCasedQuery = searchQuery.toLowerCase()
-                  return (
-                    project.name.toLowerCase().includes(lowerCasedQuery) ||
-                    project.industry.toLowerCase().includes(lowerCasedQuery) ||
-                    project.location.toLowerCase().includes(lowerCasedQuery) ||
-                    project.product.toLowerCase().includes(lowerCasedQuery) ||
-                    project.technology_stack
-                      .toLowerCase()
-                      .includes(lowerCasedQuery) ||
-                    project.integration_needs
-                      .toLowerCase()
-                      .includes(lowerCasedQuery) ||
-                    project.success_metrics
-                      .toLowerCase()
-                      .includes(lowerCasedQuery) ||
-                    project.long_term_goals
-                      .toLowerCase()
-                      .includes(lowerCasedQuery) ||
-                    project.short_term_goals
-                      .toLowerCase()
-                      .includes(lowerCasedQuery) ||
-                    project.term.toLowerCase().includes(lowerCasedQuery) ||
-                    project.pain_points
-                      .toLowerCase()
-                      .includes(lowerCasedQuery) ||
-                    project.business_model
-                      .toLowerCase()
-                      .includes(lowerCasedQuery)
-                  )
-                })
+                const lowerCasedQuery = searchQuery.toLowerCase()
+                return (
+                  project.name.toLowerCase().includes(lowerCasedQuery) ||
+                  project.industry.toLowerCase().includes(lowerCasedQuery) ||
+                  project.location.toLowerCase().includes(lowerCasedQuery) ||
+                  project.product.toLowerCase().includes(lowerCasedQuery) ||
+                  project.technology_stack
+                    .toLowerCase()
+                    .includes(lowerCasedQuery) ||
+                  project.integration_needs
+                    .toLowerCase()
+                    .includes(lowerCasedQuery) ||
+                  project.success_metrics
+                    .toLowerCase()
+                    .includes(lowerCasedQuery) ||
+                  project.long_term_goals
+                    .toLowerCase()
+                    .includes(lowerCasedQuery) ||
+                  project.short_term_goals
+                    .toLowerCase()
+                    .includes(lowerCasedQuery) ||
+                  project.term.toLowerCase().includes(lowerCasedQuery) ||
+                  project.pain_points
+                    .toLowerCase()
+                    .includes(lowerCasedQuery) ||
+                  project.business_model
+                    .toLowerCase()
+                    .includes(lowerCasedQuery)
+                )
+              })
               : data
           }
         />

@@ -19,6 +19,7 @@ $light-purple: #6c47ff;
 $light-purple-2: #413c53;
 $light-purple-3: #3c384c;
 $low-grey: #25282c;
+$red: #F23E54;
 
 $light-grey-low: rgba(105, 111, 122, 0.12);
 $light-grey-low-2: rgba(184, 193, 204, 0.7);
@@ -39,6 +40,7 @@ $white-low: rgba(#fff, 0.5);
   --background-color-4: #{$light-grey};
   --background-color-5: #{$light-grey-low};
   --background-color-6: #{$light-grey-3};
+  --background-color-red: #{$red};
   --text-color: #{$main-black};
   --text-color-secondary: #{$main-grey};
   --text-color-3: #{$light-purple};

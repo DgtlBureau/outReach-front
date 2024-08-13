@@ -15,6 +15,10 @@ const Home = () => {
     'Failed to load leads. Please, try again later'
   )
 
+  const refetchData = () => {
+    projectsFetch.refetch()
+  }
+
   return (
     <main className='home'>
       <div className='home__wrapper'>
@@ -24,7 +28,7 @@ const Home = () => {
             {projectsFetch.isLoading ? (
               <LoaderList />
             ) : (
-              <ProjectList projects={projectsFetch.data} />
+              <ProjectList projects={projectsFetch.data} refetch={projectsFetch.refetch} />
             )}
           </div>
         </div>

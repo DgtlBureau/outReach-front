@@ -3,14 +3,16 @@ import { ReactComponent as CloseIcon } from './images/close-icon.svg'
 import './ProjectItem.scss'
 
 interface IProjectItemProps {
+  id:number
   label?: string
-  onCloseClick?: () => void
+  onCloseClick: (id:number) => void
   model?: string
   industry?: string
   usage?: string
 }
 
 const ProjectItem = ({
+  id,
   label,
   model,
   industry,
@@ -26,7 +28,7 @@ const ProjectItem = ({
         <p className='project-item__model'>{usage}</p>
       </div>
       <button
-        onClick={onCloseClick}
+        onClick={()=>onCloseClick(id)}
         className='project-item__button project-item__close-button'
       >
         <CloseIcon className='project-item__icon' />
