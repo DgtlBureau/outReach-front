@@ -148,36 +148,17 @@ const ProductForm = () => {
           products={
             searchQuery
               ? data.filter((project: IProduct) => {
-                const lowerCasedQuery = searchQuery.toLowerCase()
-                return (
-                  project.name.toLowerCase().includes(lowerCasedQuery) ||
-                  project.industry.toLowerCase().includes(lowerCasedQuery) ||
-                  project.location.toLowerCase().includes(lowerCasedQuery) ||
-                  project.product.toLowerCase().includes(lowerCasedQuery) ||
-                  project.technology_stack
-                    .toLowerCase()
-                    .includes(lowerCasedQuery) ||
-                  project.integration_needs
-                    .toLowerCase()
-                    .includes(lowerCasedQuery) ||
-                  project.success_metrics
-                    .toLowerCase()
-                    .includes(lowerCasedQuery) ||
-                  project.long_term_goals
-                    .toLowerCase()
-                    .includes(lowerCasedQuery) ||
-                  project.short_term_goals
-                    .toLowerCase()
-                    .includes(lowerCasedQuery) ||
-                  project.term.toLowerCase().includes(lowerCasedQuery) ||
-                  project.pain_points
-                    .toLowerCase()
-                    .includes(lowerCasedQuery) ||
-                  project.business_model
-                    .toLowerCase()
-                    .includes(lowerCasedQuery)
-                )
-              })
+                  const lowerCasedQuery = searchQuery.toLowerCase()
+                  return (
+                    project.client_name.toLowerCase().includes(lowerCasedQuery) ||
+                    project.industry_name.toLowerCase().includes(lowerCasedQuery) ||
+                    project.direction_of_application.toLowerCase().includes(lowerCasedQuery) ||
+                    project.project_description.toLowerCase().includes(lowerCasedQuery) ||
+                    project.scope_of_work
+                      .toLowerCase()
+                      .includes(lowerCasedQuery)
+                  )
+                })
               : data
           }
         />

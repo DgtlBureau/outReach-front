@@ -4,6 +4,7 @@
   background-color: var(--main-color);
   border-radius: 8px;
   height: 96px;
+  overflow: hidden;
   .project-item__title {
     font-family: 'Inter';
     font-size: 18px;
@@ -12,12 +13,20 @@
   }
   .project-item__description {
     margin-top: 8px;
+    height: 100%;
+    overflow: hidden;
   }
   .project-item__model {
     margin-top: 2px;
+    display: -webkit-box;
     font-family: 'Inter';
     font-size: 14px;
     color: var(--text-color);
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    line-clamp: 5;
+    box-orient: vertical;
+    overflow: hidden;
   }
   &:hover {
     .project-item__button {

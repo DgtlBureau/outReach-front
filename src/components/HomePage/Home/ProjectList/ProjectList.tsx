@@ -25,12 +25,8 @@ const ProjectList = ({ projects, refetch }: { projects: IProduct[], refetch: () 
       {projects.map((project: IProduct) => (
         <ProjectItem
           key={project.id}
-          id={project.id}
           label={project.client_name}
-          model={project.business_model}
-          industry={project.industry}
-          usage={project.product_usage}
-          onCloseClick={()=>removeProject(project.id)}
+          description={project.project_description}
         />
       ))}
       {projects.length === 0 ? (
