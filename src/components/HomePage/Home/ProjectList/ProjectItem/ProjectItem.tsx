@@ -5,9 +5,6 @@ import './ProjectItem.scss'
 interface IProjectItemProps {
   label?: string
   onCloseClick?: () => void
-  model?: string
-  industry?: string
-  usage?: string
   description?: string
 }
 
