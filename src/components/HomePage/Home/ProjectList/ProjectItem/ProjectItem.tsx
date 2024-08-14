@@ -5,7 +5,7 @@ import './ProjectItem.scss'
 interface IProjectItemProps {
   id:number
   label?: string
-  onCloseClick?: () => void
+  onCloseClick: (id:number) => void
   description?: string
 }
 

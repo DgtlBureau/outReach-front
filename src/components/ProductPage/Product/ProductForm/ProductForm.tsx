@@ -145,6 +145,7 @@ const ProductForm = () => {
           handleCheckHead={handleCheckAll}
           handleCheckCell={handleCheckCell}
           checkedItems={selectedItems}
+          refetch={()=>refetch()}
           products={
             searchQuery
               ? data.filter((project: IProduct) => {
@@ -188,7 +189,7 @@ const ProductForm = () => {
                   <div className='product-form__added-content'>
                     <IcpTable
                       isLoading={false}
-                      products={gptAnswer && JSON.parse(gptAnswer)}
+                        products={gptAnswer && JSON.parse(gptAnswer)}
                     />
                     <div className='product-form__controls'>
                       <CustomButton

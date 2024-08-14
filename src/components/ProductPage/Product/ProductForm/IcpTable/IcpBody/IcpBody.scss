@@ -1,20 +1,40 @@
-.icp-table__cell {
-      padding: 8px 4px;
-      height: 100%;
-      box-sizing: border-box;
-      border-bottom: 1px solid var(--border-color-secondary);
-      color: var(--text-color);
-      background-color: var(--background-color-3);
-      letter-spacing: 0.2px;
-      line-height: 18px;
+.icp-input {
+  padding: 8px 4px;
+  height: fit-content;
+  display: flex;
+  align-items: start;
+  box-sizing: border-box;
+  color: var(--text-color);
+  background-color: var(--background-color-3);
+  letter-spacing: 0.2px;
+  line-height: 18px;
+  border: none;
+  outline: none;
+  background: none;
+  font: inherit;
+  width: 100%;
+  color: inherit;
+}
 
-      border: none;
-      outline: none;
-      background: none;
-      // padding: 0;
-      // margin: 0;
-      box-shadow: 0;
-      font: inherit;
-      width: 100%;
-      color: inherit;
-    }
+.changeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  .changeBtn-icon{
+    width: 25px;
+    height: 25px;
+    fill: green;
+}
+}
+
+.text-area {
+  padding: 8px 4px;
+  border: none;
+  outline: none;
+  font: inherit;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  resize: none;
+}
+
