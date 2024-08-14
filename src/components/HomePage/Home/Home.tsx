@@ -15,10 +15,6 @@ const Home = () => {
     'Failed to load leads. Please, try again later'
   )
 
-  const refetchData = () => {
-    projectsFetch.refetch()
-  }
-
   return (
     <main className='home'>
       <div className='home__wrapper'>

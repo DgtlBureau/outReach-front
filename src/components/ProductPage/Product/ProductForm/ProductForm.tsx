@@ -122,7 +122,7 @@ const ProductForm = () => {
         <div className='product-form__table-title-wrapper'>
           <span className='product-form__table-title'>Projects</span>
           <div className='product-form__table-head-right'>
-            {selectedItems.length !== 0 && <button type='button' className='product-form__delete-button' onClick={handleRemoveProject}>
+            {selectedItems.length !== 0 && <button type='button' className='product-form__add-lead-dropdown-button product-form__delete-button' onClick={handleRemoveProject}>
               <DeleteIcon />
               {`Delete ${selectedItems.length !== 0 ? `(${selectedItems.length})` : ''}`}
             </button>}
@@ -145,7 +145,7 @@ const ProductForm = () => {
           handleCheckHead={handleCheckAll}
           handleCheckCell={handleCheckCell}
           checkedItems={selectedItems}
-          refetch={()=>refetch()}
+          refetch={refetch}
           products={
             searchQuery
               ? data.filter((project: IProduct) => {

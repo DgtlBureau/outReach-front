@@ -5,12 +5,11 @@ import './ProjectItem.scss'
 interface IProjectItemProps {
   id:number
   label?: string
-  onCloseClick: (id:number) => void
+  onCloseClick: () => void
   description?: string
 }
 
 const ProjectItem = ({
-  id,
   label,
   description,
   onCloseClick,
@@ -22,7 +21,7 @@ const ProjectItem = ({
         <p className='project-item__model'>{description}</p>
       </div>
       <button
-        onClick={()=>onCloseClick(id)}
+        onClick={onCloseClick}
         className='project-item__button project-item__close-button'
       >
         <CloseIcon className='project-item__icon' />

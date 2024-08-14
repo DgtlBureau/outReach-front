@@ -28,7 +28,7 @@ const IcpBody = ({ product, inputBoxClass, onSubmit }: IIcpBody) => {
     }, 100)
   }
 
-  const handleBlur = (id: number) => {
+  const handleBlur = () => {
     setTimeout(() => {
       setProjectFocusId(null)
     }, 100)
@@ -51,14 +51,14 @@ const IcpBody = ({ product, inputBoxClass, onSubmit }: IIcpBody) => {
   return (
     <>
       <div className={inputBoxClass}>
-        <input className='icp-input' name='client_name' value={formData.client_name} onChange={(e) => handleInputChange(e, formData.id)} onFocus={() => isOnFocus(formData.id)} onBlur={() => handleBlur(formData.id)} />
+        <input className='icp-input' name='client_name' value={formData.client_name} onChange={(e) => handleInputChange(e, formData.id)} onFocus={() => isOnFocus(formData.id)} onBlur={() => handleBlur()} />
       </div>
       <div className={inputBoxClass}>
-        <input className='icp-input' name='industry_name' value={formData.industry_name} onChange={(e) => handleInputChange(e, formData.id)} onFocus={() => isOnFocus(formData.id)} onBlur={() => handleBlur(formData.id)} />
+        <input className='icp-input' name='industry_name' value={formData.industry_name} onChange={(e) => handleInputChange(e, formData.id)} onFocus={() => isOnFocus(formData.id)} onBlur={() => handleBlur()} />
       </div>
-      <div className={inputBoxClass}><input name='direction_of_application' value={formData.direction_of_application} className='icp-input' onChange={(e) => handleInputChange(e, formData.id)} onFocus={() => isOnFocus(formData.id)} onBlur={() => handleBlur(formData.id)} /></div>
-      <div className={inputBoxClass}><textarea ref={textareaRef} name='project_description' value={formData.project_description} className='text-area' onChange={(e) => handleInputChange(e, formData.id)} onFocus={() => isOnFocus(formData.id)} onBlur={() => handleBlur(formData.id)} /></div>
-      <div className={inputBoxClass}><textarea ref={textareaScopeRef} name='scope_of_work' value={formData.scope_of_work} className='text-area' onChange={(e) => handleInputChange(e, formData.id)} onFocus={() => isOnFocus(formData.id)} onBlur={() => handleBlur(formData.id)} /></div>
+      <div className={inputBoxClass}><input name='direction_of_application' value={formData.direction_of_application} className='icp-input' onChange={(e) => handleInputChange(e, formData.id)} onFocus={() => isOnFocus(formData.id)} onBlur={() => handleBlur()} /></div>
+      <div className={inputBoxClass}><textarea ref={textareaRef} name='project_description' value={formData.project_description} className='text-area' onChange={(e) => handleInputChange(e, formData.id)} onFocus={() => isOnFocus(formData.id)} onBlur={() => handleBlur()} /></div>
+      <div className={inputBoxClass}><textarea ref={textareaScopeRef} name='scope_of_work' value={formData.scope_of_work} className='text-area' onChange={(e) => handleInputChange(e, formData.id)} onFocus={() => isOnFocus(formData.id)} onBlur={() => handleBlur()} /></div>
       {formData.id === projectFocesId ? (<div className={inputBoxClass}><button type="button" className="changeBtn" onClick={() => onSubmit(formData)}><CloseIcon className='changeBtn-icon' /></button></div>) : (<div className={inputBoxClass}></div>)}
     </>
   )

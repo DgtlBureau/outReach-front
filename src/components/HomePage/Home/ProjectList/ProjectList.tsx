@@ -13,7 +13,7 @@ const ProjectList = ({ projects, refetch }: { projects: IProduct[], refetch: () 
       if (response.data.message!=='Success') {
         throw new Error(response.data.message)
       }
-      enqueueSnackbar('Проект удален', { variant: 'success',})
+      enqueueSnackbar('Project was removed', { variant: 'success',})
       refetch()
     } catch (error) {
       enqueueSnackbar(String(error), { variant: 'error' })
@@ -28,7 +28,7 @@ const ProjectList = ({ projects, refetch }: { projects: IProduct[], refetch: () 
           id={project.id}
           label={project.client_name}
           description={project.project_description}
-          onCloseClick={removeProject}
+          onCloseClick={() => removeProject(project.id)}
         />
       ))}
       {projects.length === 0 ? (

@@ -13,7 +13,7 @@
   background: none;
   font: inherit;
   width: 100%;
-  color: inherit;
+  color: var(--text-color);
 }
 
 .changeBtn {
@@ -21,11 +21,12 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  .changeBtn-icon{
+
+  .changeBtn-icon {
     width: 25px;
     height: 25px;
-    fill: green;
-}
+    fill: var(--secondary-color);
+  }
 }
 
 .text-area {
@@ -33,8 +34,9 @@
   border: none;
   outline: none;
   font: inherit;
+  color: var(--text-color);
   word-wrap: break-word;
   overflow-wrap: break-word;
   resize: none;
+  background: none;
 }
-
