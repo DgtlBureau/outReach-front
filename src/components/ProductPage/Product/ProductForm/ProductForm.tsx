@@ -12,7 +12,7 @@ import instance from '../../../../utils/api'
 import { enqueueSnackbar } from 'notistack'
 import IcpTable, { IProduct } from './IcpTable/IcpTable'
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import './ProductForm.scss'
 
@@ -28,7 +28,7 @@ const ProductForm = () => {
  
 
   const handleChangeFile = (event: any) => {
-    setProjectFile(event.target.files[0])
+    setProjectFile(event.target.files[0])    
   }
 
   const { isLoading, data, refetch } = useFetch(
@@ -72,26 +72,26 @@ const ProductForm = () => {
     setIsSubmitLoading(true)
     try {
       const { data } = await instance.post('/projects/check-answer', formData)
-      console.log('DATA', data);
-      // console.log('DATAAnswer');
+      setGptAnswer(data)
+      console.log('Set GPT Answer:', data);
+      console.log('Parsed', JSON.parse(data.gpt_answer));
       
-      setGptAnswer(data.gpt_answer)
     } catch (error) {
       enqueueSnackbar(String(error), { variant: 'error' })
     } finally {
       setIsSubmitLoading(false)
       console.log('ANSAWER', gptAnswer);
-      
     }
   }
 
   const handleResponseSubmit = async () => {
     const formData = new FormData()
+    // formData.append('gpt_answer', gptAnswer)
     formData.append('gpt_answer', gptAnswer)
     try {
-      await instance.post('/projects', formData, {
+      const response = await instance.post('/projects', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
-      })
+      })      
       enqueueSnackbar('Projects were successfully formed!', {
         variant: 'success',
       })
@@ -101,6 +101,11 @@ const ProductForm = () => {
       enqueueSnackbar(String(error), { variant: 'error' })
     }
   }
+
+  // useEffect(() => {
+  //   console.log('EFFECT', JSON.parse(gptAnswer.gpt_answer).Cases);
+    
+  // },[gptAnswer])
 
   return (
     <div className='product-form'>
@@ -166,11 +171,12 @@ const ProductForm = () => {
                 <>
                   <span className='product-form__added-content-title'>
                     Decide to save or discard response
-                  </span>
+                    </span>
                   <div className='product-form__added-content'>
                     <IcpTable
                       isLoading={false}
-                      products={gptAnswer && JSON.parse(gptAnswer)}
+                      // products={gptAnswer && JSON.parse(gptAnswer)}
+                      products={gptAnswer && JSON.parse(gptAnswer.gpt_answer).Cases}
                     />
                     <div className='product-form__controls'>
                       <CustomButton

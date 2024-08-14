@@ -27,7 +27,10 @@ const IcpTable = ({
   handleCheckHead,
   handleCheckCell,
 }: IIcpTableProps) => {
+  console.log(products);
+  
   return (
+    // <div>1</div>
     <div className='icp-table__wrapper'>
       <div
         style={
