@@ -13,7 +13,7 @@ import instance from '../../../../utils/api'
 import { enqueueSnackbar } from 'notistack'
 import IcpTable, { IProduct } from './IcpTable/IcpTable'
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 import './ProductForm.scss'
 
@@ -87,7 +87,7 @@ const ProductForm = () => {
 
   const handleResponseSubmit = async () => {
     try {
-      await instance.post('/projects', gptAnswer, {})
+      await instance.post('/projects', gptAnswer)
       enqueueSnackbar('Projects were successfully formed!', {
         variant: 'success',
       })
@@ -123,6 +123,39 @@ const ProductForm = () => {
     }
   }
 
+  const handleChangeGptAnswer = ({
+    e,
+    idx,
+  }: {
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    idx: number | null | undefined
+  }) => {
+    setGptAnswer((prevSate) => {
+      if (!prevSate || idx === null || idx === undefined) {
+        return null
+      }
+
+      console.log(idx)
+
+      const updatedCase = [...prevSate.gpt_answer.Cases]
+
+      updatedCase[idx] = {
+        ...updatedCase[idx],
+        [e.target.name]: e.target.value,
+      }
+
+      console.log(prevSate)
+
+      return {
+        ...prevSate,
+        gpt_answer: {
+          ...prevSate.gpt_answer,
+          Cases: updatedCase,
+        },
+      }
+    })
+  }
+
   return (
     <div className='product-form'>
       <div className='product-form__table-wrapper'>
@@ -156,7 +189,9 @@ const ProductForm = () => {
           </div>
         </div>
         <IcpTable
+          changeGptAnswer={handleChangeGptAnswer}
           isLoading={isLoading}
+          isModal={false}
           handleCheckHead={handleCheckAll}
           handleCheckCell={handleCheckCell}
           checkedItems={selectedItems}
@@ -211,6 +246,8 @@ const ProductForm = () => {
                   </span>
                   <div className='product-form__added-content'>
                     <IcpTable
+                      changeGptAnswer={handleChangeGptAnswer}
+                      isModal={true}
                       isLoading={false}
                       products={gptAnswer && gptAnswer.gpt_answer.Cases}
                     />
