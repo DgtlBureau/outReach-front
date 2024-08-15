@@ -24,7 +24,7 @@ const Home = () => {
             {projectsFetch.isLoading ? (
               <LoaderList />
             ) : (
-              <ProjectList projects={projectsFetch.data} />
+              <ProjectList projects={projectsFetch.data} refetch={projectsFetch.refetch} />
             )}
           </div>
         </div>

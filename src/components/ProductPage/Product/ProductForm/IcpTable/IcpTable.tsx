@@ -2,6 +2,9 @@ import React from 'react'
 import Loader from '../../../../Shared/Loader/Loader'
 import './IcpTable.scss'
 import { Checkbox } from '@mui/material'
+import IcpBody from './IcpBody/IcpBody'
+import { enqueueSnackbar } from 'notistack'
+import instance from '../../../../../utils/api'
 
 export interface IProduct {
   id: number
@@ -23,6 +26,7 @@ interface IIcpTableProps {
   checkedItems?: number[]
   handleCheckHead?: () => void
   handleCheckCell?: (id: number) => void
+  refetch?: () => void
 }
 
 const IcpTable = ({
@@ -31,13 +35,32 @@ const IcpTable = ({
   checkedItems,
   handleCheckHead,
   handleCheckCell,
+  refetch,
 }: IIcpTableProps) => {
+  const submitData = async (formData: IProduct) => {
+    try {
+      const response = await instance.put(`/projects/${formData.id}`, formData)
+      if (!response.data) {
+        throw new Error('An error occurred while deleting the project')
+      }
+      enqueueSnackbar(`Project ${formData.client_name} was changed`, {
+        variant: 'success',
+      })
+    } catch (error) {
+      enqueueSnackbar(String(error), { variant: 'error' })
+    } finally {
+      if (refetch) {
+        refetch()
+      }
+    }
+  }
+
   return (
     <div className='icp-table__wrapper'>
       <div
         style={
-          !handleCheckHead || !handleCheckCell
-            ? { gridTemplateColumns: 'repeat(5, 1fr)' }
+          handleCheckHead || handleCheckCell
+            ? { gridTemplateColumns: '60px repeat(5, 1fr) 40px' }
             : {}
         }
         className='icp-table'
@@ -80,22 +103,11 @@ const IcpTable = ({
               ) : (
                 ''
               )}
-              <span className='icp-table__cell'>
-                {product.client_name || product.ClientName}
-              </span>
-              <span className='icp-table__cell'>
-                {product.industry_name || product.IndustryName}
-              </span>
-              <span className='icp-table__cell'>
-                {product.direction_of_application ||
-                  product.DirectionOfApplication}
-              </span>
-              <span className='icp-table__cell'>
-                {product.project_description || product.Project}
-              </span>
-              <span className='icp-table__cell'>
-                {product.scope_of_work || product.ScopeOfWork}
-              </span>
+              <IcpBody
+                product={product}
+                inputBoxClass='icp-table__cell'
+                onSubmit={submitData}
+              />
             </React.Fragment>
           )
         })}

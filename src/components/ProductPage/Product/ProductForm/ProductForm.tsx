@@ -3,6 +3,7 @@ import { ReactComponent as MessagesIcon } from './images/messages-icon.svg'
 import AddNewProjectForm from './AddNewProjectForm/AddNewProjectForm'
 import CustomButton from '../../../Shared/CustomButton/CustomButton'
 import { ReactComponent as PlusIcon } from './images/plus-icon.svg'
+import { ReactComponent as DeleteIcon } from './images/delete-icon.svg'
 import Dropdown from '../../../Shared/Dropdown/Dropdown'
 import InputBar from '../../../Shared/InputBar/InputBar'
 import { useFetch } from '../../../../utils/loadData'
@@ -29,7 +30,7 @@ const ProductForm = () => {
   const [projectFile, setProjectFile] = useState<any>(null)
   const [isLogsShown, setIsLogsShown] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
-  const [selectedItems, setSelectedItems] = useState<any>([])
+  const [selectedItems, setSelectedItems] = useState<number[]>([])
 
   const handleChangeFile = (event: any) => {
     setProjectFile(event.target.files[0])
@@ -98,12 +99,48 @@ const ProductForm = () => {
     }
   }
 
+  const handleRemoveProject = async () => {
+    if (selectedItems.length === 0) {
+      return
+    }
+    for (const id of selectedItems) {
+      try {
+        const res = await instance.delete(`/projects/${id}`)
+        if (res.data.message !== 'Success') {
+          enqueueSnackbar(`Project with id ${id} is ${res.data.message}`, {
+            variant: 'error',
+          })
+          throw new Error(res.data.message)
+        }
+        enqueueSnackbar(`Project with id ${id} was removed`, {
+          variant: 'success',
+        })
+        refetch()
+        setSelectedItems((prev) => prev.filter((item) => item !== id))
+      } catch (error) {
+        enqueueSnackbar(String(error), { variant: 'error' })
+      }
+    }
+  }
+
   return (
     <div className='product-form'>
       <div className='product-form__table-wrapper'>
         <div className='product-form__table-title-wrapper'>
           <span className='product-form__table-title'>Projects</span>
           <div className='product-form__table-head-right'>
+            {selectedItems.length !== 0 && (
+              <button
+                type='button'
+                className='product-form__add-lead-dropdown-button product-form__delete-button'
+                onClick={handleRemoveProject}
+              >
+                <DeleteIcon />
+                {`Delete ${
+                  selectedItems.length !== 0 ? `(${selectedItems.length})` : ''
+                }`}
+              </button>
+            )}
             <InputBar
               value={searchQuery}
               onChange={(event) => setSearchQuery(event.target.value)}
@@ -123,6 +160,7 @@ const ProductForm = () => {
           handleCheckHead={handleCheckAll}
           handleCheckCell={handleCheckCell}
           checkedItems={selectedItems}
+          refetch={refetch}
           products={
             searchQuery
               ? data.filter((project: IProduct) => {
