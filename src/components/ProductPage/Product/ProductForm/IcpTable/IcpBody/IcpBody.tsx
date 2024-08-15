@@ -77,8 +77,8 @@ const IcpBody = ({
           name={!isModal ? 'client_name' : 'ClientName'}
           value={formData.client_name || formData.ClientName}
           onChange={(e) => handleInputChange(e, idx)}
-          // onFocus={() => isOnFocus(formData.id)}
-          // onBlur={() => handleBlur()}
+          onFocus={() => isOnFocus(formData.id)}
+          onBlur={() => handleBlur()}
         />
       </div>
       <div className={inputBoxClass}>
