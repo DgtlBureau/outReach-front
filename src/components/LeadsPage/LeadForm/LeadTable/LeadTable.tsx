@@ -88,6 +88,9 @@ const LeadTable = ({
               )}
               <button
                 onClick={() => {
+                  if (isModal) {
+                    return
+                  }
                   setIsDrawerOpen(true)
                   setCurrentLead(lead)
                 }}
