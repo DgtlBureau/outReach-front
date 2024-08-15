@@ -104,12 +104,16 @@ const ProductForm = () => {
       try {
         const res = await instance.delete(`/projects/${id}`)
         if (res.data.message !== 'Success') {
-          enqueueSnackbar(`Project with id ${id} is ${res.data.message}`, { variant: 'error' })
+          enqueueSnackbar(`Project with id ${id} is ${res.data.message}`, {
+            variant: 'error',
+          })
           throw new Error(res.data.message)
         }
-        enqueueSnackbar(`Project with id ${id} was removed`, { variant: 'success' })
+        enqueueSnackbar(`Project with id ${id} was removed`, {
+          variant: 'success',
+        })
         refetch()
-        setSelectedItems(prev => prev.filter(item => item !== id))
+        setSelectedItems((prev) => prev.filter((item) => item !== id))
       } catch (error) {
         enqueueSnackbar(String(error), { variant: 'error' })
       }
@@ -122,10 +126,18 @@ const ProductForm = () => {
         <div className='product-form__table-title-wrapper'>
           <span className='product-form__table-title'>Projects</span>
           <div className='product-form__table-head-right'>
-            {selectedItems.length !== 0 && <button type='button' className='product-form__add-lead-dropdown-button product-form__delete-button' onClick={handleRemoveProject}>
-              <DeleteIcon />
-              {`Delete ${selectedItems.length !== 0 ? `(${selectedItems.length})` : ''}`}
-            </button>}
+            {selectedItems.length !== 0 && (
+              <button
+                type='button'
+                className='product-form__add-lead-dropdown-button product-form__delete-button'
+                onClick={handleRemoveProject}
+              >
+                <DeleteIcon />
+                {`Delete ${
+                  selectedItems.length !== 0 ? `(${selectedItems.length})` : ''
+                }`}
+              </button>
+            )}
             <InputBar
               value={searchQuery}
               onChange={(event) => setSearchQuery(event.target.value)}
@@ -151,10 +163,18 @@ const ProductForm = () => {
               ? data.filter((project: IProduct) => {
                   const lowerCasedQuery = searchQuery.toLowerCase()
                   return (
-                    project.client_name.toLowerCase().includes(lowerCasedQuery) ||
-                    project.industry_name.toLowerCase().includes(lowerCasedQuery) ||
-                    project.direction_of_application.toLowerCase().includes(lowerCasedQuery) ||
-                    project.project_description.toLowerCase().includes(lowerCasedQuery) ||
+                    project.client_name
+                      .toLowerCase()
+                      .includes(lowerCasedQuery) ||
+                    project.industry_name
+                      .toLowerCase()
+                      .includes(lowerCasedQuery) ||
+                    project.direction_of_application
+                      .toLowerCase()
+                      .includes(lowerCasedQuery) ||
+                    project.project_description
+                      .toLowerCase()
+                      .includes(lowerCasedQuery) ||
                     project.scope_of_work
                       .toLowerCase()
                       .includes(lowerCasedQuery)
@@ -189,7 +209,7 @@ const ProductForm = () => {
                   <div className='product-form__added-content'>
                     <IcpTable
                       isLoading={false}
-                        products={gptAnswer && JSON.parse(gptAnswer)}
+                      products={gptAnswer && JSON.parse(gptAnswer)}
                     />
                     <div className='product-form__controls'>
                       <CustomButton

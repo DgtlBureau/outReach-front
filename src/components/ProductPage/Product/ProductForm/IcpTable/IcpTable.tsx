@@ -21,7 +21,7 @@ interface IIcpTableProps {
   checkedItems?: number[]
   handleCheckHead?: () => void
   handleCheckCell?: (id: number) => void
-  refetch?:()=>void
+  refetch?: () => void
 }
 
 const IcpTable = ({
@@ -32,30 +32,30 @@ const IcpTable = ({
   handleCheckCell,
   refetch,
 }: IIcpTableProps) => {
-
- const submitData = async (formData:IProduct) => {   
+  const submitData = async (formData: IProduct) => {
     try {
-      const response = await instance.put(`/projects/${formData.id}`, formData)      
+      const response = await instance.put(`/projects/${formData.id}`, formData)
       if (!response.data) {
         throw new Error('An error occurred while deleting the project')
       }
-      enqueueSnackbar(`Project ${formData.client_name} was changed`, { variant: 'success' })
+      enqueueSnackbar(`Project ${formData.client_name} was changed`, {
+        variant: 'success',
+      })
     } catch (error) {
       enqueueSnackbar(String(error), { variant: 'error' })
     } finally {
-       if (refetch) {
+      if (refetch) {
         refetch()
       }
     }
   }
-
 
   return (
     <div className='icp-table__wrapper'>
       <div
         style={
           handleCheckHead || handleCheckCell
-            ? {gridTemplateColumns: '60px repeat(5, 1fr) 40px' }
+            ? { gridTemplateColumns: '60px repeat(5, 1fr) 40px' }
             : {}
         }
         className='icp-table'
@@ -80,7 +80,7 @@ const IcpTable = ({
         <span className='icp-table__cell-head'>Direction of application</span>
         <span className='icp-table__cell-head'>Project description</span>
         <span className='icp-table__cell-head'>Scope of work</span>
-        <span className='icp-table__cell-head'/>
+        <span className='icp-table__cell-head' />
 
         {products?.map((product) => {
           return (
@@ -100,7 +100,11 @@ const IcpTable = ({
               ) : (
                 ''
               )}
-              <IcpBody product={product} inputBoxClass='icp-table__cell' onSubmit={submitData} />
+              <IcpBody
+                product={product}
+                inputBoxClass='icp-table__cell'
+                onSubmit={submitData}
+              />
             </React.Fragment>
           )
         })}

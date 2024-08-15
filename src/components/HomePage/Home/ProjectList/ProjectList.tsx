@@ -5,15 +5,20 @@ import ProjectItem from './ProjectItem/ProjectItem'
 import './ProjectList.scss'
 import instance from '../../../../utils/api'
 
-const ProjectList = ({ projects, refetch }: { projects: IProduct[], refetch: () => void }) => {
-
-  const removeProject = async (id:number) => {
+const ProjectList = ({
+  projects,
+  refetch,
+}: {
+  projects: IProduct[]
+  refetch: () => void
+}) => {
+  const removeProject = async (id: number) => {
     try {
       const response = await instance.delete(`/projects/${id}`)
-      if (response.data.message!=='Success') {
+      if (response.data.message !== 'Success') {
         throw new Error(response.data.message)
       }
-      enqueueSnackbar('Project was removed', { variant: 'success',})
+      enqueueSnackbar('Project was removed', { variant: 'success' })
       refetch()
     } catch (error) {
       enqueueSnackbar(String(error), { variant: 'error' })
@@ -21,7 +26,7 @@ const ProjectList = ({ projects, refetch }: { projects: IProduct[], refetch: () 
   }
 
   return (
-     <ul className='project-list'>
+    <ul className='project-list'>
       {projects.map((project: IProduct) => (
         <ProjectItem
           key={project.id}

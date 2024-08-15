@@ -3,7 +3,7 @@ import { ReactComponent as CloseIcon } from './images/close-icon.svg'
 import './ProjectItem.scss'
 
 interface IProjectItemProps {
-  id:number
+  id: number
   label?: string
   onCloseClick: () => void
   description?: string
