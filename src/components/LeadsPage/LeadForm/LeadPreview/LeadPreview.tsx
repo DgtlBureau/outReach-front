@@ -5,15 +5,24 @@ import './LeadPreview.scss'
 
 interface ILeadPreviewProps {
   gptAnswer: any
+  isModal: boolean
   onDiscard: () => void
   onSubmit: () => void
 }
 
-const LeadPreview = ({ gptAnswer, onDiscard, onSubmit }: ILeadPreviewProps) => {
+const LeadPreview = ({
+  isModal,
+  gptAnswer,
+  onDiscard,
+  onSubmit,
+}: ILeadPreviewProps) => {
+  console.log(gptAnswer)
+
   return (
     <div className='lead-preview'>
       <LeadTable
         hideToChat
+        isModal={isModal}
         leads={[
           {
             id: 1,
