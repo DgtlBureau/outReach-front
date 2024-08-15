@@ -60,7 +60,10 @@ const LeadsPage = () => {
           'Content-Type': 'multipart/form-data',
         },
       })
-      setGptAnswer(data.gpt_answer)
+      if (typeof data.gpt_answer === 'string') {
+        throw new Error('Somthng wrong, please repeat loading')
+      }
+      setGptAnswer(data)
     } catch (error) {
       enqueueSnackbar(String(error), { variant: 'error' })
     } finally {
@@ -69,12 +72,10 @@ const LeadsPage = () => {
   }
 
   const handleResponseSubmit = async () => {
-    const formData = new FormData()
-    formData.append('gpt_answer', gptAnswer)
-    formData.append('linkedin_url', leadUrl)
     try {
-      await instance.post('/lead', formData)
+      await instance.post('/lead', { ...gptAnswer, linkedin_url: leadUrl })
       enqueueSnackbar('Lead was succesfully formed!', { variant: 'success' })
+      setGptAnswer(null)
       refetch()
       onDialogClose()
     } catch (error) {
@@ -186,9 +187,9 @@ const LeadsPage = () => {
                     onSubmit={handleResponseSubmit}
                     onDiscard={() => {
                       onDialogClose()
-                      setGptAnswer('')
+                      setGptAnswer(null)
                     }}
-                    gptAnswer={gptAnswer && JSON.parse(gptAnswer)}
+                    gptAnswer={gptAnswer && gptAnswer.gpt_answer}
                   />
                 </>
               ) : (
