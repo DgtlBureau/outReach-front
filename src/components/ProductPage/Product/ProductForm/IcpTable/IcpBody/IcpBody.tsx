@@ -6,11 +6,27 @@ import './IcpBody.scss'
 
 interface IIcpBody {
   product: IProduct
+  isModal: boolean
+  changeGptAnswer: ({
+    e,
+    idx,
+  }: {
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    idx: number | null | undefined
+  }) => void
+  idx?: number | null | undefined
   inputBoxClass: string
   onSubmit: (data: IProduct) => void
 }
 
-const IcpBody = ({ product, inputBoxClass, onSubmit }: IIcpBody) => {
+const IcpBody = ({
+  product,
+  inputBoxClass,
+  onSubmit,
+  changeGptAnswer,
+  isModal,
+  idx,
+}: IIcpBody) => {
   const [formData, setFormData] = useState(product)
   const [projectFocesId, setProjectFocusId] = useState<number | null>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -18,8 +34,11 @@ const IcpBody = ({ product, inputBoxClass, onSubmit }: IIcpBody) => {
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    id: number
+    idx: number | null | undefined
   ) => {
+    if (isModal) {
+      changeGptAnswer({ e, idx })
+    }
     const { name, value } = e.target
     setFormData({ ...formData, [name]: value })
   }
@@ -41,23 +60,23 @@ const IcpBody = ({ product, inputBoxClass, onSubmit }: IIcpBody) => {
       textareaRef.current.style.height = 'auto'
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
     }
-  }, [formData.project_description])
+  }, [formData.project_description || formData.Project])
 
   useEffect(() => {
     if (textareaScopeRef.current) {
       textareaScopeRef.current.style.height = 'fit-content'
       textareaScopeRef.current.style.height = `${textareaScopeRef.current.scrollHeight}px`
     }
-  }, [formData.scope_of_work])
+  }, [formData.scope_of_work || formData.ScopeOfWork])
 
   return (
     <>
       <div className={inputBoxClass}>
         <input
           className='icp-input'
-          name='client_name'
-          value={formData.client_name}
-          onChange={(e) => handleInputChange(e, formData.id)}
+          name={!isModal ? 'client_name' : 'ClientName'}
+          value={formData.client_name || formData.ClientName}
+          onChange={(e) => handleInputChange(e, idx)}
           onFocus={() => isOnFocus(formData.id)}
           onBlur={() => handleBlur()}
         />
@@ -65,19 +84,23 @@ const IcpBody = ({ product, inputBoxClass, onSubmit }: IIcpBody) => {
       <div className={inputBoxClass}>
         <input
           className='icp-input'
-          name='industry_name'
-          value={formData.industry_name}
-          onChange={(e) => handleInputChange(e, formData.id)}
+          name={!isModal ? 'industry_name' : 'IndustryName'}
+          value={formData.industry_name || formData.IndustryName}
+          onChange={(e) => handleInputChange(e, idx)}
           onFocus={() => isOnFocus(formData.id)}
           onBlur={() => handleBlur()}
         />
       </div>
       <div className={inputBoxClass}>
         <input
-          name='direction_of_application'
-          value={formData.direction_of_application}
+          name={
+            !isModal ? 'direction_of_application' : 'DirectionOfApplication'
+          }
+          value={
+            formData.direction_of_application || formData.DirectionOfApplication
+          }
           className='icp-input'
-          onChange={(e) => handleInputChange(e, formData.id)}
+          onChange={(e) => handleInputChange(e, idx)}
           onFocus={() => isOnFocus(formData.id)}
           onBlur={() => handleBlur()}
         />
@@ -85,10 +108,10 @@ const IcpBody = ({ product, inputBoxClass, onSubmit }: IIcpBody) => {
       <div className={inputBoxClass}>
         <textarea
           ref={textareaRef}
-          name='project_description'
-          value={formData.project_description}
+          name={!isModal ? 'project_description' : 'Project'}
+          value={formData.project_description || formData.Project}
           className='text-area'
-          onChange={(e) => handleInputChange(e, formData.id)}
+          onChange={(e) => handleInputChange(e, idx)}
           onFocus={() => isOnFocus(formData.id)}
           onBlur={() => handleBlur()}
         />
@@ -96,27 +119,28 @@ const IcpBody = ({ product, inputBoxClass, onSubmit }: IIcpBody) => {
       <div className={inputBoxClass}>
         <textarea
           ref={textareaScopeRef}
-          name='scope_of_work'
-          value={formData.scope_of_work}
+          name={!isModal ? 'scope_of_work' : 'ScopeOfWork'}
+          value={formData.scope_of_work || formData.ScopeOfWork}
           className='text-area'
-          onChange={(e) => handleInputChange(e, formData.id)}
+          onChange={(e) => handleInputChange(e, idx)}
           onFocus={() => isOnFocus(formData.id)}
           onBlur={() => handleBlur()}
         />
       </div>
-      {formData.id === projectFocesId ? (
-        <div className={inputBoxClass}>
-          <button
-            type='button'
-            className='changeBtn'
-            onClick={() => onSubmit(formData)}
-          >
-            <CloseIcon className='changeBtn-icon' />
-          </button>
-        </div>
-      ) : (
-        <div className={inputBoxClass}></div>
-      )}
+      {!isModal &&
+        (formData.id === projectFocesId ? (
+          <div className={inputBoxClass}>
+            <button
+              type='button'
+              className='changeBtn'
+              onClick={() => onSubmit(formData)}
+            >
+              <CloseIcon className='changeBtn-icon' />
+            </button>
+          </div>
+        ) : (
+          <div className={inputBoxClass}></div>
+        ))}
     </>
   )
 }

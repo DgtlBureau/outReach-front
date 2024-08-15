@@ -13,11 +13,24 @@ export interface IProduct {
   direction_of_application: string
   project_description: string
   scope_of_work: string
+  ClientName: string
+  DirectionOfApplication: string
+  IndustryName: string
+  ScopeOfWork: string
+  Project: string
 }
 
 interface IIcpTableProps {
   products: IProduct[]
   isLoading?: boolean
+  isModal: boolean
+  changeGptAnswer: ({
+    e,
+    idx,
+  }: {
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    idx: number | null | undefined
+  }) => void
   checkedItems?: number[]
   handleCheckHead?: () => void
   handleCheckCell?: (id: number) => void
@@ -27,6 +40,8 @@ interface IIcpTableProps {
 const IcpTable = ({
   products,
   isLoading,
+  isModal,
+  changeGptAnswer,
   checkedItems,
   handleCheckHead,
   handleCheckCell,
@@ -56,7 +71,7 @@ const IcpTable = ({
         style={
           handleCheckHead || handleCheckCell
             ? { gridTemplateColumns: '60px repeat(5, 1fr) 40px' }
-            : {}
+            : { gridTemplateColumns: 'repeat(5, 1fr)' }
         }
         className='icp-table'
       >
@@ -80,11 +95,10 @@ const IcpTable = ({
         <span className='icp-table__cell-head'>Direction of application</span>
         <span className='icp-table__cell-head'>Project description</span>
         <span className='icp-table__cell-head'>Scope of work</span>
-        <span className='icp-table__cell-head' />
-
-        {products?.map((product) => {
+        {!isModal && <span className='icp-table__cell-head' />}
+        {products?.map((product, idx) => {
           return (
-            <React.Fragment key={product.id}>
+            <React.Fragment key={product.id || idx}>
               {handleCheckCell ? (
                 <div className='icp-table__cell icp-table__cell--checkbox'>
                   <Checkbox
@@ -101,6 +115,9 @@ const IcpTable = ({
                 ''
               )}
               <IcpBody
+                changeGptAnswer={changeGptAnswer}
+                idx={idx}
+                isModal={isModal}
                 product={product}
                 inputBoxClass='icp-table__cell'
                 onSubmit={submitData}

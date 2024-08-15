@@ -13,12 +13,18 @@ import instance from '../../../../utils/api'
 import { enqueueSnackbar } from 'notistack'
 import IcpTable, { IProduct } from './IcpTable/IcpTable'
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 import './ProductForm.scss'
 
+interface IGptAnswer {
+  gpt_answer: {
+    Cases: IProduct[]
+  }
+}
+
 const ProductForm = () => {
-  const [gptAnswer, setGptAnswer] = useState<any>('')
+  const [gptAnswer, setGptAnswer] = useState<IGptAnswer | null>(null)
   const [isSubmitLoading, setIsSubmitLoading] = useState(false)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [projectFile, setProjectFile] = useState<any>(null)
@@ -71,7 +77,7 @@ const ProductForm = () => {
     setIsSubmitLoading(true)
     try {
       const { data } = await instance.post('/projects/check-answer', formData)
-      setGptAnswer(data.gpt_answer)
+      setGptAnswer(data)
     } catch (error) {
       enqueueSnackbar(String(error), { variant: 'error' })
     } finally {
@@ -80,16 +86,13 @@ const ProductForm = () => {
   }
 
   const handleResponseSubmit = async () => {
-    const formData = new FormData()
-    formData.append('gpt_answer', gptAnswer)
     try {
-      await instance.post('/projects', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      })
+      await instance.post('/projects', gptAnswer)
       enqueueSnackbar('Projects were successfully formed!', {
         variant: 'success',
       })
       onDialogClose()
+      setGptAnswer(null)
       refetch()
     } catch (error) {
       enqueueSnackbar(String(error), { variant: 'error' })
@@ -118,6 +121,39 @@ const ProductForm = () => {
         enqueueSnackbar(String(error), { variant: 'error' })
       }
     }
+  }
+
+  const handleChangeGptAnswer = ({
+    e,
+    idx,
+  }: {
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    idx: number | null | undefined
+  }) => {
+    setGptAnswer((prevSate) => {
+      if (!prevSate || idx === null || idx === undefined) {
+        return null
+      }
+
+      console.log(idx)
+
+      const updatedCase = [...prevSate.gpt_answer.Cases]
+
+      updatedCase[idx] = {
+        ...updatedCase[idx],
+        [e.target.name]: e.target.value,
+      }
+
+      console.log(prevSate)
+
+      return {
+        ...prevSate,
+        gpt_answer: {
+          ...prevSate.gpt_answer,
+          Cases: updatedCase,
+        },
+      }
+    })
   }
 
   return (
@@ -153,7 +189,9 @@ const ProductForm = () => {
           </div>
         </div>
         <IcpTable
+          changeGptAnswer={handleChangeGptAnswer}
           isLoading={isLoading}
+          isModal={false}
           handleCheckHead={handleCheckAll}
           handleCheckCell={handleCheckCell}
           checkedItems={selectedItems}
@@ -208,14 +246,16 @@ const ProductForm = () => {
                   </span>
                   <div className='product-form__added-content'>
                     <IcpTable
+                      changeGptAnswer={handleChangeGptAnswer}
+                      isModal={true}
                       isLoading={false}
-                      products={gptAnswer && JSON.parse(gptAnswer)}
+                      products={gptAnswer && gptAnswer.gpt_answer.Cases}
                     />
                     <div className='product-form__controls'>
                       <CustomButton
                         style='outlined'
                         onClick={() => {
-                          setGptAnswer('')
+                          setGptAnswer(null)
                           onDialogClose()
                         }}
                       >
