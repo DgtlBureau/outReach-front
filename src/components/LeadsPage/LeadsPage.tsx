@@ -61,7 +61,7 @@ const LeadsPage = () => {
         },
       })
       if (typeof data.gpt_answer === 'string') {
-        throw new Error('Somthng wrong, please repeat loading')
+        throw new Error('Something went wrong. Please try again later')
       }
       setGptAnswer(data)
     } catch (error) {
@@ -125,6 +125,7 @@ const LeadsPage = () => {
         </div>
         <div className='lead-page__table'>
           <LeadTable
+            isModal={false}
             isLoading={isLoading}
             handleCheckHead={handleCheckAll}
             handleCheckCell={handleCheckCell}
@@ -184,6 +185,7 @@ const LeadsPage = () => {
                     Decide to save or discard response
                   </span>
                   <LeadPreview
+                    isModal={true}
                     onSubmit={handleResponseSubmit}
                     onDiscard={() => {
                       onDialogClose()

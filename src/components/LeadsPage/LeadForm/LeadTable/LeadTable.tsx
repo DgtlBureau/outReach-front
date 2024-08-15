@@ -20,6 +20,7 @@ export interface ILead {
 
 interface ILeadTableProps {
   leads: ILead[]
+  isModal: boolean
   isLoading?: boolean
   hideToChat?: boolean
   checkedItems?: number[]
@@ -31,6 +32,7 @@ const LeadTable = ({
   leads,
   isLoading,
   hideToChat,
+  isModal,
   checkedItems,
   handleCheckHead,
   handleCheckCell,
@@ -41,23 +43,24 @@ const LeadTable = ({
   return (
     <div className='lead-table__wrapper'>
       <div
-        style={hideToChat ? { gridTemplateColumns: '160px 1fr 200px' } : {}}
         className={cn(
           'lead-table',
           !handleCheckHead || !handleCheckCell ? 'lead-table--no-checkbox' : ''
         )}
       >
-        <div className='lead-table__cell-head lead-table__cell-head--checkbox'>
-          <Checkbox
-            sx={{
-              '&.Mui-checked': {
-                color: '#6c47ff',
-              },
-            }}
-            onChange={handleCheckHead}
-            checked={leads?.length === checkedItems?.length}
-          />
-        </div>
+        {!isModal && (
+          <div className='lead-table__cell-head lead-table__cell-head--checkbox'>
+            <Checkbox
+              sx={{
+                '&.Mui-checked': {
+                  color: '#6c47ff',
+                },
+              }}
+              onChange={handleCheckHead}
+              checked={leads?.length === checkedItems?.length}
+            />
+          </div>
+        )}
         <span className='lead-table__cell-head'>Full name</span>
         <span className='lead-table__cell-head'>Description</span>
         {hideToChat ? (
