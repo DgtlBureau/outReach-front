@@ -12,12 +12,18 @@ import instance from '../../../../utils/api'
 import { enqueueSnackbar } from 'notistack'
 import IcpTable, { IProduct } from './IcpTable/IcpTable'
 import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import './ProductForm.scss'
 
+interface IGptAnswer {
+  gpt_answer: {
+    Cases: IProduct[]
+  }
+}
+
 const ProductForm = () => {
-  const [gptAnswer, setGptAnswer] = useState<any>('')
+  const [gptAnswer, setGptAnswer] = useState<IGptAnswer | null>(null)
   const [isSubmitLoading, setIsSubmitLoading] = useState(false)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [projectFile, setProjectFile] = useState<any>(null)
@@ -25,10 +31,8 @@ const ProductForm = () => {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedItems, setSelectedItems] = useState<any>([])
 
- 
-
   const handleChangeFile = (event: any) => {
-    setProjectFile(event.target.files[0])    
+    setProjectFile(event.target.files[0])
   }
 
   const { isLoading, data, refetch } = useFetch(
@@ -73,39 +77,26 @@ const ProductForm = () => {
     try {
       const { data } = await instance.post('/projects/check-answer', formData)
       setGptAnswer(data)
-      console.log('Set GPT Answer:', data);
-      console.log('Parsed', JSON.parse(data.gpt_answer));
-      
     } catch (error) {
       enqueueSnackbar(String(error), { variant: 'error' })
     } finally {
       setIsSubmitLoading(false)
-      console.log('ANSAWER', gptAnswer);
     }
   }
 
   const handleResponseSubmit = async () => {
-    const formData = new FormData()
-    // formData.append('gpt_answer', gptAnswer)
-    formData.append('gpt_answer', gptAnswer)
     try {
-      const response = await instance.post('/projects', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      })      
+      await instance.post('/projects', gptAnswer, {})
       enqueueSnackbar('Projects were successfully formed!', {
         variant: 'success',
       })
       onDialogClose()
+      setGptAnswer(null)
       refetch()
     } catch (error) {
       enqueueSnackbar(String(error), { variant: 'error' })
     }
   }
-
-  // useEffect(() => {
-  //   console.log('EFFECT', JSON.parse(gptAnswer.gpt_answer).Cases);
-    
-  // },[gptAnswer])
 
   return (
     <div className='product-form'>
@@ -137,10 +128,18 @@ const ProductForm = () => {
               ? data.filter((project: IProduct) => {
                   const lowerCasedQuery = searchQuery.toLowerCase()
                   return (
-                    project.client_name.toLowerCase().includes(lowerCasedQuery) ||
-                    project.industry_name.toLowerCase().includes(lowerCasedQuery) ||
-                    project.direction_of_application.toLowerCase().includes(lowerCasedQuery) ||
-                    project.project_description.toLowerCase().includes(lowerCasedQuery) ||
+                    project.client_name
+                      .toLowerCase()
+                      .includes(lowerCasedQuery) ||
+                    project.industry_name
+                      .toLowerCase()
+                      .includes(lowerCasedQuery) ||
+                    project.direction_of_application
+                      .toLowerCase()
+                      .includes(lowerCasedQuery) ||
+                    project.project_description
+                      .toLowerCase()
+                      .includes(lowerCasedQuery) ||
                     project.scope_of_work
                       .toLowerCase()
                       .includes(lowerCasedQuery)
@@ -171,18 +170,17 @@ const ProductForm = () => {
                 <>
                   <span className='product-form__added-content-title'>
                     Decide to save or discard response
-                    </span>
+                  </span>
                   <div className='product-form__added-content'>
                     <IcpTable
                       isLoading={false}
-                      // products={gptAnswer && JSON.parse(gptAnswer)}
-                      products={gptAnswer && JSON.parse(gptAnswer.gpt_answer).Cases}
+                      products={gptAnswer && gptAnswer.gpt_answer.Cases}
                     />
                     <div className='product-form__controls'>
                       <CustomButton
                         style='outlined'
                         onClick={() => {
-                          setGptAnswer('')
+                          setGptAnswer(null)
                           onDialogClose()
                         }}
                       >

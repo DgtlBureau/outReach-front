@@ -5,11 +5,16 @@ import { Checkbox } from '@mui/material'
 
 export interface IProduct {
   id: number
-  industry_name:string
+  industry_name: string
   client_name: string
-  direction_of_application:string
+  direction_of_application: string
   project_description: string
   scope_of_work: string
+  ClientName: string
+  DirectionOfApplication: string
+  IndustryName: string
+  ScopeOfWork: string
+  Project: string
 }
 
 interface IIcpTableProps {
@@ -27,20 +32,17 @@ const IcpTable = ({
   handleCheckHead,
   handleCheckCell,
 }: IIcpTableProps) => {
-  console.log(products);
-  
   return (
-    // <div>1</div>
     <div className='icp-table__wrapper'>
       <div
         style={
           !handleCheckHead || !handleCheckCell
-            ? { gridTemplateColumns: 'repeat(6, 1fr)' }
+            ? { gridTemplateColumns: 'repeat(5, 1fr)' }
             : {}
         }
         className='icp-table'
       >
-          {handleCheckHead ? (
+        {handleCheckHead ? (
           <div className='icp-table__cell-head icp-table__cell-head--checkbox'>
             <Checkbox
               sx={{
@@ -60,9 +62,9 @@ const IcpTable = ({
         <span className='icp-table__cell-head'>Direction of application</span>
         <span className='icp-table__cell-head'>Project description</span>
         <span className='icp-table__cell-head'>Scope of work</span>
-        {products?.map((product) => {
+        {products?.map((product, idx) => {
           return (
-            <React.Fragment key={product.id}>
+            <React.Fragment key={product.id || idx}>
               {handleCheckCell ? (
                 <div className='icp-table__cell icp-table__cell--checkbox'>
                   <Checkbox
@@ -78,14 +80,21 @@ const IcpTable = ({
               ) : (
                 ''
               )}
-              <span className='icp-table__cell'>{product?.client_name}</span>
-              <span className='icp-table__cell'>{product?.industry_name}</span>
               <span className='icp-table__cell'>
-                {product?.direction_of_application}
+                {product.client_name || product.ClientName}
               </span>
-              <span className='icp-table__cell'>{product?.project_description}</span>
               <span className='icp-table__cell'>
-                {product?.scope_of_work}
+                {product.industry_name || product.IndustryName}
+              </span>
+              <span className='icp-table__cell'>
+                {product.direction_of_application ||
+                  product.DirectionOfApplication}
+              </span>
+              <span className='icp-table__cell'>
+                {product.project_description || product.Project}
+              </span>
+              <span className='icp-table__cell'>
+                {product.scope_of_work || product.ScopeOfWork}
               </span>
             </React.Fragment>
           )
