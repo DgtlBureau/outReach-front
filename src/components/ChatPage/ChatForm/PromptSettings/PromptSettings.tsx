@@ -41,7 +41,6 @@ const PromptSettings = ({ chat, chatId, getMessage, reloadChat }: IChat) => {
         throw new Error('Something went wrong, Please try again')
       }
       findLeadOffer(data)
-      enqueueSnackbar('Promt was loaded', { variant: 'success' })
     } catch (error) {
       enqueueSnackbar(String(error), { variant: 'error' })
     }
