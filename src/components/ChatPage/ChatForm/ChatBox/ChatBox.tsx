@@ -11,18 +11,11 @@ import LeadInfo from '../../../LeadsPage/LeadForm/LeadTable/LeadInfo/LeadInfo'
 interface IChatBoxProps {
   lead: ILead
   chat: any
-  handleClickButton: () => void
   isLoading: boolean
 }
 
-const ChatBox = ({
-  lead,
-  chat,
-  handleClickButton,
-  isLoading,
-}: IChatBoxProps) => {
+const ChatBox = ({ lead, chat }: IChatBoxProps) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
-
   return (
     <div className='chat-box'>
       <div className='chat-box__header'>
@@ -39,31 +32,8 @@ const ChatBox = ({
         <span className='chat-box__placeholder'>
           Please click button Get Message to get promt
         </span>
-      ) : (
-        ''
-      )}
+      ) : null}
       <MessageList messages={chat} />
-      <div className='chat-box__input-box'>
-        {/* <input
-          placeholder='Enter response'
-          className='chat-box__input'
-          type='text'
-        /> */}
-        <button
-          onClick={handleClickButton}
-          type='button'
-          className='chat-box__submit-button'
-        >
-          {isLoading ? (
-            <div className='chat-box__submit-loader'>
-              <Loader size={12} color='var(--main-color)' />
-            </div>
-          ) : (
-            'Get message'
-          )}
-        </button>
-      </div>
-
       <Drawer
         anchor='right'
         open={isDrawerOpen}

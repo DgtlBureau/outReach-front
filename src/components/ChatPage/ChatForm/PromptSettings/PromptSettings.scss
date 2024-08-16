@@ -59,6 +59,10 @@
         font-weight: 500;
         line-height: 18px;
         letter-spacing: 0.2px;
+        color: var(--text-color);
+      }
+      .prompt-settings__textarea-disabled {
+        opacity: 0.5;
       }
     }
     .prompt-settings__submit {
@@ -77,6 +81,15 @@
       letter-spacing: 0.2px;
       text-align: center;
       cursor: pointer;
+    }
+    .prompt-settings__submit-disabled {
+      opacity: 0.5;
+      cursor: auto;
+    }
+    .promt-settings__loader-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }

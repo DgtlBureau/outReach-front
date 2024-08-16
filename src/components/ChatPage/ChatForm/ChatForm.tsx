@@ -23,7 +23,6 @@ const ChatForm = () => {
   const loadChat = async () => {
     try {
       const { data } = await instance.get(`/chat/${id}`)
-      console.log(data)
       setChat(data)
     } catch (error) {
       enqueueSnackbar('Failed to load chat. Please, try again later', {
@@ -69,15 +68,16 @@ const ChatForm = () => {
         </button>
         <div className='chat-form__wrapper'>
           <div className='chat-form__box-wrapper'>
-            <ChatBox
-              lead={leadData?.data}
-              chat={chat}
-              handleClickButton={getMessage}
-              isLoading={isLoading}
-            />
+            <ChatBox lead={leadData?.data} chat={chat} isLoading={isLoading} />
           </div>
+
           <div className='prompt__box-wrapper'>
-            {chat.length ? <PromptSettings /> : ''}
+            <PromptSettings
+              chat={chat}
+              chatId={id}
+              getMessage={getMessage}
+              reloadChat={loadChat}
+            />
           </div>
         </div>
       </div>
