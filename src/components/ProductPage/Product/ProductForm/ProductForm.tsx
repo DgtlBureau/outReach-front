@@ -6,7 +6,7 @@ import { ReactComponent as PlusIcon } from './images/plus-icon.svg'
 import { ReactComponent as DeleteIcon } from './images/delete-icon.svg'
 import Dropdown from '../../../Shared/Dropdown/Dropdown'
 import InputBar from '../../../Shared/InputBar/InputBar'
-import { useFetch } from '../../../../utils/loadData'
+import { useFetch, useQueryFetch } from '../../../../utils/loadData'
 import { Dialog, DialogTitle } from '@mui/material'
 import Loader from '../../../Shared/Loader/Loader'
 import instance from '../../../../utils/api'
@@ -36,10 +36,7 @@ const ProductForm = () => {
     setProjectFile(event.target.files[0])
   }
 
-  const { isLoading, data, refetch } = useFetch(
-    'projects',
-    'Failed to load products. Please, try again later'
-  )
+  const { isLoading, data, refetch } = useQueryFetch('projects', ['projects'])
   const projectLogs = useFetch(
     'chat_log?chat_type=project_answer',
     'Failed to load chat log. Please, try again later'

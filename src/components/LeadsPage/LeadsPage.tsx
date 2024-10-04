@@ -4,7 +4,7 @@ import { ReactComponent as PlusIcon } from './images/plus-icon.svg'
 import LeadTable, { ILead } from './LeadForm/LeadTable/LeadTable'
 import LeadPreview from './LeadForm/LeadPreview/LeadPreview'
 import InputBar from '../Shared/InputBar/InputBar'
-import { useFetch } from '../../utils/loadData'
+import { useFetch, useQueryFetch } from '../../utils/loadData'
 import Loader from '../Shared/Loader/Loader'
 import { enqueueSnackbar } from 'notistack'
 import LeadForm from './LeadForm/LeadForm'
@@ -25,10 +25,7 @@ const LeadsPage = () => {
   const [isResponseLoading, setIsResponseLoading] = useState(false)
   const [selectedItems, setSelectedItems] = useState<number[]>([])
 
-  const { isLoading, data, refetch } = useFetch(
-    'lead',
-    'Failed to load leads. Please, try again later'
-  )
+  const { isLoading, data, refetch } = useQueryFetch('lead', ['leads'])
   const leadLogs = useFetch(
     'chat_log?chat_type=lead_answer',
     'Failed to load chat log. Please, try again later'
