@@ -1,4 +1,8 @@
 .app {
+  .app__header {
+    height: 53px;
+    width: 100%;
+  }
   .app__content {
     display: flex;
     min-height: calc(100vh - 58px);

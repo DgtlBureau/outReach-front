@@ -1,19 +1,13 @@
 import ProjectList from './ProjectList/ProjectList'
-import { useFetch } from '../../../utils/loadData'
+import { useFetch, useQueryFetch } from '../../../utils/loadData'
 
 import './Home.scss'
 import LeadsList from './LeadsList/LeadsList'
 import LoaderList from './ProjectList/LoaderList/LoaderList'
 
 const Home = () => {
-  const projectsFetch = useFetch(
-    'projects',
-    'Failed to load projects. Please, try again later'
-  )
-  const leadsFetch = useFetch(
-    'lead',
-    'Failed to load leads. Please, try again later'
-  )
+  const projectsFetch = useQueryFetch('projects', ['projects'])
+  const leadsFetch = useQueryFetch('lead', ['leads'])
 
   return (
     <main className='home'>
@@ -24,7 +18,10 @@ const Home = () => {
             {projectsFetch.isLoading ? (
               <LoaderList />
             ) : (
-              <ProjectList projects={projectsFetch.data} refetch={projectsFetch.refetch} />
+              <ProjectList
+                projects={projectsFetch.data}
+                refetch={projectsFetch.refetch}
+              />
             )}
           </div>
         </div>

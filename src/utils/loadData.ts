@@ -1,6 +1,7 @@
 import { enqueueSnackbar } from 'notistack'
 import { useEffect, useState } from 'react'
 import instance from './api'
+import { useQuery } from '@tanstack/react-query'
 
 interface IUseFetch {
   data: any
@@ -31,6 +32,21 @@ export const useFetch = (url: string, errorMessage: string): IUseFetch => {
   useEffect(() => {
     loadProducts()
   }, [])
+
+  return { data, isLoading, refetch }
+}
+
+export const useQueryFetch = (
+  url: string,
+  queryKey: [string, string?]
+): IUseFetch => {
+  const { data, isLoading, refetch } = useQuery({
+    queryFn: async () => {
+      const { data } = await instance.get(url)
+      return data
+    },
+    queryKey: queryKey,
+  })
 
   return { data, isLoading, refetch }
 }

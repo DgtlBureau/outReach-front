@@ -66,7 +66,9 @@ function App() {
 
   return (
     <div className='app'>
-      <Header />
+      <div className='app__header'>
+        <Header />
+      </div>
       <div className='app__content'>
         <motion.div
           variants={variants}
