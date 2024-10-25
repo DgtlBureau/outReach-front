@@ -10,6 +10,7 @@ interface IMessage {
   message_text: string
   sent_date: string
   reply_message: boolean
+  category: string
 }
 
 interface IMessageListProps {
@@ -39,6 +40,7 @@ const MessageList = ({ messages }: IMessageListProps) => {
             text={message.message_text}
             isRecieved={message.reply_message}
             date={message.sent_date}
+            category={message.category}
           />
           {!message.reply_message ? <YouAvatar /> : ''}
         </div>

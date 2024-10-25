@@ -33,13 +33,20 @@
     background-color: var(--background-color-secondary);
     color: var(--text-color);
   }
-  .message__date {
-    position: absolute;
+  .message__description {
+    margin-top: 2px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     font-family: 'SF Pro Text';
     font-size: 11px;
     color: var(--text-color);
     bottom: 1px;
     right: 6px;
     opacity: 0.4;
+    .message__category {
+      text-transform: capitalize;
+    }
   }
 }
