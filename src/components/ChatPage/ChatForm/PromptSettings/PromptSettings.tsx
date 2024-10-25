@@ -22,7 +22,9 @@ const CURRENT_TYPE = 'lead_answer'
 
 const PromptSettings = ({ chat, chatId, getMessage, reloadChat }: IChat) => {
   const [promtGeneral, setPromtGeneral] = useState('')
-  const [promtExpertise, setPromtExpertise] = useState('')
+  const [promtExpertise, setPromtExpertise] = useState(
+    'Write your answer as if you were an entrepreneur setting up a custom software development studio'
+  )
   const [isLoading, setIsLoading] = useState(false)
 
   const findLeadOffer = (array: IPromtGeneral[]) => {
@@ -97,7 +99,7 @@ const PromptSettings = ({ chat, chatId, getMessage, reloadChat }: IChat) => {
           />
         </label>
         <label className='prompt-settings__label'>
-          <span className='prompt-settings__title'>Prompt Expertise </span>
+          <span className='prompt-settings__title'>Prompt Expertise</span>
           <textarea
             className={
               chat.length
