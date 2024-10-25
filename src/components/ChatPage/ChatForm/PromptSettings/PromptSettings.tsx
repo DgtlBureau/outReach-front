@@ -23,7 +23,7 @@ const CURRENT_TYPE = 'lead_answer'
 const PromptSettings = ({ chat, chatId, getMessage, reloadChat }: IChat) => {
   const [promtGeneral, setPromtGeneral] = useState('')
   const [promtExpertise, setPromtExpertise] = useState(
-    'Write your answer as if you were an entrepreneur setting up a custom software development studio'
+    'Imagine that you are a professional car dealer.'
   )
   const [isLoading, setIsLoading] = useState(false)
 
