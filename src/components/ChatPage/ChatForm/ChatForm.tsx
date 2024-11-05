@@ -34,15 +34,8 @@ const ChatForm = () => {
   const getMessage = async () => {
     setIsLoading(true)
     try {
-      const { data } = await instance.get(`/message/${id}`)
-      setChat([
-        ...chat,
-        {
-          message_text: data.gpt_answer,
-          reply_message: false,
-          sent_date: new Date(),
-        },
-      ])
+      await instance.get(`/message/${id}`)
+      loadChat()
     } catch (error) {
       enqueueSnackbar('Failed to get message. Please, try again later', {
         variant: 'error',

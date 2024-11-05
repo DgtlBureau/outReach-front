@@ -34,10 +34,9 @@ const StyledMaterialDesignContent = styled(MaterialDesignContent)(() => ({
 const variants = {
   open: {
     width: '265px',
-    backgroundColor: 'var(--main-color)',
     padding: '0 8px',
   },
-  closed: { width: '60px', backgroundColor: 'var(--main-color)', padding: 0 },
+  closed: { width: '60px', padding: 0 },
 }
 
 function App() {
