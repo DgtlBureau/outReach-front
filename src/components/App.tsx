@@ -12,6 +12,8 @@ import cn from 'classnames'
 
 import './App.scss'
 import Header from './Header/Header'
+import InsightsPage from './InsightsPage/InsightsPage'
+import InsightsChat from './InsightsPage/InsightsChat/InsightsChat'
 
 const StyledMaterialDesignContent = styled(MaterialDesignContent)(() => ({
   '&.notistack-MuiContent-root': {
@@ -84,6 +86,8 @@ function App() {
           <Routes>
             <Route path='/' element={<HomePage />} />
             <Route path='/product' element={<ProductPage />} />
+            <Route path='/insights' element={<InsightsPage />} />
+            <Route path='/insights/:id/chat' element={<InsightsChat />} />
             <Route path='/leads' element={<LeadsPage />} />
             <Route path='/leads/:id/chat' element={<ChatPage />} />
           </Routes>

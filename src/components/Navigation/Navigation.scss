@@ -52,6 +52,11 @@
           border: none;
         }
         .navigation__icon {
+          &.navigation__icon--imported {
+            * {
+              fill: #6c47ff;
+            }
+          }
           height: 24px;
           width: 24px;
           flex-shrink: 0;

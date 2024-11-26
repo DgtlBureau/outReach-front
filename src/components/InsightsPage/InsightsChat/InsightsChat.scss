@@ -1,0 +1,52 @@
+.insights-chat__wrapper {
+  margin-top: 12px;
+  max-width: 1440px;
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal__content {
+  border-radius: 20px;
+  background-color: var(--main-color);
+  width: 500px;
+  padding: 12px;
+  .modal__loader {
+    min-height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .input__wrapper {
+    min-height: 200px;
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 1px dashed var(--secondary-color);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .input__title {
+      font-family: 'Montserrat';
+      text-align: center;
+      line-height: 22px;
+      color: var(--text-color);
+    }
+    .file-input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+    }
+  }
+  .upload-content {
+    margin-top: 12px;
+  }
+}

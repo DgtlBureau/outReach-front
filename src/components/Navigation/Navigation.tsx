@@ -3,6 +3,7 @@ import { ReactComponent as MinimizeIcon } from './images/minimize.svg'
 import { ReactComponent as ProductIcon } from './images/product.svg'
 import { ReactComponent as LeadsIcon } from './images/user.svg'
 import { ReactComponent as HomeIcon } from './images/home.svg'
+import { ReactComponent as InsightsIcon } from './images/insights.svg'
 import ThemeToggle from '../Shared/ThemeToggle/ThemeToggle'
 import { NavLink } from 'react-router-dom'
 import { motion } from 'framer-motion'
@@ -67,6 +68,17 @@ const Navigation = ({ isExpand, toggleExpand }: INavigationProps) => {
           >
             <LeadsIcon className='navigation__icon' />
             <NavigationAnimatedText text='Leads' isShown={isExpand} />
+          </NavLink>
+        </li>
+        <li className='navigation__link-item navigation__link-item--margin'>
+          <NavLink
+            className={({ isActive }) =>
+              `navigation__link ${isActive ? 'navigation__link--active' : ''}`
+            }
+            to='/insights'
+          >
+            <InsightsIcon className='navigation__icon navigation__icon--imported' />
+            <NavigationAnimatedText text='Insights' isShown={isExpand} />
           </NavLink>
         </li>
         <li className='navigation__link-item'>
