@@ -70,7 +70,7 @@ const InsightsChat = () => {
       <Modal
         className='modal'
         open={isModalOpen}
-        onClose={data.length ? handleCloseModal : () => {}}
+        onClose={data?.length ? handleCloseModal : () => {}}
       >
         <section className='modal__content'>
           {isLoading ? (
