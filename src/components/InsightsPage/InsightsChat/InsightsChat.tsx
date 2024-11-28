@@ -37,6 +37,10 @@ const InsightsChat = () => {
     queryKey: ['insights-chat', id],
   })
 
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
+  }
+
   const handleUploadFile = async () => {
     setIsLoading(true)
     const convertedImages = Object.entries(files).map((file) => file[1])
@@ -66,7 +70,7 @@ const InsightsChat = () => {
       <Modal
         className='modal'
         open={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={data.length ? handleCloseModal : () => {}}
       >
         <section className='modal__content'>
           {isLoading ? (

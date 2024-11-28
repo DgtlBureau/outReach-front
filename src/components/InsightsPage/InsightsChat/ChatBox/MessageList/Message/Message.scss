@@ -22,8 +22,9 @@
     letter-spacing: -0.08px;
     color: var(--secondary-color);
   }
-  .message__text {
+  .message__text-insights {
     margin-top: 2px;
+    white-space: pre-line;
   }
   &:not(:first-child) {
     margin-top: 20px;

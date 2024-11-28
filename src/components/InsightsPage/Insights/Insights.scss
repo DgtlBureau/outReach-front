@@ -38,6 +38,10 @@
       background-color: var(--background-color-3);
       letter-spacing: 0.2px;
       line-height: 18px;
+      .insights-table__cell-placeholder {
+        font-family: 'SF Pro Text';
+        font-style: italic;
+      }
       &.insights-table__cell-last-message {
         white-space: nowrap;
         overflow: hidden;

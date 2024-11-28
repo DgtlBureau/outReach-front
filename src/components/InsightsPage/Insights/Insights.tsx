@@ -46,7 +46,11 @@ const Insights = ({
           return (
             <React.Fragment key={insight.id}>
               <span className='insights-table__cell insights-table__cell-last-message'>
-                {insight.last_message}
+                {insight.last_message || (
+                  <i className='insights-table__cell-placeholder'>
+                    Go to chat and start conversation
+                  </i>
+                )}
               </span>
               <span className='insights-table__cell insights-table__to-chat-cell'>
                 <Link

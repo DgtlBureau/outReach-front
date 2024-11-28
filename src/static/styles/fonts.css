@@ -96,6 +96,13 @@
 
 @font-face {
   font-family: 'SF Pro Text';
+  src: url('../fonts/sf-pro-text/SFProText-RegularItalic.ttf');
+  font-style: italic;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
   src: url('../fonts/sf-pro-text/SFProText-Light.ttf');
   font-weight: 300;
 }

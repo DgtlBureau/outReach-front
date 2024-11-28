@@ -17,7 +17,7 @@ const Message = ({ isRecieved, date, text, category }: IMessageProps) => {
       <span className='message__sender'>
         {isRecieved ? 'OutReach Assistant' : 'You'}
       </span>
-      <p className='message__text'>{text}</p>
+      <p className='message__text-insights'>{text}</p>
       <div className='message__description'>
         <span className='message__category'>{category}</span>
         <span className='message__date'>
