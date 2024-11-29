@@ -1,11 +1,8 @@
-import CustomButton from '../../Shared/CustomButton/CustomButton'
 import { secondaryInstance } from '../../../utils/api'
 import { useQuery } from '@tanstack/react-query'
-import Loader from '../../Shared/Loader/Loader'
 import { useParams } from 'react-router-dom'
 import { enqueueSnackbar } from 'notistack'
 import ChatBox from './ChatBox/ChatBox'
-import { Modal } from '@mui/material'
 import { useState } from 'react'
 
 import './InsightsChat.scss'
