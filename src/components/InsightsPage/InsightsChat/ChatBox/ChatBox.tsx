@@ -13,12 +13,11 @@ interface IChatBoxProps {
   isLoading: boolean
 }
 
-const prompt = `Привет!
-Мне необходимо собрать инсайты на основе имеющихся данных по игрокам для главного тренера, с которыми он ознакомится за 2 минуты. Инсайты по всем игрокам должны уместиться на 2 страницы формата A4. В конце инсайтов дай рекомендацию по общему направлению движения тренировок для тренера. Инсаты это события, которые характерны для позиции, показывающие насколько игрок реально пригоден на основе имеющихся данных. Например, если у Центрального защитника 70% плохих передач - то он плохой распасовщик. Я прикрепил отдельно список инсайтов, ты на них можешь ориентироваться и использовать как пример.
-Игроков нужно сгруппировать на 3 группы: Top, Middle, Low и группировать их в зависимости от их показателей по параметрам. Все показатели игроков представлены на скриншотах.  Схема моей команды 4-4-2.
-Кроме того я прикрепляю документ в котором описаны позиции данных игроков и трешхолды. Трешхолды это значения, которые используются как усредненные для уровня Top и они являются хорошим показателем. Соответственно собирая инсайты учитывай как трешхолды, так и показатели игроков - насколько они совпадают. Игроков сравнивай между собой только по их профилю, соответственно сравнивать защитников можно только по оборонительным действиям и владению, а нападающих по атакующим действиям. Учитывай количество ошибок в показателях также.
-Добавь к рекомендации по каждому игроку ключевые интересные события/особенности, которые ты мог заметить по игроку, которые являются характерной для данной позиции, но не совпадают с его поведением по показателям. Используй только количественные данные и фактически подтверждаемые, не давай субъективную оценку действиям. 
-Результат напиши на английском.`
+const prompt = `Hello!
+I need to gather insights based on available player data for the head coach, which he can review in 2 minutes. Insights for all players should fit on 2 A4 pages. At the end of the insights, provide a recommendation for the general direction of training for the coach. Insights are events characteristic of the position, showing how suitable the player really is based on available data. For example, if a Center Back has 70% bad passes - he's a poor distributor. I've attached a separate list of insights that you can use as reference and examples.
+Players need to be grouped into 3 categories: Top, Middle, Low, and grouped according to their parameter indicators. All player statistics are shown in the screenshots. My team's formation is 4-4-2.
+I'm also attaching a document describing the players' positions and thresholds. Thresholds are values used as averages for the Top level and are considered good indicators. When gathering insights, consider both thresholds and player indicators - how well they match. Compare players only within their profile, meaning defenders can only be compared by defensive actions and possession, while forwards by attacking actions. Also consider the number of errors in the indicators.
+Add to each player's recommendation key interesting events/characteristics that you might notice about the player that are characteristic of their position but don't match their behavioral indicators. Use only quantitative data and factually verifiable information, don't give subjective evaluations of actions.`
 
 const ChatBox = ({ chat, onMessageSend }: IChatBoxProps) => {
   const [message, setMessage] = useState('')
@@ -81,7 +80,7 @@ const ChatBox = ({ chat, onMessageSend }: IChatBoxProps) => {
             <input
               type='file'
               className='chat-box-insights__attach-input'
-              accept='.pdf, .jpg, .jpeg, .png'
+              accept='.pdf, .jpg, .jpeg, .png, .doc, .docx, .docm'
               multiple
               onChange={handleSelectFiles}
             />
