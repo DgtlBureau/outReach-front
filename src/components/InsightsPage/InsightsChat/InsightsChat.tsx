@@ -29,9 +29,6 @@ const InsightsChat = () => {
   } = useQuery({
     queryFn: async () => {
       const { data } = await secondaryInstance.get(`/insights/${id}`)
-      if (!data.length) {
-        setIsModalOpen(true)
-      }
       return data
     },
     queryKey: ['insights-chat', id],
@@ -66,49 +63,6 @@ const InsightsChat = () => {
           isLoading={isChatLoading}
         />
       </div>
-
-      <Modal
-        className='modal'
-        open={isModalOpen}
-        onClose={data?.length ? handleCloseModal : () => {}}
-      >
-        <section className='modal__content'>
-          {isLoading ? (
-            <div className='modal__loader'>
-              <Loader />
-            </div>
-          ) : (
-            <>
-              <label className='input__wrapper'>
-                <span className='input__title'>
-                  {files.length ? (
-                    <>{files.map((file) => file.name).join(', ')}</>
-                  ) : (
-                    <>
-                      Press here to upload match summary here
-                      <br />
-                      (.pdf or screenshot)
-                    </>
-                  )}
-                </span>
-                <input
-                  className='file-input'
-                  type='file'
-                  accept='.pdf, .jpg, .jpeg, .png'
-                  onChange={handleChangeFile}
-                  multiple
-                />
-              </label>
-              <CustomButton
-                className='upload-content'
-                onClick={handleUploadFile}
-              >
-                Upload
-              </CustomButton>
-            </>
-          )}
-        </section>
-      </Modal>
     </main>
   )
 }

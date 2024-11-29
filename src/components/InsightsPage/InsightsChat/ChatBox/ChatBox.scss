@@ -5,7 +5,7 @@
   border: 1px solid var(--border-color-secondary);
   border-radius: 20px;
   overflow: hidden;
-  height: calc(100vh - 172px);
+  height: calc(100vh - 87px);
   background-color: var(--main-color);
   .chat-box__header {
     display: flex;
@@ -76,6 +76,7 @@
   .chat-box-insights__controls {
     width: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
 
     .chat-box-insights__attach-files {
@@ -86,7 +87,8 @@
       .chat-box-insights__attach {
         cursor: pointer;
         position: absolute;
-        right: 8px;
+        top: 4px;
+        right: 14px;
         .chat-box-insights__attach-input {
           position: absolute;
           width: 100%;
@@ -114,27 +116,31 @@
         }
       }
       .chat-box-insights__input {
-        border-bottom-left-radius: 20px;
         width: 100%;
-        padding: 18px 8px;
+        min-height: 300px;
+        resize: none;
+        padding: 8px 24px 18px 8px;
         font-size: 15px;
         font-family: 'SF Pro Text';
         outline: none;
         border: 1px solid var(--border-color-4);
         background-color: var(--background-color-5);
         color: var(--text-color);
+        scrollbar-width: thin;
       }
     }
     .chat-box-insights__submit {
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 12px 0;
+      border-bottom-left-radius: 20px;
       border-bottom-right-radius: 20px;
       font-family: 'SF Pro Text';
       font-weight: 600;
       font-size: 15px;
       width: 100%;
-      max-width: 150px;
+
       height: 100%;
       background-color: var(--secondary-color);
       color: var(--main-color);

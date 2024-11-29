@@ -1,9 +1,8 @@
 .product {
-  margin: 12px auto 0;
+  margin: 0 auto;
   max-width: 1440px;
   .product__wrapper {
     background-color: var(--main-color);
-    margin: 0 12px;
     border-radius: 8px;
   }
 }
