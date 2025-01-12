@@ -8,12 +8,12 @@ import ChatPage from './ChatPage/ChatPage'
 import HomePage from './HomePage/HomePage'
 import { motion } from 'framer-motion'
 import { styled } from '@mui/material'
-import cn from 'classnames'
 
 import './App.scss'
 import Header from './Header/Header'
 import InsightsPage from './InsightsPage/InsightsPage'
 import InsightsChat from './InsightsPage/InsightsChat/InsightsChat'
+import OneToOne from './OneToOne/OneToOne'
 
 const StyledMaterialDesignContent = styled(MaterialDesignContent)(() => ({
   '&.notistack-MuiContent-root': {
@@ -89,6 +89,7 @@ function App() {
             <Route path='/insights/:id/chat' element={<InsightsChat />} />
             <Route path='/leads' element={<LeadsPage />} />
             <Route path='/leads/:id/chat' element={<ChatPage />} />
+            <Route path='/one-to-one' element={<OneToOne />} />
           </Routes>
         </div>
         <SnackbarProvider

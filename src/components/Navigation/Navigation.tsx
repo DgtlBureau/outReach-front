@@ -4,6 +4,7 @@ import { ReactComponent as ProductIcon } from './images/product.svg'
 import { ReactComponent as LeadsIcon } from './images/user.svg'
 import { ReactComponent as HomeIcon } from './images/home.svg'
 import { ReactComponent as InsightsIcon } from './images/insights.svg'
+import { ReactComponent as OneToOneIcon } from './images/1to1.svg'
 import ThemeToggle from '../Shared/ThemeToggle/ThemeToggle'
 import { NavLink } from 'react-router-dom'
 import { motion } from 'framer-motion'
@@ -90,6 +91,18 @@ const Navigation = ({ isExpand, toggleExpand }: INavigationProps) => {
           >
             <AnalyticsIcon className='navigation__icon' />
             <NavigationAnimatedText text='Statistics' isShown={isExpand} />
+          </NavLink>
+        </li>
+        <div className='navigation__separator' />
+        <li className='navigation__link-item'>
+          <NavLink
+            className={({ isActive }) =>
+              `navigation__link ${isActive && 'navigation__link--active'}`
+            }
+            to='/one-to-one'
+          >
+            <OneToOneIcon className='navigation__icon' />
+            <NavigationAnimatedText text='1x1' isShown={isExpand} />
           </NavLink>
         </li>
       </ul>
