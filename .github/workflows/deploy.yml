@@ -39,7 +39,7 @@ jobs:
         run: |
           docker push devopsdbt/front-outreach:${{ github.run_number }}
   deploy:
-    runs-on: self-hosted
+    runs-on: front
     needs: build
     steps:
       - name: Git clone
