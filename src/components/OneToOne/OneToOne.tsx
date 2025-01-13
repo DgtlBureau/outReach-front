@@ -10,45 +10,44 @@ import StreamingAvatar, {
 import axios from 'axios'
 import Loader from '../Shared/Loader/Loader'
 import { AudioRecorder } from './audio-handler'
+import CustomButton from '../Shared/CustomButton/CustomButton'
+import { useQuery } from '@tanstack/react-query'
+import { secondaryInstance } from '../../utils/api'
 
 import './OneToOne.scss'
-import CustomButton from '../Shared/CustomButton/CustomButton'
+import { enqueueSnackbar } from 'notistack'
 
-const QUESTIONS = [
-  {
-    id: 1,
-    text: 'Привет, как тебя зовут?',
-  },
-  {
-    id: 2,
-    text: 'Сколько тебе лет?',
-  },
-  {
-    id: 3,
-    text: 'Отлично, спасибо тебе за ответы!',
-  },
-]
+interface IQuestion {
+  id: number
+  text: string
+  type: string
+}
 
 const OneToOne = () => {
   const [isLoadingSession, setIsLoadingSession] = useState(false)
-  const [isLoadingRepeat, setIsLoadingRepeat] = useState(false)
   const [stream, setStream] = useState<MediaStream>()
-  const [debug, setDebug] = useState<string>()
   const [knowledgeId, setKnowledgeId] = useState<string>('')
   const [avatarId, setAvatarId] = useState<string>('')
-  const [language, setLanguage] = useState<string>('en')
 
   const [data, setData] = useState<StartAvatarResponse>()
-  const [text, setText] = useState<string>('')
   const mediaStream = useRef<HTMLVideoElement>(null)
   const avatar = useRef<StreamingAvatar | null>(null)
   const [chatMode, setChatMode] = useState('text_mode')
-  const [isUserTalking, setIsUserTalking] = useState(false)
   const [isRecording, setIsRecording] = useState(false)
   const [currentQuestion, setCurrentQuestion] = useState(1)
   const [audioRecorder, setAudioRecorder] = useState<AudioRecorder | null>(null)
   const [recordingStatus, setRecordingStatus] = useState('')
   const [answers, setAnswers] = useState<string[]>([])
+
+  const { data: questions } = useQuery({
+    queryFn: async () => {
+      const { data } = await axios.get(
+        'https://outreach.digitalburo.tech/api/promts?type=one-to-one'
+      )
+      return data
+    },
+    queryKey: ['questions'],
+  })
 
   const getStreamingToken = async () => {
     try {
@@ -125,12 +124,15 @@ const OneToOne = () => {
 
   const handleSpeak = async () => {
     if (!avatar.current) {
-      setDebug('Avatar API not initialized')
+      enqueueSnackbar('Avatar API not initialized', {
+        variant: 'error',
+      })
 
       return
     }
-    const question = QUESTIONS.find(
-      (question) => question.id === currentQuestion
+
+    const question = questions?.find(
+      (question: IQuestion) => question.id === currentQuestion
     )?.text
     await avatar.current
       .speak({
@@ -139,18 +141,21 @@ const OneToOne = () => {
         taskMode: TaskMode.SYNC,
       })
       .catch((e) => {
-        setDebug(e.message)
+        enqueueSnackbar(e.message, {
+          variant: 'error',
+        })
       })
 
     avatar.current.on(StreamingEvents.AVATAR_STOP_TALKING, () => {
       if (
-        !QUESTIONS.find((question) => question.id === currentQuestion + 1)?.text
+        !questions?.find(
+          (question: IQuestion) => question.id === currentQuestion + 1
+        )?.text
       ) {
         endSession()
         alert('Спасибо за участие')
       }
     })
-    setIsLoadingRepeat(false)
     setCurrentQuestion((prevQuestionId) => prevQuestionId + 1)
   }
 
@@ -182,7 +187,7 @@ const OneToOne = () => {
       mediaStream.current.srcObject = stream
       mediaStream.current.onloadedmetadata = () => {
         mediaStream.current!.play()
-        setDebug('Playing')
+        console.log('Playing')
       }
     }
   }, [mediaStream, stream])
