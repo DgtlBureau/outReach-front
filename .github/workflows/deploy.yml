@@ -1,8 +1,8 @@
 name: Deploy
 env:
   ENV                 : 'dev'
-  REACT_APP_BASE_URL  : ${{ github.ref == 'refs/heads/dev' && 'https://outreach.digitalburo.tech/gpt' || 'https://outreach.digitalburo.tech/gpt' }}
-  REACT_APP_SECONDARY_URL : ${{ github.ref == 'refs/heads/dev' && 'https://outreach.digitalburo.tech' || 'https://outreach.digitalburo.tech' }}
+  REACT_APP_BASE_URL  : ${{ github.ref == 'refs/heads/dev' && 'https://outreach.digitalburo.tech/api/gpt' || 'https://outreach.digitalburo.tech/api/gpt' }}
+  REACT_APP_SECONDARY_URL : ${{ github.ref == 'refs/heads/dev' && 'https://outreach.digitalburo.tech/api' || 'https://outreach.digitalburo.tech/api' }}
   REACT_APP_OPEN_AI: ${{ secrets.REACT_APP_OPEN_AI }}
   REACT_APP_HEYGEN_KEY: ${{ secrets.REACT_APP_HEYGEN_KEY }}
 on:
