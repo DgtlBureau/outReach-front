@@ -27,7 +27,7 @@ const ProjectList = ({
 
   return (
     <ul className='project-list'>
-      {projects.map((project: IProduct) => (
+      {projects?.map((project: IProduct) => (
         <ProjectItem
           key={project.id}
           id={project.id}
@@ -36,7 +36,7 @@ const ProjectList = ({
           onCloseClick={() => removeProject(project.id)}
         />
       ))}
-      {projects.length === 0 ? (
+      {projects?.length === 0 ? (
         <span className='project-list__placeholder'>Project list is empty</span>
       ) : (
         ''
