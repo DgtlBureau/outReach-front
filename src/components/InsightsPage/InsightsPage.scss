@@ -1,0 +1,58 @@
+.insights-page {
+  max-width: 1440px;
+  padding: 16px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  background-color: var(--main-color);
+  .insights-page__top {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .insights-page__title {
+      display: flex;
+      font-family: 'SF Pro Text';
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--text-color);
+      transition: 0.5s color;
+    }
+
+    .insights-page__add-new-chat {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 8px 30px;
+      border-radius: 8px;
+      background-color: var(--secondary-color);
+      color: var(--text-color-white);
+      font-family: 'Inter';
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      &.insights-page__add-new-chat--loading {
+        .insights-page__add-new-chat-text {
+          opacity: 0;
+        }
+        .insights-page__add-new-chat-loader {
+          display: block;
+        }
+      }
+      .insights-page__add-new-chat-text {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+      }
+      .insights-page__add-new-chat-loader {
+        position: absolute;
+        display: none;
+      }
+      .insights-page__add-new-chat-icon {
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+}

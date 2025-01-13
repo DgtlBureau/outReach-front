@@ -1,0 +1,125 @@
+.lead-info {
+  .lead-info__header {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 1px solid var(--background-color-4);
+    .lead-info__close {
+      background: none;
+      outline: none;
+      cursor: pointer;
+    }
+    .lead-info__title {
+      font-family: 'SF Pro Text';
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 20px;
+
+      color: var(--text-color);
+    }
+  }
+  .lead-info__content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    .lead-info__textarea-wrapper {
+      position: relative;
+      width: 100%;
+      .lead-info__textarea-label {
+        position: absolute;
+        display: block;
+        font-family: 'SF Pro Text';
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 13px;
+        letter-spacing: 0.06px;
+        text-align: left;
+        color: var(--text-color);
+        left: 12px;
+        top: -6px;
+        background-color: transparent;
+        z-index: 1;
+      }
+      .lead-info__textarea {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 16px 14px;
+        font-family: 'SF Pro Text';
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 13px;
+        letter-spacing: 0.06px;
+        text-align: left;
+        color: var(--text-color);
+        resize: none;
+        border-radius: 4px;
+        background-color: var(--background-color);
+        border-color: var(--border-color);
+      }
+    }
+    .lead-info__work-history {
+      .lead-info__work-history-label {
+        display: block;
+        margin-bottom: 12px;
+        font-family: 'SF Pro Text';
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 13px;
+        letter-spacing: 0.06px;
+        text-align: left;
+        color: var(--text-color);
+      }
+
+      .lead-info__work-history-item {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        .lead-info__work-history-text {
+          width: fit-content;
+          margin-top: 12px;
+          font-family: 'SF Pro Text';
+          font-size: 13px;
+          font-weight: 400;
+          line-height: 18px;
+          letter-spacing: 0.06px;
+          text-align: left;
+          color: var(--text-color);
+          font-size: 16px;
+        }
+      }
+    }
+
+    .lead-info__cases {
+      margin-top: 24px;
+      .lead-info__cases-label {
+        display: block;
+        margin-bottom: 12px;
+        font-family: 'SF Pro Text';
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 18px;
+        letter-spacing: 0.06px;
+        text-align: left;
+        color: var(--text-color);
+      }
+
+      .lead-info__cases-item {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        .lead-info__cases-text {
+          width: fit-content;
+          margin-top: 12px;
+          font-family: 'SF Pro Text';
+          font-size: 13px;
+          font-weight: 400;
+          line-height: 18px;
+          letter-spacing: 0.06px;
+          text-align: left;
+          color: var(--text-color);
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}

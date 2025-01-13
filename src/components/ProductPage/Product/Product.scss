@@ -1,0 +1,8 @@
+.product {
+  margin: 0 auto;
+  max-width: 1440px;
+  .product__wrapper {
+    background-color: var(--main-color);
+    border-radius: 8px;
+  }
+}

@@ -33,3 +33,76 @@
   src: url('../fonts/inter/Inter-Light.ttf');
   font-weight: 300;
 }
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('../fonts/manrope/Manrope-ExtraBold.ttf');
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('../fonts/manrope/Manrope-Bold.ttf');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('../fonts/manrope/Manrope-SemiBold.ttf');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('../fonts/manrope/Manrope-Medium.ttf');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('../fonts/manrope/Manrope-Regular.ttf');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('../fonts/manrope/Manrope-Light.ttf');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: url('../fonts/sf-pro-text/SFProText-Bold.ttf');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: url('../fonts/sf-pro-text/SFProText-Semibold.ttf');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: url('../fonts/sf-pro-text/SFProText-Medium.ttf');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: url('../fonts/sf-pro-text/SFProText-Regular.ttf');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: url('../fonts/sf-pro-text/SFProText-RegularItalic.ttf');
+  font-style: italic;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: url('../fonts/sf-pro-text/SFProText-Light.ttf');
+  font-weight: 300;
+}

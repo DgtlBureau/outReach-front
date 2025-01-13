@@ -1,4 +1,26 @@
 .home {
-  max-width: 768px;
+  max-width: 1440px;
   margin: 0 auto;
+  .home__wrapper {
+    display: flex;
+    gap: 36px;
+    .home__title {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      font-family: 'Inter';
+      color: var(--text-color);
+    }
+    .home__projects {
+      margin: 0 12px;
+      width: 100%;
+    }
+    .home__leads {
+      width: 100%;
+    }
+    .home__list-wrapper {
+      margin-top: 12px;
+      width: 100%;
+    }
+  }
 }

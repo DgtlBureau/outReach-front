@@ -1,0 +1,43 @@
+.icp-input {
+  padding: 8px 4px;
+  height: fit-content;
+  display: flex;
+  align-items: start;
+  box-sizing: border-box;
+  color: var(--text-color);
+  background-color: var(--background-color-3);
+  letter-spacing: 0.2px;
+  line-height: 18px;
+  border: none;
+  outline: none;
+  background: none;
+  font: inherit;
+  width: 100%;
+  color: var(--text-color);
+}
+
+.changeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  .changeBtn-icon {
+    width: 25px;
+    height: 25px;
+    fill: var(--secondary-color);
+  }
+}
+
+.text-area {
+  padding: 8px 4px;
+  width: 100%;
+  border: none;
+  outline: none;
+  font: inherit;
+  color: var(--text-color);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  resize: none;
+  background: none;
+}

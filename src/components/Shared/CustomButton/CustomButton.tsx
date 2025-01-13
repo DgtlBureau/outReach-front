@@ -6,13 +6,31 @@ import './CustomButton.scss'
 interface ICustomButtonProps {
   children: React.ReactNode
   className?: string
+  type?: 'button' | 'submit' | 'reset'
+  style?: 'text' | 'outlined' | 'empty'
+  onClick?: () => void
 }
 
-const CustomButton = ({ children, className }: ICustomButtonProps) => {
+const CustomButton = ({
+  type = 'button',
+  children,
+  className,
+  style,
+  onClick,
+}: ICustomButtonProps) => {
   return (
-    <Button variant='contained' className={cn('custom-button', className)}>
+    <button
+      onClick={onClick}
+      type={type}
+      className={cn(
+        'custom-button',
+        style === 'outlined' ? 'custom-button--outlined' : '',
+        style === 'empty' ? 'custom-button--empty' : '',
+        className
+      )}
+    >
       {children}
-    </Button>
+    </button>
   )
 }
 

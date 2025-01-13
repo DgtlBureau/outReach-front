@@ -1,0 +1,59 @@
+name: Deploy
+env:
+  ENV                 : ${{ github.ref == 'refs/heads/dev' && 'dev' || 'prod' }}
+  REACT_APP_BASE_URL  : ${{ github.ref == 'refs/heads/dev' && 'https://outreach.digitalburo.tech/gpt' || 'https://outreach.digitalburo.tech/gpt' }}
+  REACT_APP_SECONDARY_URL : ${{ github.ref == 'refs/heads/dev' && 'https://outreach.digitalburo.tech' || 'https://outreach.digitalburo.tech' }}
+  REACT_APP_OPEN_AI: ${{ secrets.REACT_APP_OPEN_AI }}
+  REACT_APP_HEYGEN_KEY: ${{ secrets.REACT_APP_HEYGEN_KEY }}
+on:
+  push:
+    branches:
+      - dev
+      - main
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Inject slug/short variables
+        uses: rlespinasse/github-slug-action@v3.x
+
+      - name: Git clone
+        uses: actions/checkout@v3
+      
+      - name: Docker login
+        run: |
+          docker login -u devopsdbt -p ${{ secrets.DOCKER_HUB }}
+      
+      - name: Set .env
+        run: |
+          echo 'REACT_APP_BASE_URL="${{ env.REACT_APP_BASE_URL }}"' > .env
+          echo 'REACT_APP_SECONDARY_URL="${{ env.REACT_APP_SECONDARY_URL }}"' >> .env
+          echo 'REACT_APP_OPEN_AI="${{ env.REACT_APP_OPEN_AI }}"' >> .env
+          echo 'REACT_APP_HEYGEN_KEY="${{ env.REACT_APP_HEYGEN_KEY }}"' >> .env
+
+      - name: Build containers
+        run: |
+          docker build -t devopsdbt/front-outreach:${{ github.run_number }} .
+
+      - name: Push image
+        run: |
+          docker push devopsdbt/front-outreach:${{ github.run_number }}
+  deploy:
+    runs-on: front
+    needs: build
+    steps:
+      - name: Git clone
+        uses: actions/checkout@v3
+
+      - name: Docker login
+        run: |
+          docker login -u devopsdbt -p ${{ secrets.DOCKER_HUB }}
+
+      - name: Run containers  
+        run: |
+          TAG=${{ github.run_number }} docker compose  -f docker-compose.yaml -p outreach-front-${{ env.ENV }} up -d 
+

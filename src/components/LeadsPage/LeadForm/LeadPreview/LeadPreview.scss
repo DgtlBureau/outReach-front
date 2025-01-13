@@ -1,0 +1,38 @@
+.lead-preview {
+  display: flex;
+  flex-direction: column;
+  margin: 12px;
+  .lead-preview__line {
+    margin-top: 12px;
+  }
+  .lead-preview__title {
+    margin-top: 12px;
+    font-family: 'Inter';
+    color: #000;
+    font-weight: 500;
+  }
+  .lead-preview__work-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-top: 8px;
+    .lead-preview__work {
+      margin-top: 2px;
+      font-family: 'Inter';
+      font-size: 15px;
+    }
+  }
+  .lead-preview__controls {
+    margin-top: 12px;
+    display: flex;
+    gap: 12px;
+    width: 200px;
+    margin-right: 0;
+    margin-left: auto;
+  }
+
+  .lead-preview__preview-response {
+    margin-top: 12px;
+    height: 100px;
+    resize: vertical;
+  }
+}

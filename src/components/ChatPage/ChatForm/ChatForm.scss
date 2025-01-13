@@ -1,33 +1,42 @@
 .chat-form {
-  margin-top: 24px;
-  max-width: 768px;
-  margin: 0 auto;
-  .chat-form__inputs-wrapper {
-    display: flex;
-    gap: 24px;
-    margin: 0 auto;
-    max-width: 768px;
-    &.chat-form__input-group-with-button {
-      align-items: stretch;
-    }
-    &.chat-form__input-group-margin-top {
-      margin-top: 24px;
-    }
-  }
-  .chat-form__rating {
-    display: block;
-    margin-top: 6px;
-    font-family: 'Inter';
-    font-size: 18px;
-    font-weight: 500;
-    color: var(--text-color);
-    transition: 0.5s color;
-    .chat-form__rating-numbers {
-      color: #14ae5c;
-      font-weight: 700;
-    }
-  }
+  max-width: 1280px;
+  margin: 12px auto;
+  background-color: var(--main-color);
+  overflow: hidden;
+  border-radius: 8px;
+  width: 100%;
   .chat-form__chat-box-wrapper {
-    margin-top: 24px;
+    width: 100%;
+    height: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+
+    .chat-form__go-back {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background-color: var(--secondary-color);
+      font-family: 'Inter';
+      cursor: pointer;
+    }
+  }
+  .chat-form__wrapper {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    height: 100%;
+    margin-top: 12px;
+    .chat-form__box-wrapper {
+      width: 100%;
+    }
+    .prompt__box-wrapper {
+      width: 100%;
+      height: 100%;
+    }
   }
 }

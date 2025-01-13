@@ -1,4 +1,11 @@
 .product-form {
+  padding: 16px;
+  border-radius: 8px;
+  .product-form__table-head-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
   .product-form__input-group {
     display: flex;
     align-items: center;
@@ -14,16 +21,42 @@
     }
   }
   .product-form__table-wrapper {
-    max-width: 1440px;
-    margin: 24px auto 0;
-    padding: 0 24px;
     .product-form__table-title {
-      display: block;
-      font-family: 'Inter';
+      display: flex;
+      align-items: center;
+      font-family: 'SF Pro Text';
       font-size: 24px;
       font-weight: 500;
       color: var(--text-color);
-      margin-bottom: 12px;
+    }
+    .product-form__table-title-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .product-form__add-lead-dropdown-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 30px;
+        border-radius: 8px;
+        gap: 6px;
+        background-color: var(--secondary-color);
+        color: var(--text-color-white);
+        font-family: 'Inter';
+        font-weight: 600;
+        font-size: 15px;
+        cursor: pointer;
+        .product-form__add-lead-dropdown-icon {
+          width: 18px;
+          height: 18px;
+          * {
+            fill: var(--text-color-white);
+          }
+        }
+      }
+      .product-form__delete-button{
+        background-color: var(--background-color-red);
+      }
     }
   }
   .product-form__input {
@@ -95,5 +128,95 @@
       background-color: var(--main-color);
       border: none;
     }
+  }
+}
+.product-form__added-content-title {
+  display: block;
+  padding: 16px;
+  color: var(--text-color);
+  font-family: 'SF Pro Text';
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+.product-form__added-content {
+  margin: 16px;
+}
+.product-form__controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+  max-width: 200px;
+  margin-left: auto;
+  margin-right: 0;
+}
+.product-form__loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .product-form__modal-title {
+    display: block;
+    padding: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    color: var(--text-color);
+    font-family: 'SF Pro Text';
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 20px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .product-form__loader-wrapper {
+    padding: 16px;
+    width: fit-content;
+  }
+}
+
+.MuiPaper-root {
+  width: 100% !important;
+  max-width: 1440px !important;
+}
+
+.product-form__chatlog-button {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  bottom: 12px;
+  right: 10px;
+  border-radius: 50%;
+  background-color: var(--secondary-color);
+  font-family: 'Inter';
+  color: var(--text-color-white);
+  z-index: 2;
+  cursor: pointer;
+}
+
+.product-form__chatlog {
+  background-color: var(--main-color);
+  box-sizing: border-box;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  max-height: 50vh;
+  height: 100%;
+  width: 100%;
+  resize: vertical;
+  overflow-y: auto;
+  box-shadow: 0px 0px 20px 0px rgba(98, 91, 107, 0.1);
+
+  z-index: 1;
+  max-width: 1920px;
+}
+
+.product-form__content {
+  background-color: var(--background-color-3);
+  .product-form__modal-title {
+    border-bottom: 1px solid var(--border-color);
   }
 }

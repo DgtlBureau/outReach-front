@@ -1,9 +1,21 @@
 .custom-button {
-  font-family: 'Inter';
+  font-family: 'SF Pro Text';
+  font-weight: 600;
+  font-size: 15px;
   width: 100%;
-  background-color: var(--main-color) !important;
+  border-radius: 8px;
+  background-color: var(--secondary-color);
   padding: 10px 0;
-  &:hover {
-    background-color: var(--main-color) !important;
+  color: var(--main-color);
+  cursor: pointer;
+  &.custom-button--outlined {
+    background-color: transparent;
+    border: 1px solid var(--secondary-color);
+    color: var(--secondary-color);
+  }
+  &.custom-button--empty {
+    background-color: var(--background-color-4);
+    border: none;
+    color: var(--secondary-color);
   }
 }

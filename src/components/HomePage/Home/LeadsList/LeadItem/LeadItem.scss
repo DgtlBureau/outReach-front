@@ -1,0 +1,58 @@
+.lead-item {
+  position: relative;
+  padding: 24px;
+  background-color: var(--main-color);
+  border-radius: 8px;
+  height: 96px;
+  .lead-item__title {
+    font-family: 'Inter';
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-color);
+  }
+  .lead-item__description {
+    display: block;
+    margin-top: 6px;
+    font-family: 'Inter';
+    font-size: 14px;
+    max-width: 100%;
+    width: fit-content;
+    white-space: nowrap;
+    color: var(--text-color);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  &:hover {
+    .lead-item__button {
+      background-color: var(--main-color);
+      border-radius: 50%;
+      .lead-item__icon {
+        stroke: #000;
+      }
+    }
+  }
+  .lead-item__button {
+    --size: 16px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s, border-radius 0.3s;
+    width: var(--size);
+    height: var(--size);
+    top: 6px;
+    &.lead-item__close-button {
+      right: 6px;
+    }
+    &.lead-item__edit-button {
+      left: 6px;
+    }
+    .lead-item__icon {
+      stroke: #fff;
+      width: 12px;
+      height: 12px;
+      transition: stroke 0.3s;
+    }
+  }
+}

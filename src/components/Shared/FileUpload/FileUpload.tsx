@@ -4,24 +4,33 @@ import cn from 'classnames'
 import './FileUpload.scss'
 
 interface IFileUploadProps {
-  label: string
-  value?: string
+  name?: string
+  value?: any
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
   className?: string
+  accept?: '.jpeg, .png, .jpg' | '.pdf'
 }
 
 const FileUpload = ({
-  label,
   value,
+  name,
   onChange,
   className,
+  accept,
 }: IFileUploadProps) => {
   return (
     <label className={cn('file-upload', className)}>
-      <span className='file-upload__label'>
-        {label} <FileUploadIcon className='file-upload__icon' />
-      </span>
-      <input type='file' multiple className='file-upload__input' />
+      <FileUploadIcon className='file-upload__icon' />
+      <input
+        onChange={onChange}
+        value={value}
+        type='file'
+        multiple
+        accept={accept}
+        className='file-upload__input'
+      />
+      <span className='file-upload__title'>Upload media files</span>
+      <span className='file-upload__file-name'>{name}</span>
     </label>
   )
 }

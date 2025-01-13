@@ -1,37 +1,46 @@
-import { useState } from 'react'
+import { enqueueSnackbar } from 'notistack'
+import { IProduct } from '../../../ProductPage/Product/ProductForm/IcpTable/IcpTable'
 import ProjectItem from './ProjectItem/ProjectItem'
+
 import './ProjectList.scss'
+import instance from '../../../../utils/api'
 
-const mockProjects = [
-  { id: 1, label: 'Organize a project' },
-  { id: 2, label: 'Fill the form for lead' },
-  { id: 3, label: 'Make unique offer' },
-  { id: 4, label: 'Prepare a presentation' },
-  { id: 5, label: 'Negotiate' },
-  { id: 6, label: 'Get feedback' },
-]
-
-interface IProject {
-  id: number
-  label: string
-}
-
-const ProjectList = () => {
-  const [projects, setProjects] = useState<IProject[]>(mockProjects)
-
-  const handleRemoveItem = (id: number) => {
-    setProjects(projects.filter((project) => project.id !== id))
+const ProjectList = ({
+  projects,
+  refetch,
+}: {
+  projects: IProduct[]
+  refetch: () => void
+}) => {
+  const removeProject = async (id: number) => {
+    try {
+      const response = await instance.delete(`/projects/${id}`)
+      if (response.data.message !== 'Success') {
+        throw new Error(response.data.message)
+      }
+      enqueueSnackbar('Project was removed', { variant: 'success' })
+      refetch()
+    } catch (error) {
+      enqueueSnackbar(String(error), { variant: 'error' })
+    }
   }
 
   return (
     <ul className='project-list'>
-      {projects.map(({ id, label }) => (
+      {projects.map((project: IProduct) => (
         <ProjectItem
-          onCloseClick={() => handleRemoveItem(id)}
-          key={id}
-          label={label}
+          key={project.id}
+          id={project.id}
+          label={project.client_name}
+          description={project.project_description}
+          onCloseClick={() => removeProject(project.id)}
         />
       ))}
+      {projects.length === 0 ? (
+        <span className='project-list__placeholder'>Project list is empty</span>
+      ) : (
+        ''
+      )}
     </ul>
   )
 }
