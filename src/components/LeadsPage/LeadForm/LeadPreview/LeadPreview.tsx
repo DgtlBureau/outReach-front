@@ -16,8 +16,6 @@ const LeadPreview = ({
   onDiscard,
   onSubmit,
 }: ILeadPreviewProps) => {
-  console.log(gptAnswer)
-
   return (
     <div className='lead-preview'>
       <LeadTable

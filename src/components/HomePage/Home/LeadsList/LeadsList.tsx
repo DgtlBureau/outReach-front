@@ -6,7 +6,7 @@ import './LeadsList.scss'
 const LeadsList = ({ leads }: { leads: ILead[] }) => {
   return (
     <ul className='leads-list'>
-      {leads.map((lead: ILead) => (
+      {leads?.map((lead: ILead) => (
         <LeadItem
           key={lead.id}
           label={lead.full_name}

@@ -132,16 +132,12 @@ const ProductForm = () => {
         return null
       }
 
-      console.log(idx)
-
       const updatedCase = [...prevSate.gpt_answer.Cases]
 
       updatedCase[idx] = {
         ...updatedCase[idx],
         [e.target.name]: e.target.value,
       }
-
-      console.log(prevSate)
 
       return {
         ...prevSate,
