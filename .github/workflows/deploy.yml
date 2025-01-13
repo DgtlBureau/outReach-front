@@ -1,6 +1,6 @@
 name: Deploy
 env:
-  ENV                 : ${{ github.ref == 'refs/heads/dev' && 'dev' || 'prod' }}
+  ENV                 : 'dev'
   REACT_APP_BASE_URL  : ${{ github.ref == 'refs/heads/dev' && 'https://outreach.digitalburo.tech/gpt' || 'https://outreach.digitalburo.tech/gpt' }}
   REACT_APP_SECONDARY_URL : ${{ github.ref == 'refs/heads/dev' && 'https://outreach.digitalburo.tech' || 'https://outreach.digitalburo.tech' }}
   REACT_APP_OPEN_AI: ${{ secrets.REACT_APP_OPEN_AI }}
@@ -8,7 +8,6 @@ env:
 on:
   push:
     branches:
-      - dev
       - main
 
   workflow_dispatch:
@@ -33,7 +32,7 @@ jobs:
           echo 'REACT_APP_BASE_URL="${{ env.REACT_APP_BASE_URL }}"' > .env
           echo 'REACT_APP_SECONDARY_URL="${{ env.REACT_APP_SECONDARY_URL }}"' >> .env
           echo 'REACT_APP_OPEN_AI="${{ env.REACT_APP_OPEN_AI }}"' >> .env
-          echo 'REACT_APP_HEYGEN_KEY="${{ env.REACT_APP_HEYGEN_KEY }}"' >> .env
+          echo 'REACT_APP_HEYGEN_KEY="${{ env.REACT_APP_HEYGEN_KEY }}"' >> .envg
 
       - name: Build containers
         run: |
