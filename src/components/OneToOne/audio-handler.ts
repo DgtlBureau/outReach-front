@@ -5,7 +5,8 @@ export class AudioRecorder {
 
   constructor(
     private onStatusChange: (status: string) => void,
-    private onTranscriptionComplete: (text: string) => void
+    private onTranscriptionComplete: (text: string) => void,
+    private onAudioSave: (audio: Blob) => void
   ) {}
 
   async startRecording() {
@@ -61,6 +62,7 @@ export class AudioRecorder {
       formData.append('file', audioBlob, 'audio.webm')
       formData.append('model', 'whisper-1')
       formData.append('language', 'ru')
+      this.onAudioSave(audioBlob)
 
       const response = await fetch(
         'https://api.openai.com/v1/audio/transcriptions',
