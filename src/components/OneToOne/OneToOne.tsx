@@ -34,16 +34,15 @@ const OneToOne = () => {
   const avatar = useRef<StreamingAvatar | null>(null)
   const [chatMode, setChatMode] = useState('text_mode')
   const [isRecording, setIsRecording] = useState(false)
-  const [currentQuestion, setCurrentQuestion] = useState(1)
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [audioRecorder, setAudioRecorder] = useState<AudioRecorder | null>(null)
   const [recordingStatus, setRecordingStatus] = useState('')
   const [answers, setAnswers] = useState<string[]>([])
 
   const { data: questions } = useQuery({
     queryFn: async () => {
-      const { data } = await axios.get(
-        'https://outreach.digitalburo.tech/api/promts?type=one-to-one'
-      )
+      const { data } = await secondaryInstance.get('/one-to-one/promts')
+      console.log(data)
       return data
     },
     queryKey: ['questions'],
@@ -72,13 +71,25 @@ const OneToOne = () => {
     }
   }
 
+  const postAudio = async (audio: any) => {
+    try {
+      const { data } = await secondaryInstance.postForm('/one-to-one/answer', {
+        promt_id: questions[currentQuestionIndex],
+        audio,
+      })
+      console.log(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const handleAddAnswer = (text: string) => {
     setAnswers((prevState) => [...prevState, text])
   }
 
   async function endSession() {
     await avatar.current?.stopAvatar()
-    setCurrentQuestion(1)
+    setCurrentQuestionIndex(0)
     setAnswers([])
     setStream(undefined)
   }
@@ -92,7 +103,7 @@ const OneToOne = () => {
     avatar.current?.on(StreamingEvents.STREAM_READY, (event) => {
       console.log('>>>>> Stream ready:', event.detail)
       setStream(event.detail)
-      if (currentQuestion === 1) {
+      if (currentQuestionIndex === 0) {
         handleSpeak()
       }
     })
@@ -131,9 +142,7 @@ const OneToOne = () => {
       return
     }
 
-    const question = questions?.find(
-      (question: IQuestion) => question.id === currentQuestion
-    )?.text
+    const question = questions[currentQuestionIndex]?.text
     await avatar.current
       .speak({
         text: question || '',
@@ -147,16 +156,12 @@ const OneToOne = () => {
       })
 
     avatar.current.on(StreamingEvents.AVATAR_STOP_TALKING, () => {
-      if (
-        !questions?.find(
-          (question: IQuestion) => question.id === currentQuestion + 1
-        )?.text
-      ) {
+      if (!questions[currentQuestionIndex]?.text) {
         endSession()
         alert('Спасибо за участие')
       }
     })
-    setCurrentQuestion((prevQuestionId) => prevQuestionId + 1)
+    setCurrentQuestionIndex((prevQuestionId) => prevQuestionId + 1)
   }
 
   function initializeAudioRecorder() {
@@ -166,6 +171,9 @@ const OneToOne = () => {
       },
       (text) => {
         handleAddAnswer(text)
+      },
+      (audio: any) => {
+        postAudio(audio)
       }
     )
     setAudioRecorder(audio)
