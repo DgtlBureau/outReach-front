@@ -34,7 +34,7 @@ const OneToOne = () => {
   const avatar = useRef<StreamingAvatar | null>(null)
   const [chatMode, setChatMode] = useState('text_mode')
   const [isRecording, setIsRecording] = useState(false)
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0)
   const [audioRecorder, setAudioRecorder] = useState<AudioRecorder | null>(null)
   const [recordingStatus, setRecordingStatus] = useState('')
   const [answers, setAnswers] = useState<string[]>([])
@@ -74,17 +74,13 @@ const OneToOne = () => {
   const postAudio = async (audio: any) => {
     try {
       const { data } = await secondaryInstance.postForm('/one-to-one/answer', {
-        promt_id: questions[currentQuestionIndex],
-        audio,
+        promt_id: questions[currentQuestionIndex].id,
+        audio: audio,
       })
       console.log(data)
     } catch (error) {
       console.log(error)
     }
-  }
-
-  const handleAddAnswer = (text: string) => {
-    setAnswers((prevState) => [...prevState, text])
   }
 
   async function endSession() {
@@ -93,6 +89,10 @@ const OneToOne = () => {
     setAnswers([])
     setStream(undefined)
   }
+
+  useEffect(() => {
+    console.log('currentQuestionIndex', currentQuestionIndex)
+  })
 
   async function startSession() {
     setIsLoadingSession(true)
@@ -134,11 +134,16 @@ const OneToOne = () => {
   }
 
   const handleSpeak = async () => {
+    // setCurrentQuestionIndex((index) => index + 1)
+    // if (!questions[currentQuestionIndex]) {
+    //   endSession()
+    //   alert('Спасибо за участие')
+    //   return
+    // }
     if (!avatar.current) {
       enqueueSnackbar('Avatar API not initialized', {
         variant: 'error',
       })
-
       return
     }
 
@@ -154,28 +159,14 @@ const OneToOne = () => {
           variant: 'error',
         })
       })
-
-    avatar.current.on(StreamingEvents.AVATAR_STOP_TALKING, () => {
-      if (!questions[currentQuestionIndex]?.text) {
-        endSession()
-        alert('Спасибо за участие')
-      }
-    })
-    setCurrentQuestionIndex((prevQuestionId) => prevQuestionId + 1)
+    audioRecorder?.setPromptId(questions[currentQuestionIndex]?.id)
+    setCurrentQuestionIndex((prevState) => prevState + 1)
   }
 
   function initializeAudioRecorder() {
-    const audio = new AudioRecorder(
-      (status) => {
-        setRecordingStatus(status)
-      },
-      (text) => {
-        handleAddAnswer(text)
-      },
-      (audio: any) => {
-        postAudio(audio)
-      }
-    )
+    const audio = new AudioRecorder((status) => {
+      setRecordingStatus(status)
+    })
     setAudioRecorder(audio)
   }
 
