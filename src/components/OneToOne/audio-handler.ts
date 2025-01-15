@@ -1,3 +1,5 @@
+import { secondaryInstance } from '../../utils/api'
+
 export class AudioRecorder {
   private mediaRecorder: MediaRecorder | null = null
   private audioChunks: Blob[] = []
@@ -10,7 +12,7 @@ export class AudioRecorder {
   setPromptId(promptId: number) {
     this.promptId = promptId
   }
-
+  
   async startRecording() {
     try {
       console.log('Requesting microphone access...')
@@ -32,7 +34,7 @@ export class AudioRecorder {
         console.log('Recording stopped, processing audio...')
         const audioBlob = new Blob(this.audioChunks, { type: 'audio/webm' })
         console.log('Audio blob size:', audioBlob.size, 'bytes')
-        console.log('promptId', this.promptId)
+        this.postAudio(audioBlob)
       }
 
       this.mediaRecorder.start(1000) // Collect data every second
@@ -44,6 +46,18 @@ export class AudioRecorder {
     }
   }
 
+  postAudio = async (audio: Blob) => {
+    try {
+      const { data } = await secondaryInstance.postForm('/one-to-one/answer', {
+        promt_id: this.promptId,
+        audio: audio,
+      })
+      console.log(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  
   stopRecording() {
     if (this.mediaRecorder && this.isRecording) {
       console.log('Stopping recording...')

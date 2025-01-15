@@ -38,11 +38,11 @@ const OneToOne = () => {
   const [audioRecorder, setAudioRecorder] = useState<AudioRecorder | null>(null)
   const [recordingStatus, setRecordingStatus] = useState('')
   const [answers, setAnswers] = useState<string[]>([])
+  const [lastQuestionId, setLastQuestionId] = useState<number | null>(null)
 
   const { data: questions } = useQuery({
     queryFn: async () => {
       const { data } = await secondaryInstance.get('/one-to-one/promts')
-      console.log(data)
       return data
     },
     queryKey: ['questions'],
@@ -71,28 +71,12 @@ const OneToOne = () => {
     }
   }
 
-  const postAudio = async (audio: any) => {
-    try {
-      const { data } = await secondaryInstance.postForm('/one-to-one/answer', {
-        promt_id: questions[currentQuestionIndex].id,
-        audio: audio,
-      })
-      console.log(data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   async function endSession() {
     await avatar.current?.stopAvatar()
     setCurrentQuestionIndex(0)
     setAnswers([])
     setStream(undefined)
   }
-
-  useEffect(() => {
-    console.log('currentQuestionIndex', currentQuestionIndex)
-  })
 
   async function startSession() {
     setIsLoadingSession(true)
@@ -134,12 +118,13 @@ const OneToOne = () => {
   }
 
   const handleSpeak = async () => {
-    // setCurrentQuestionIndex((index) => index + 1)
-    // if (!questions[currentQuestionIndex]) {
-    //   endSession()
-    //   alert('Спасибо за участие')
-    //   return
-    // }
+    setLastQuestionId(questions[currentQuestionIndex]?.id)
+    setCurrentQuestionIndex((index) => index + 1)
+    if (!questions[currentQuestionIndex]) {
+       endSession()
+       alert('Спасибо за участие')
+       return
+    }
     if (!avatar.current) {
       enqueueSnackbar('Avatar API not initialized', {
         variant: 'error',
@@ -159,8 +144,7 @@ const OneToOne = () => {
           variant: 'error',
         })
       })
-    audioRecorder?.setPromptId(questions[currentQuestionIndex]?.id)
-    setCurrentQuestionIndex((prevState) => prevState + 1)
+
   }
 
   function initializeAudioRecorder() {
@@ -175,6 +159,7 @@ const OneToOne = () => {
       await audioRecorder?.startRecording()
       setIsRecording(true)
     } else {
+      audioRecorder?.setPromptId(lastQuestionId as number)
       audioRecorder?.stopRecording()
       setIsRecording(false)
       handleSpeak()
