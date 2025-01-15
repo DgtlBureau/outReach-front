@@ -34,15 +34,15 @@ const OneToOne = () => {
   const avatar = useRef<StreamingAvatar | null>(null)
   const [chatMode, setChatMode] = useState('text_mode')
   const [isRecording, setIsRecording] = useState(false)
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0)
   const [audioRecorder, setAudioRecorder] = useState<AudioRecorder | null>(null)
   const [recordingStatus, setRecordingStatus] = useState('')
   const [answers, setAnswers] = useState<string[]>([])
+  const [lastQuestionId, setLastQuestionId] = useState<number | null>(null)
 
   const { data: questions } = useQuery({
     queryFn: async () => {
       const { data } = await secondaryInstance.get('/one-to-one/promts')
-      console.log(data)
       return data
     },
     queryKey: ['questions'],
@@ -69,22 +69,6 @@ const OneToOne = () => {
       console.error('Error retrieving access token:', error)
       throw new Error('Failed to retrieve access token')
     }
-  }
-
-  const postAudio = async (audio: any) => {
-    try {
-      const { data } = await secondaryInstance.postForm('/one-to-one/answer', {
-        promt_id: questions[currentQuestionIndex],
-        audio,
-      })
-      console.log(data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const handleAddAnswer = (text: string) => {
-    setAnswers((prevState) => [...prevState, text])
   }
 
   async function endSession() {
@@ -134,11 +118,17 @@ const OneToOne = () => {
   }
 
   const handleSpeak = async () => {
+    setLastQuestionId(questions[currentQuestionIndex]?.id)
+    setCurrentQuestionIndex((index) => index + 1)
+    if (!questions[currentQuestionIndex]) {
+       endSession()
+       alert('Спасибо за участие')
+       return
+    }
     if (!avatar.current) {
       enqueueSnackbar('Avatar API not initialized', {
         variant: 'error',
       })
-
       return
     }
 
@@ -155,27 +145,12 @@ const OneToOne = () => {
         })
       })
 
-    avatar.current.on(StreamingEvents.AVATAR_STOP_TALKING, () => {
-      if (!questions[currentQuestionIndex]?.text) {
-        endSession()
-        alert('Спасибо за участие')
-      }
-    })
-    setCurrentQuestionIndex((prevQuestionId) => prevQuestionId + 1)
   }
 
   function initializeAudioRecorder() {
-    const audio = new AudioRecorder(
-      (status) => {
-        setRecordingStatus(status)
-      },
-      (text) => {
-        handleAddAnswer(text)
-      },
-      (audio: any) => {
-        postAudio(audio)
-      }
-    )
+    const audio = new AudioRecorder((status) => {
+      setRecordingStatus(status)
+    })
     setAudioRecorder(audio)
   }
 
@@ -184,6 +159,7 @@ const OneToOne = () => {
       await audioRecorder?.startRecording()
       setIsRecording(true)
     } else {
+      audioRecorder?.setPromptId(lastQuestionId as number)
       audioRecorder?.stopRecording()
       setIsRecording(false)
       handleSpeak()
