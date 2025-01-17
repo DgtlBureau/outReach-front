@@ -1,42 +1,29 @@
 import { useEffect, useRef, useState } from 'react'
 import StreamingAvatar, {
   AvatarQuality,
-  StartAvatarResponse,
   StreamingEvents,
   TaskMode,
   TaskType,
   VoiceEmotion,
 } from '@heygen/streaming-avatar'
-import axios from 'axios'
-import Loader from '../Shared/Loader/Loader'
-import { AudioRecorder } from './audio-handler'
 import CustomButton from '../Shared/CustomButton/CustomButton'
-import { useQuery } from '@tanstack/react-query'
 import { secondaryInstance } from '../../utils/api'
+import { useQuery } from '@tanstack/react-query'
+import { AudioRecorder } from './audio-handler'
+import Loader from '../Shared/Loader/Loader'
+import { enqueueSnackbar } from 'notistack'
+import axios from 'axios'
 
 import './OneToOne.scss'
-import { enqueueSnackbar } from 'notistack'
-
-interface IQuestion {
-  id: number
-  text: string
-  type: string
-}
 
 const OneToOne = () => {
   const [isLoadingSession, setIsLoadingSession] = useState(false)
   const [stream, setStream] = useState<MediaStream>()
-  const [knowledgeId, setKnowledgeId] = useState<string>('')
-  const [avatarId, setAvatarId] = useState<string>('')
-
-  const [data, setData] = useState<StartAvatarResponse>()
   const mediaStream = useRef<HTMLVideoElement>(null)
   const avatar = useRef<StreamingAvatar | null>(null)
-  const [chatMode, setChatMode] = useState('text_mode')
   const [isRecording, setIsRecording] = useState(false)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0)
   const [audioRecorder, setAudioRecorder] = useState<AudioRecorder | null>(null)
-  const [recordingStatus, setRecordingStatus] = useState('')
   const [answers, setAnswers] = useState<string[]>([])
   const [lastQuestionId, setLastQuestionId] = useState<number | null>(null)
 
@@ -96,20 +83,17 @@ const OneToOne = () => {
       endSession()
     })
     try {
-      const res = await avatar.current.createStartAvatar({
+      await avatar.current.createStartAvatar({
         quality: AvatarQuality.High,
-        avatarName: avatarId,
-        knowledgeId: knowledgeId, // Or use a custom `knowledgeBase`.
+        avatarName: '',
+        knowledgeId: '',
         voice: {
-          rate: 1.5, // 0.5 ~ 1.5
+          rate: 1.5,
           emotion: VoiceEmotion.SOOTHING,
         },
-        language: 'ru',
+        language: 'en',
         disableIdleTimeout: true,
       })
-
-      setData(res)
-      setChatMode('text_mode')
     } catch (error) {
       console.error('Error starting avatar session:', error)
     } finally {
@@ -121,9 +105,8 @@ const OneToOne = () => {
     setLastQuestionId(questions[currentQuestionIndex]?.id)
     setCurrentQuestionIndex((index) => index + 1)
     if (!questions[currentQuestionIndex]) {
-       endSession()
-       alert('Спасибо за участие')
-       return
+      endSession()
+      return
     }
     if (!avatar.current) {
       enqueueSnackbar('Avatar API not initialized', {
@@ -144,12 +127,11 @@ const OneToOne = () => {
           variant: 'error',
         })
       })
-
   }
 
   function initializeAudioRecorder() {
     const audio = new AudioRecorder((status) => {
-      setRecordingStatus(status)
+      console.log(status)
     })
     setAudioRecorder(audio)
   }
@@ -170,7 +152,7 @@ const OneToOne = () => {
     if (stream && mediaStream.current) {
       mediaStream.current.srcObject = stream
       mediaStream.current.onloadedmetadata = () => {
-        mediaStream.current!.play()
+        mediaStream.current?.play()
         console.log('Playing')
       }
     }
@@ -183,7 +165,7 @@ const OneToOne = () => {
     return () => {
       endSession()
     }
-  }, [])
+  }, [audioRecorder])
 
   return (
     <>
@@ -206,12 +188,24 @@ const OneToOne = () => {
               <track kind='captions' />
             </video>
           </div>
+          <span className='one-to-one__question'>
+            {
+              questions.find((question: any) => question.id === lastQuestionId)
+                ?.text
+            }
+          </span>
           <div className='one-to-one__record-container'>
             <CustomButton
               className='one-to-one__record-button'
               onClick={toggleRecording}
             >
-              {isRecording ? 'Stop recording' : 'Start recording'}
+              {isRecording
+                ? questions.find(
+                    (question: any) => question.id === lastQuestionId
+                  )?.id !== questions[questions.length - 1]?.id
+                  ? 'Next question'
+                  : 'Finish answering'
+                : 'Start answering to question'}
             </CustomButton>
           </div>
           <ol className='one-to-one__list'>
@@ -224,7 +218,7 @@ const OneToOne = () => {
         <Loader />
       ) : (
         <CustomButton className='one-to-one__button' onClick={startSession}>
-          Press to start the avatar
+          Start session
         </CustomButton>
       )}
     </>

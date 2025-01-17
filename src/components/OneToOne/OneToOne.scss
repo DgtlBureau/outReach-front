@@ -1,5 +1,13 @@
 .one-to-one__container {
   width: fit-content;
+  .one-to-one__question {
+    margin-top: 12px;
+    display: block;
+    font-family: 'Inter';
+    font-size: 18px;
+    text-align: center;
+    color: var(--text-color);
+  }
   .one-to-one__record-container {
     margin-top: 12px;
     display: flex;
@@ -13,8 +21,8 @@
 }
 
 .one-to-one {
+  margin-top: 10px;
   height: 500px;
-  width: 900px;
   justify-content: center;
   align-items: center;
   display: flex;
