@@ -27,7 +27,7 @@ const OneToOne = () => {
   const [answers, setAnswers] = useState<string[]>([])
   const [lastQuestionId, setLastQuestionId] = useState<number | null>(null)
 
-  const { data: questions } = useQuery({
+  const { data: questions, isLoading } = useQuery({
     queryFn: async () => {
       const { data } = await secondaryInstance.get('/one-to-one/promts')
       return data
@@ -166,6 +166,10 @@ const OneToOne = () => {
       endSession()
     }
   }, [audioRecorder])
+
+  if (isLoading) {
+    return <Loader />
+  }
 
   return (
     <>
