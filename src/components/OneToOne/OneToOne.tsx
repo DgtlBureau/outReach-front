@@ -99,10 +99,7 @@ const OneToOne = () => {
     })
 
     avatar.current?.on(StreamingEvents.STREAM_READY, (event) => {
-      setAnswers((prevState) => {
-        console.log('отработало нах')
-        return prevState
-      })
+      setAnswers([])
       console.log('>>>>> Stream ready:', event.detail)
       setStream(event.detail)
       if (currentQuestionIndex === 0) {
