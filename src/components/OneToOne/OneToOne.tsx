@@ -16,6 +16,12 @@ import axios from 'axios'
 
 import './OneToOne.scss'
 
+interface IQuestion {
+  id: number
+  text: string
+  answer?: string
+}
+
 const OneToOne = () => {
   const [isLoadingSession, setIsLoadingSession] = useState(false)
   const [stream, setStream] = useState<MediaStream>()
@@ -24,16 +30,36 @@ const OneToOne = () => {
   const [isRecording, setIsRecording] = useState(false)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0)
   const [audioRecorder, setAudioRecorder] = useState<AudioRecorder | null>(null)
-  const [answers, setAnswers] = useState<string[]>([])
+  const [answers, setAnswers] = useState<IQuestion[]>([])
   const [lastQuestionId, setLastQuestionId] = useState<number | null>(null)
+  const [isAnswerShown, setIsAnswerShown] = useState(false)
+  const [questions, setQuestions] = useState<IQuestion[]>([])
+  const [isLoading, setIsLoading] = useState(false)
 
-  const { data: questions, isLoading } = useQuery({
-    queryFn: async () => {
+  // const { data: questions, isLoading } = useQuery({
+  //   queryFn: async () => {
+  //     const { data } = await secondaryInstance.get('/one-to-one/promts')
+  //     // setLastQuestionId(data[0])
+  //     return data
+  //   },
+  //   queryKey: ['questions'],
+  // })
+
+  const loadQuestions = async () => {
+    setIsLoading(true)
+    try {
       const { data } = await secondaryInstance.get('/one-to-one/promts')
-      return data
-    },
-    queryKey: ['questions'],
-  })
+      setQuestions(data)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    loadQuestions()
+  }, [])
 
   const getStreamingToken = async () => {
     try {
@@ -60,18 +86,25 @@ const OneToOne = () => {
 
   async function endSession() {
     await avatar.current?.stopAvatar()
+    await avatar.current?.off(StreamingEvents.AVATAR_STOP_TALKING, () => {
+      console.log('>>>>>> Avatar stopped talking')
+      console.log('avatar stopped answers', answers)
+      setAnswers([...answers, questions[currentQuestionIndex]])
+    })
     setCurrentQuestionIndex(0)
-    setAnswers([])
     setStream(undefined)
   }
 
   async function startSession() {
     setIsLoadingSession(true)
     const newToken = await getStreamingToken()
+
     avatar.current = new StreamingAvatar({
       token: newToken as string,
     })
+
     avatar.current?.on(StreamingEvents.STREAM_READY, (event) => {
+      setAnswers([])
       console.log('>>>>> Stream ready:', event.detail)
       setStream(event.detail)
       if (currentQuestionIndex === 0) {
@@ -101,6 +134,8 @@ const OneToOne = () => {
     }
   }
 
+  console.log(answers)
+
   const handleSpeak = async () => {
     setLastQuestionId(questions[currentQuestionIndex]?.id)
     setCurrentQuestionIndex((index) => index + 1)
@@ -127,7 +162,14 @@ const OneToOne = () => {
           variant: 'error',
         })
       })
+    avatar.current.on(StreamingEvents.AVATAR_STOP_TALKING, () => {
+      console.log('>>>>>> Avatar stopped talking')
+      console.log('avatar stopped answers', answers)
+      setAnswers([...answers, questions[currentQuestionIndex]])
+    })
   }
+
+  console.log(currentQuestionIndex)
 
   function initializeAudioRecorder() {
     const audio = new AudioRecorder((status) => {
@@ -147,6 +189,23 @@ const OneToOne = () => {
       handleSpeak()
     }
   }
+
+  useEffect(() => {
+    const answer = audioRecorder?.getAnswer()
+    const updatedQuestions = answers.map((question) => {
+      if (answer?.question_id === question.id) {
+        return {
+          id: question.id,
+          text: question.text,
+          answer: answer.answer,
+        }
+      }
+      return question
+    })
+    setAnswers(updatedQuestions)
+  }, [audioRecorder?.answer, stream])
+
+  console.log(answers)
 
   useEffect(() => {
     if (stream && mediaStream.current) {
@@ -182,22 +241,18 @@ const OneToOne = () => {
           >
             Stop session
           </CustomButton>
-          <div className='one-to-one'>
-            <video
-              className='one-to-one__video'
-              ref={mediaStream}
-              autoPlay
-              playsInline
-            >
-              <track kind='captions' />
-            </video>
+          <div className='one-to-one__window'>
+            <div className='one-to-one'>
+              <video
+                className='one-to-one__video'
+                ref={mediaStream}
+                autoPlay
+                playsInline
+              >
+                <track kind='captions' />
+              </video>
+            </div>
           </div>
-          <span className='one-to-one__question'>
-            {
-              questions.find((question: any) => question.id === lastQuestionId)
-                ?.text
-            }
-          </span>
           <div className='one-to-one__record-container'>
             <CustomButton
               className='one-to-one__record-button'
@@ -212,11 +267,6 @@ const OneToOne = () => {
                 : 'Start answering to question'}
             </CustomButton>
           </div>
-          <ol className='one-to-one__list'>
-            {answers.map((answer) => {
-              return <li key={answer}>{answer}</li>
-            })}
-          </ol>
         </div>
       ) : isLoadingSession ? (
         <Loader />
@@ -225,6 +275,15 @@ const OneToOne = () => {
           Start session
         </CustomButton>
       )}
+      <ol className='one-to-one__list'>
+        {answers.map((answer) => (
+          <li key={answer?.id}>
+            Q: {answer?.text}
+            <br />
+            A:{answer.answer}
+          </li>
+        ))}
+      </ol>
     </>
   )
 }
