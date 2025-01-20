@@ -86,11 +86,6 @@ const OneToOne = () => {
 
   async function endSession() {
     await avatar.current?.stopAvatar()
-    await avatar.current?.off(StreamingEvents.AVATAR_STOP_TALKING, () => {
-      console.log('>>>>>> Avatar stopped talking')
-      console.log('avatar stopped answers', answers)
-      setAnswers([...answers, questions[currentQuestionIndex]])
-    })
     setCurrentQuestionIndex(0)
     setStream(undefined)
   }
@@ -104,7 +99,10 @@ const OneToOne = () => {
     })
 
     avatar.current?.on(StreamingEvents.STREAM_READY, (event) => {
-      setAnswers([])
+      setAnswers((prevState) => {
+        console.log('отработало нах')
+        return prevState
+      })
       console.log('>>>>> Stream ready:', event.detail)
       setStream(event.detail)
       if (currentQuestionIndex === 0) {
