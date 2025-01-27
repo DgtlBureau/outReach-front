@@ -11,6 +11,7 @@ export class AudioRecorder {
     promt_id: number
     question_id: number
   } | null = null
+  private hash: string | null = null
 
   constructor(private onStatusChange: (status: string) => void) {}
 
@@ -24,6 +25,10 @@ export class AudioRecorder {
 
   getAnswer() {
     return this.answer
+  }
+
+  setHash(hash: string | null) {
+    this.hash = hash
   }
 
   async startRecording() {
@@ -64,6 +69,7 @@ export class AudioRecorder {
       const { data } = await secondaryInstance.postForm('/one-to-one/answer', {
         promt_id: this.promptId,
         audio: audio,
+        hash: this.hash,
       })
       console.log(data)
       this.setAnswer({ ...data, question_id: this.promptId })

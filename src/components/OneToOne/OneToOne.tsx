@@ -32,9 +32,9 @@ const OneToOne = () => {
   const [audioRecorder, setAudioRecorder] = useState<AudioRecorder | null>(null)
   const [answers, setAnswers] = useState<IQuestion[]>([])
   const [lastQuestionId, setLastQuestionId] = useState<number | null>(null)
-  const [isAnswerShown, setIsAnswerShown] = useState(false)
   const [questions, setQuestions] = useState<IQuestion[]>([])
   const [isLoading, setIsLoading] = useState(false)
+  const [hash, setHash] = useState('')
 
   // const { data: questions, isLoading } = useQuery({
   //   queryFn: async () => {
@@ -44,6 +44,40 @@ const OneToOne = () => {
   //   },
   //   queryKey: ['questions'],
   // })
+
+  const getHash = async () => {
+    try {
+      const { data } = await secondaryInstance.get('/one-to-one/hash')
+      setHash(data.hash)
+      audioRecorder?.setHash(data.hash)
+      console.log(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getAnswers = async (hash: string) => {
+    try {
+      const { data } = await secondaryInstance.get(
+        `/one-to-one/answer?hash=${hash}`
+      )
+      const sortById = (a: IQuestion, b: IQuestion) => {
+        if (a.id > b.id) {
+          return 1
+        } else if (a.id < b.id) {
+          return -1
+        } else {
+          return 0
+        }
+      }
+      setAnswers(data.sort(sortById))
+      if (data.find((answer: any) => !answer.answer)) {
+        getAnswers(hash)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const loadQuestions = async () => {
     setIsLoading(true)
@@ -86,12 +120,15 @@ const OneToOne = () => {
 
   async function endSession() {
     await avatar.current?.stopAvatar()
+    await getAnswers(hash)
     setCurrentQuestionIndex(0)
     setStream(undefined)
+    audioRecorder?.setHash(null)
   }
 
   async function startSession() {
     setIsLoadingSession(true)
+    getHash()
     const newToken = await getStreamingToken()
 
     avatar.current = new StreamingAvatar({
@@ -108,7 +145,6 @@ const OneToOne = () => {
     })
     avatar.current.on(StreamingEvents.STREAM_DISCONNECTED, () => {
       console.log('Stream disconnected')
-      endSession()
     })
     try {
       await avatar.current.createStartAvatar({
@@ -159,12 +195,14 @@ const OneToOne = () => {
       })
     avatar.current.on(StreamingEvents.AVATAR_STOP_TALKING, () => {
       console.log('>>>>>> Avatar stopped talking')
-      console.log('avatar stopped answers', answers)
-      setAnswers([...answers, questions[currentQuestionIndex]])
+      if (!isRecording) {
+        toggleRecording()
+      }
+    })
+    avatar.current.on(StreamingEvents.USER_END_MESSAGE, () => {
+      console.log('>>>>>> User stop')
     })
   }
-
-  console.log(currentQuestionIndex)
 
   function initializeAudioRecorder() {
     const audio = new AudioRecorder((status) => {
@@ -184,23 +222,6 @@ const OneToOne = () => {
       handleSpeak()
     }
   }
-
-  useEffect(() => {
-    const answer = audioRecorder?.getAnswer()
-    const updatedQuestions = answers.map((question) => {
-      if (answer?.question_id === question.id) {
-        return {
-          id: question.id,
-          text: question.text,
-          answer: answer.answer,
-        }
-      }
-      return question
-    })
-    setAnswers(updatedQuestions)
-  }, [audioRecorder?.answer, stream])
-
-  console.log(answers)
 
   useEffect(() => {
     if (stream && mediaStream.current) {
@@ -249,19 +270,26 @@ const OneToOne = () => {
             </div>
           </div>
           <div className='one-to-one__record-container'>
-            <CustomButton
-              className='one-to-one__record-button'
-              onClick={toggleRecording}
-            >
-              {isRecording
-                ? questions.find(
-                    (question: any) => question.id === lastQuestionId
-                  )?.id !== questions[questions.length - 1]?.id
-                  ? 'Next question'
-                  : 'Finish answering'
-                : 'Start answering to question'}
-            </CustomButton>
+            {isRecording ? (
+              <CustomButton
+                className='one-to-one__record-button'
+                onClick={toggleRecording}
+              >
+                {isRecording
+                  ? questions.find(
+                      (question: any) => question.id === lastQuestionId
+                    )?.id !== questions[questions.length - 1]?.id
+                    ? 'Next question'
+                    : 'Finish answering'
+                  : '...'}
+              </CustomButton>
+            ) : null}
           </div>
+          {isRecording && (
+            <span className='one-to-one__recording-status'>
+              Recording your answer...
+            </span>
+          )}
         </div>
       ) : isLoadingSession ? (
         <Loader />
