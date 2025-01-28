@@ -6,13 +6,31 @@ export class AudioRecorder {
   private isRecording = false
   private audio: Blob | null = null
   private promptId: number | null = null
+  public answer: {
+    answer: string
+    promt_id: number
+    question_id: number
+  } | null = null
+  private hash: string | null = null
 
   constructor(private onStatusChange: (status: string) => void) {}
 
   setPromptId(promptId: number) {
     this.promptId = promptId
   }
-  
+
+  setAnswer(prompt: { answer: string; promt_id: number; question_id: number }) {
+    this.answer = prompt
+  }
+
+  getAnswer() {
+    return this.answer
+  }
+
+  setHash(hash: string | null) {
+    this.hash = hash
+  }
+
   async startRecording() {
     try {
       console.log('Requesting microphone access...')
@@ -51,13 +69,15 @@ export class AudioRecorder {
       const { data } = await secondaryInstance.postForm('/one-to-one/answer', {
         promt_id: this.promptId,
         audio: audio,
+        hash: this.hash,
       })
       console.log(data)
+      this.setAnswer({ ...data, question_id: this.promptId })
     } catch (error) {
       console.log(error)
     }
   }
-  
+
   stopRecording() {
     if (this.mediaRecorder && this.isRecording) {
       console.log('Stopping recording...')

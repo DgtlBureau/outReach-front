@@ -16,6 +16,12 @@ import axios from 'axios'
 
 import './OneToOne.scss'
 
+interface IQuestion {
+  id: number
+  text: string
+  answer?: string
+}
+
 const OneToOne = () => {
   const [isLoadingSession, setIsLoadingSession] = useState(false)
   const [stream, setStream] = useState<MediaStream>()
@@ -24,16 +30,70 @@ const OneToOne = () => {
   const [isRecording, setIsRecording] = useState(false)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0)
   const [audioRecorder, setAudioRecorder] = useState<AudioRecorder | null>(null)
-  const [answers, setAnswers] = useState<string[]>([])
+  const [answers, setAnswers] = useState<IQuestion[]>([])
   const [lastQuestionId, setLastQuestionId] = useState<number | null>(null)
+  const [questions, setQuestions] = useState<IQuestion[]>([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [hash, setHash] = useState('')
 
-  const { data: questions, isLoading } = useQuery({
-    queryFn: async () => {
+  // const { data: questions, isLoading } = useQuery({
+  //   queryFn: async () => {
+  //     const { data } = await secondaryInstance.get('/one-to-one/promts')
+  //     // setLastQuestionId(data[0])
+  //     return data
+  //   },
+  //   queryKey: ['questions'],
+  // })
+
+  const getHash = async () => {
+    try {
+      const { data } = await secondaryInstance.get('/one-to-one/hash')
+      setHash(data.hash)
+      audioRecorder?.setHash(data.hash)
+      console.log(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getAnswers = async (hash: string) => {
+    try {
+      const { data } = await secondaryInstance.get(
+        `/one-to-one/answer?hash=${hash}`
+      )
+      const sortById = (a: IQuestion, b: IQuestion) => {
+        if (a.id > b.id) {
+          return 1
+        } else if (a.id < b.id) {
+          return -1
+        } else {
+          return 0
+        }
+      }
+      setAnswers(data.sort(sortById))
+      if (data.find((answer: any) => !answer.answer)) {
+        getAnswers(hash)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const loadQuestions = async () => {
+    setIsLoading(true)
+    try {
       const { data } = await secondaryInstance.get('/one-to-one/promts')
-      return data
-    },
-    queryKey: ['questions'],
-  })
+      setQuestions(data)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    loadQuestions()
+  }, [])
 
   const getStreamingToken = async () => {
     try {
@@ -60,18 +120,23 @@ const OneToOne = () => {
 
   async function endSession() {
     await avatar.current?.stopAvatar()
+    await getAnswers(hash)
     setCurrentQuestionIndex(0)
-    setAnswers([])
     setStream(undefined)
+    audioRecorder?.setHash(null)
   }
 
   async function startSession() {
     setIsLoadingSession(true)
+    getHash()
     const newToken = await getStreamingToken()
+
     avatar.current = new StreamingAvatar({
       token: newToken as string,
     })
+
     avatar.current?.on(StreamingEvents.STREAM_READY, (event) => {
+      setAnswers([])
       console.log('>>>>> Stream ready:', event.detail)
       setStream(event.detail)
       if (currentQuestionIndex === 0) {
@@ -80,7 +145,6 @@ const OneToOne = () => {
     })
     avatar.current.on(StreamingEvents.STREAM_DISCONNECTED, () => {
       console.log('Stream disconnected')
-      endSession()
     })
     try {
       await avatar.current.createStartAvatar({
@@ -100,6 +164,8 @@ const OneToOne = () => {
       setIsLoadingSession(false)
     }
   }
+
+  console.log(answers)
 
   const handleSpeak = async () => {
     setLastQuestionId(questions[currentQuestionIndex]?.id)
@@ -127,6 +193,15 @@ const OneToOne = () => {
           variant: 'error',
         })
       })
+    avatar.current.on(StreamingEvents.AVATAR_STOP_TALKING, () => {
+      console.log('>>>>>> Avatar stopped talking')
+      if (!isRecording) {
+        toggleRecording()
+      }
+    })
+    avatar.current.on(StreamingEvents.USER_END_MESSAGE, () => {
+      console.log('>>>>>> User stop')
+    })
   }
 
   function initializeAudioRecorder() {
@@ -182,41 +257,39 @@ const OneToOne = () => {
           >
             Stop session
           </CustomButton>
-          <div className='one-to-one'>
-            <video
-              className='one-to-one__video'
-              ref={mediaStream}
-              autoPlay
-              playsInline
-            >
-              <track kind='captions' />
-            </video>
+          <div className='one-to-one__window'>
+            <div className='one-to-one'>
+              <video
+                className='one-to-one__video'
+                ref={mediaStream}
+                autoPlay
+                playsInline
+              >
+                <track kind='captions' />
+              </video>
+            </div>
           </div>
-          <span className='one-to-one__question'>
-            {
-              questions.find((question: any) => question.id === lastQuestionId)
-                ?.text
-            }
-          </span>
           <div className='one-to-one__record-container'>
-            <CustomButton
-              className='one-to-one__record-button'
-              onClick={toggleRecording}
-            >
-              {isRecording
-                ? questions.find(
-                    (question: any) => question.id === lastQuestionId
-                  )?.id !== questions[questions.length - 1]?.id
-                  ? 'Next question'
-                  : 'Finish answering'
-                : 'Start answering to question'}
-            </CustomButton>
+            {isRecording ? (
+              <CustomButton
+                className='one-to-one__record-button'
+                onClick={toggleRecording}
+              >
+                {isRecording
+                  ? questions.find(
+                      (question: any) => question.id === lastQuestionId
+                    )?.id !== questions[questions.length - 1]?.id
+                    ? 'Next question'
+                    : 'Finish answering'
+                  : '...'}
+              </CustomButton>
+            ) : null}
           </div>
-          <ol className='one-to-one__list'>
-            {answers.map((answer) => {
-              return <li key={answer}>{answer}</li>
-            })}
-          </ol>
+          {isRecording && (
+            <span className='one-to-one__recording-status'>
+              Recording your answer...
+            </span>
+          )}
         </div>
       ) : isLoadingSession ? (
         <Loader />
@@ -225,6 +298,15 @@ const OneToOne = () => {
           Start session
         </CustomButton>
       )}
+      <ol className='one-to-one__list'>
+        {answers.map((answer) => (
+          <li key={answer?.id}>
+            Q: {answer?.text}
+            <br />
+            A:{answer.answer}
+          </li>
+        ))}
+      </ol>
     </>
   )
 }
