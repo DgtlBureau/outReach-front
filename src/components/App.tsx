@@ -14,6 +14,8 @@ import Header from './Header/Header'
 import InsightsPage from './InsightsPage/InsightsPage'
 import InsightsChat from './InsightsPage/InsightsChat/InsightsChat'
 import OneToOne from './OneToOne/OneToOne'
+import Entities from './Entities/Entities'
+import EntityPage from './EntityPage/EntityPage'
 
 const StyledMaterialDesignContent = styled(MaterialDesignContent)(() => ({
   '&.notistack-MuiContent-root': {
@@ -90,6 +92,8 @@ function App() {
             <Route path='/leads' element={<LeadsPage />} />
             <Route path='/leads/:id/chat' element={<ChatPage />} />
             <Route path='/one-to-one' element={<OneToOne />} />
+            <Route path='/objects' element={<Entities />} />
+            <Route path='/objects/:id' element={<EntityPage />} />
           </Routes>
         </div>
         <SnackbarProvider

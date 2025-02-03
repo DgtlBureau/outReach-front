@@ -1,0 +1,34 @@
+.entity {
+  background-color: var(--main-color);
+  border-radius: 8px;
+  width: 100%;
+  .entity__link {
+    box-sizing: border-box;
+    display: block;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-decoration: none;
+    height: 100%;
+    .entity__image {
+      display: block;
+      width: 100%;
+      height: 80%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .entity__name {
+      font-family: 'Inter';
+      font-size: 21px;
+      color: var(--text-color);
+    }
+    .entity__address {
+      margin-top: 4px;
+      display: block;
+      font-family: 'Inter';
+      font-size: 18px;
+      color: var(--text-color);
+    }
+  }
+}

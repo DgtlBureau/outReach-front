@@ -74,7 +74,7 @@ const PromptSettings = ({ chat, chatId, getMessage, reloadChat }: IChat) => {
   }
 
   useEffect(() => {
-    handleGetPrompt()
+    // handleGetPrompt()
   }, [])
 
   return (
